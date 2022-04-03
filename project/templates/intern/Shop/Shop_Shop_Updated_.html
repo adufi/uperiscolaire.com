@@ -1,0 +1,1217 @@
+{% extends 'intern/base.html' %}
+
+{% block title %}
+Magasin
+{% endblock %}
+
+{% block nav %}
+<ul class="nav flex-column">
+    <li class="my-nav-item active">
+        <a class="my-nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="my-nav-item">
+        <b>Magasin</b>
+        <div class="my-nav-sub">
+            <a class="my-nav-link" href="#">Enfants</a>
+            <a class="my-nav-link" href="#">Magasin</a>
+
+            <div class="my-nav-sub">
+            </div>
+        </div>
+    </li>
+    <li class="my-nav-item active">
+        <a class="my-nav-link" href="/intern/orders">Encaissements</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block main %}
+<div id="ShopView" class="wrapper">
+    <div class="wrapper-title">
+        <p class="title">Consulter paiements 2020-2021</p>
+    </div>
+
+    <div class="wrapper-content">
+
+        <div id="main-messages" class="messages">
+            <div class="ui success message">
+                <!-- <i class="close icon"></i> -->
+                <div class="header">
+                    Notification(s)
+                </div>
+                <ul class="list"></ul>
+            </div>
+
+            <div class="ui error message">
+                <!-- <i class="close icon"></i> -->
+                <div class="header">
+                    Une ou plusieurs erreurs sont présentes
+                </div>
+                <ul class="list"></ul>
+            </div>
+            
+            <div class="ui warning message">
+                <!-- <i class="close icon"></i> -->
+                <div class="header">
+                    Attention!
+                </div>
+                <ul class="list"></ul>
+            </div>
+        </div>          
+
+        <div id="Shop" class="col-12">
+
+            <div class="ui bottom attached loading tab segment d-none">
+                <p>Récupération des produits...</p>
+                <p>Récupéation des données familiales...</p>
+            </div>
+
+            <div class="Controls d-none">
+                <div class="Controls-texts col-6">
+                    <div class="">
+                        <p><span class="controls-items_selected">0</span> produit(s) sélectionné(s)</p>
+                    </div>
+                </div>
+    
+                <div class="Controls-buttons col-6">
+                    <button class="controls-cancel btn btn-danger" onclick="controlsCancel()">Annuler</button>
+                    <button class="controls-previous btn btn-warning" onclick="controlsPrevious()">Retour</button>
+            
+                    <button class="controls-continue btn btn-success" onclick="controlsContinue()">
+                        Valider(<span class="controls-amount">0</span> €)
+                    </button>
+                </div>
+                <div class="Controls-buttons col-12">
+                    <div class="Controls-alert alert alert-danger" role="alert"></div>
+                </div>
+            </div>
+    
+            <div class="Dir-Intels row">
+                
+                <div class="Intels col-6 d-none">
+                    <h4>Informations paiement</h4>
+                    <div class="card">
+                        <div class="Intels-caster col-sm-">
+                            <label><b>Emetteur: </b></label>
+                            <span class="Intels__first_name"></span>
+                            <span class="Intels__last_name"></span>
+                        </div>
+                        <div class="Intels-parent col-sm-">
+                            <label><b>Parent: </b></label>
+                            <span class="Intels__first_name"></span>
+                            <span class="Intels__last_name"></span>
+                            - <span class="Intels__email"></span>
+                        </div>
+                        <div class="Intels-credit col-sm-">
+                            <label><b>Avoir: </b></label>
+                            <i><span class="Intels__credit">0</span></i> €
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="Dir col-6 d-none">
+                    <h4>Paiement manuel</h4>
+                    <form class="ui form">
+                        <div class="field">
+                            <label for="shop[ref]">Référence</label>
+                            <input id="shop[ref]" type="text" name="shop[ref]" placeholder="Référence #">
+                        </div>
+
+                        <div class="field">
+                            <label for="shop[type]">Type</label>
+                            <div id="shop[type]" class="ui fluid search selection dropdown">
+                                <input type="hidden" name="shop[type]" value="1">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Type</div>
+                                <div class="menu">
+                                    <div class="item" data-value="2">MANUEL</div>
+                                    <div class="item" data-value="3">DIRECTRICE</div>
+                                    <div class="item" data-value="4">MIGRATION</div>
+                                    <div class="item" data-value="5">MIGRATION DIR.</div>
+                                    <div class="item" data-value="6">PAY ASSO</div>
+                                    <div class="item" data-value="7">PAYPAL</div>
+                                    <div class="item" data-value="8">STRIPE</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label form="shop[comment]">Commentaire</label>
+                            <textarea id="shop[comment]" name="shop[comment]" rows="2"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="Children-Records row col-12">
+                <div class="Children col-12 col-md-6 d-none">
+                    <h4>Mes enfants</h4>
+
+                    <div class="content">
+                        <!-- <div class="ui big label">
+                            Big
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="Records col-12 col-md-6 d-none">
+                    <h4>Informations inscription</h4>
+
+                    <div class="content"></div>
+                </div>
+            </div>
+
+            <div class="View row col-12 d-none">
+                <div class="content"></div>
+            </div>
+    
+            <div class="Tabs _Shop">
+    
+                <div class="Tabs-header">
+                    <ul class="Tabs-header-group"></ul>
+                </div>
+    
+                <div class="Tabs-body">
+                    <ul class="Tabs-body-group">
+                        <div id="a" class="spinner-border"></div>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="/static/styles/Shop/Shop.css" />
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="/static/scripts/User.js"></script>
+<script src="/static/scripts/Order.js"></script>
+<script src="/static/scripts/Shop/Shop.js"></script>
+<script src="/static/scripts/messages.js"></script>
+<script src="/static/scripts/Product.js"></script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+{{ sibling | json_script:'sibling_json' }}
+
+<script>
+    window.onload = function (e) {
+        App.init();
+        App.SchoolYears();
+
+        default_container = 'ShopView';
+
+        if ((parent_id = getUrlID())) {
+            apiChaining();
+        }
+        else {
+            if (!parent_id) {
+                Messages().error.write('Impossible de récupérer l\'ID dans l\'URL.');
+                return false;
+            }
+        }
+
+        /** Messages
+         *  @todo For later
+         */
+        $('.message .close').on('click', function() {
+            $(this)
+            .closest('.message')
+            .transition('fade');
+        });
+
+        return true;
+
+        // On error
+        const _message = '{{ message | escapejs }}';
+
+        const _sibling = `{{ sibling | escapejs }}`;
+        const _products = '{{ products | escapejs }}';
+
+        if (_message) {
+            console.log(_message);
+            return false;
+        }
+
+        
+        // Prepare sibling
+        sibling = JSON.parse(_sibling);
+        // sibling = JSON.parse(document.getElementById('sibling_json').textContent);
+
+        // Prepare products
+        productHelper.init(_products);
+
+        //
+        run();
+    }
+
+    var intel = undefined;
+    var child = new User();
+    var parent = new User();
+    // var record = new Record();
+    var records = new Records();
+    var sibling = new Sibling();
+
+    var shopHelper = new Shop();
+
+    var orders = [];
+
+    // var products = {};
+    var schoolYear = {};
+
+    var parent_id = 0;
+
+
+    // For shop
+    var s_parent = {};
+    var s_sibling = {};
+    var s_records = [];
+
+    function getUrlID () {
+        const pathname = window.location.pathname;
+        const _ = pathname.split('view/')[1];
+
+        return (!parseInt(_)) ? 0 : parseInt(_);
+    }
+
+
+    function apiChaining () {
+
+        return new Promise(function (resolve, reject) {
+
+            App.get('/api/params/product/')
+            .then((data) => {
+                try{
+                    console.log(data);
+                    schoolYear = data.school_year;
+                    productHelper.init(data.products);
+                    
+                    shopHelper.setProducts(data.products);
+                    shopHelper.setActiveSchoolYear(data.school_year);
+                }
+                catch (error) {
+                    reject(error);
+                }
+                resolve(1);
+            })
+            .catch(err => reject(err))
+        })
+        .then (() => {
+            return parent.readUser(
+                parent_id,
+                (data) => s_parent = data.user,
+                (err) => {throw err;}
+                // readRecords_onSuccess,
+                // readRecords_onFailure
+            );
+        })
+        .then (() => {
+            return sibling.readByParent(
+                parent_id,
+                (data) => s_sibling = data.sibling,
+                (err) => {throw err;}
+                // readSibling_onSuccess,
+                // readSibling_onFailure
+            );
+        })
+        // .then (function (result) {
+        //     return child.readUser(
+        //         child_id,
+        //         (data) => console.log(data),
+        //         (err) => {throw err;}
+        //         // readUser_onSuccess,
+        //         // readUser_onFailure
+        //     );
+        // })
+        .then (function (result) {
+            console.log(result);
+            return records.readByParent(
+                sibling._parent,
+                (data) => s_records = data.records,
+                (err) => {throw err;}
+                // readRecords_onSuccess,
+                // readRecords_onFailure
+            );
+        })
+        .then (function (result) {
+            return App.get(`/api/order/?payer=${parent.id}`, true)
+                .then((data) => {
+                    console.log(data);
+                    orders = data.orders;
+                })
+                .catch((err) => {throw err;});
+        })
+        .then ((data) => {
+            console.log(data);
+            document.getElementById('a').remove();
+            run();
+        })
+        .catch ((err) => {
+            const msg = Errors.process(err);
+            Messages().error.write('apiChaining', msg);
+            console.log(err);
+            console.log(msg);
+        });
+    }
+
+
+    function run () {
+
+        // Sanity check
+        // console.log(sibling);
+        // console.log(productHelper.products());
+
+        // Release 1.4
+        // Shop
+        shopHelper.setCaster(App.caster);
+        shopHelper.setParent(s_parent, s_sibling.intels);
+        shopHelper.setChildren(s_sibling.children, s_records);
+        shopHelper.setOrders(orders.data);
+        
+        // shopHelper.render_Intels();
+        // shopHelper.render_Dir();
+        // shopHelper.render_Children();
+        // shopHelper.render_Records();
+        // shopHelper.render_View();
+
+        const save = window.localStorage.getItem('ShopOrder');
+        if (save) {
+            if (!shopHelper.setLocalOrder(JSON.parse(save))) {
+                window.localStorage.removeItem('ShopOrder');
+            }
+        }
+
+        shopHelper.setModeView(1);
+        shopHelper.render_ModeView();
+
+        shopHelper.setActiveChildView();
+        // shopHelper.setActiveCategory('PERISCOLAIRE');
+        // shopHelper.setCategoriesByMonth(new Date().getMonth());
+        // shopHelper.ready();
+
+        return;
+
+        // Restore order from local storage
+        const restore = restoreLocalStorage();
+
+        if (restore) {
+            updateCartMeta(
+                orderHelper.amount,
+                orderHelper.cart.length,
+                // orderHelper.peri.length + orderHelper.alsh.length
+            );
+        }
+
+        // Update Intels
+        // intels_update(App.caster, parent);
+
+        // dir_listenInput();
+
+        // Sibling - Intels
+        if (!sibling.has_active_intel) {
+            Alert.alertDanger('Aucune données familiales trouvées.');
+            return false;    
+        }
+
+        for (const _ of Object.values(sibling._intels)) {
+            if (_.school_year === schoolYear.id) {
+                intel = _;
+                break;
+            }
+        }
+
+        // Add Children and Products to tab
+        updateTab(sibling.children());
+
+        // Update products from tickets
+        updateProducts(sibling.children());
+
+        updateEvents();
+    }
+
+
+    function restoreLocalStorage () {
+        // Get child ID
+        // const _child_id = parseInt(
+        //     window.localStorage.getItem('shop_child')
+        // );
+
+        // if (!_child_id)
+        //     return false;
+        
+        // child_id = _child_id;
+        
+        // child_id = window.location.pathname.split('/')[4];
+
+        // Get Order
+        const _order = JSON.parse(
+            window.localStorage.getItem('shop_order')
+        );
+
+        if (!_order)
+            return false;
+
+        if (_order.payer === parent.id)
+            orderHelper.fromLocalStorage(_order);
+
+        return true;
+    }
+
+
+    /*********************
+     * CONTROLS
+     *********************/
+    function updateStatus (status) {
+        console.log(document.querySelectorAll('.Controls .Controls-alert'));
+        document
+            .querySelectorAll('.Controls .Controls-alert')
+            .forEach((item) => {
+                console.log(item);
+                item.innerHTML = status;
+                item.classList.add('show');
+            });
+    }
+
+    
+    function updateCartMeta (_amount, _itemsSelected) {
+        amount += _amount;
+        itemsSelected += _itemsSelected;
+
+        document
+            .querySelectorAll('.controls-amount')
+            .forEach((item) => { item.innerHTML = amount });
+
+        document
+            .querySelectorAll('.controls-items_selected')
+            .forEach((item) => { item.innerHTML = itemsSelected });
+    }
+     
+
+    /*********************
+     * INTELS
+     *********************/
+    function intels_update (caster, parent) {
+        orderHelper.setType('OFF');
+        orderHelper.setPayer(parent.id);
+        orderHelper.setCaster(caster.id);
+
+        intels_updateCaster(caster);
+        intels_updateParent(parent);
+        intels_updateCredit(parent);
+    }
+    
+
+    function intels_updateCaster (caster) {
+        macro_innerHTML('.Intels-caster .Intels__first_name', caster.first_name);
+        macro_innerHTML('.Intels-caster .Intels__last_name', caster.last_name);
+
+        return true;
+    }
+
+
+    function intels_updateParent (parent) {
+        console.log('foo');
+        macro_innerHTML('.Intels-parent .Intels__first_name', parent.first_name);
+        macro_innerHTML('.Intels-parent .Intels__last_name', parent.last_name);
+
+        if (parent.email)
+            macro_innerHTML('.Intels-parent .Intels__email', parent.email);
+        else
+            macro_innerHTML('.Intels__email', '<i>Pas d\'email.</i>');
+
+        return true;
+    }
+
+
+    function intels_updateCredit (parent) {
+        if (parent.hasOwnProperty('credit'))
+            macro_innerHTML('.Intels-credit .Intels__credit', parent.credit);
+        return true;
+    }
+
+
+    /*********************
+     * DIR
+     *********************/
+    function dir_listenInput() {
+        document
+            .querySelector('.Dir input.Dir-reference')
+            .addEventListener('input', (e) => {
+                if (e.target.value) {
+                    orderHelper.setType('DIR');
+                    orderHelper.setReference(e.target.value);
+                }
+                else {
+                    orderHelper.setType('OFF');
+                    orderHelper.setReference('');
+                }
+            });
+    }
+
+
+    /*********************
+     * TABS
+     *********************/
+    function updateTab (children) {
+        // console.log(children);
+
+        Object.keys(children).forEach((key, index) => {
+            const child = children[key];
+
+            if (index === 0) {
+                updateTabHeader(child['id'], child['first_name'], true);
+                updateTabChild(child, true);
+            }
+            else {
+                updateTabHeader(child['id'], child['first_name']);
+                updateTabChild(child);
+            }
+
+        });
+    }
+
+
+    // 
+    function updateTabHeader (id, name, active = false) {
+        const li = document.createElement('li');
+
+        li.setAttribute('data-id', id);
+        // li.setAttribute('data-index', index);
+
+        li.classList.add('Tabs-header-item');
+        if (active)
+            li.classList.add('active');
+
+        // li.onclick = renderHeader_onClick
+        li.innerHTML = name;
+
+        // 
+        document
+            .querySelector('.Tabs._Shop .Tabs-header .Tabs-header-group')
+            .appendChild(li);
+    }
+
+
+    /**
+     * Check child age
+     * Build body item
+     */
+    function updateTabChild (child, active = false) {
+        // Create group
+        let li = document.createElement('li');
+            li.className = 'Tabs-body-child ' + ((active) ? 'active' : '');
+            li.setAttribute('data-id', child['id']);
+
+        document
+            .querySelector('.Tabs._Shop .Tabs-body .Tabs-body-group')
+            .appendChild(li);
+
+        // Wrapper
+        let wrapper = document.createElement('div');
+            wrapper.className = 'wrapper';
+                
+        li.appendChild(wrapper);
+
+        // Wrapper title & title
+        let title = document.createElement('p');
+            title.className = 'title';
+            title.innerHTML = `${child['first_name']} ${child['last_name']}`;
+
+        let wrapper_title = document.createElement('div');
+            wrapper_title.className = 'wrapper-title';
+            wrapper_title.appendChild(title);
+        
+        wrapper.appendChild(wrapper_title);
+
+        // Wrapper content
+        let wrapper_content = document.createElement('div');
+            wrapper_content.className = 'wrapper-content';
+        
+            wrapper.appendChild(wrapper_content);
+
+        // Record tab
+        let record_div = document.createElement('div');
+            record_div.className = 'Tabs-body-child-record card';
+
+            wrapper_content.appendChild(record_div);
+
+
+        // Record logic
+        // Search for record
+        //      If exist render details
+        //      If not exist render an error
+        let record = undefined;
+        for (const _record of Object.values(records.records())) {
+            if (_record.child_id === child.id && 
+                _record.school_year === schoolYear.id) {
+                record = _record;
+                break;
+            }
+        }
+
+        if (record) {
+            // Record details
+            record_div.innerHTML = updateTabChildRecord(record);
+            
+            const SCHOOL_MINUS6 = [
+                'STP',
+                'SP',
+                'SM',
+                'SG',
+                // 'CP',
+                // 'CE1',
+                // 'CE2',
+                // 'CM1',
+                // 'CM2',
+            ];
+    
+            // Is MINUS OR PLUS 6
+            const sub = (record['classroom'] > 0 && record['classroom'] < 5) ? 1 : 2;
+            console.log(sub);
+            // Products
+            let products_ul = document.createElement('ul');
+                products_ul.className = 'Tabs-body-child-products';
+                products_ul.setAttribute('data-id', child['id']);
+                // products_ul.setAttribute('data-index', index);
+
+            updateTabChildProducts(products_ul, sub);
+                
+
+            wrapper_content.appendChild(products_ul);
+        }
+        else {
+            record_div.innerHTML = `
+            <div class="card-body">
+                <li class="text-danger"><b>Aucune inscription pour cette année.</b>
+            </div>`;
+
+            console.log('No record for child: ' + child.id);
+            return false;
+        }
+
+        return true;        
+    }
+
+
+    // Add record to a child
+    function updateTabChildRecord (record) {
+        try {
+            const school = (record['school']) ? record['school'] : '<i>pas d\'école renseignée</i>'
+            const classroom = CLASSROOMS[record['classroom']];
+            const quotient_2 = QUOTIENT[intel['quotient_2']];
+            const quotient_1 = QUOTIENT[intel['quotient_1']];
+
+            const s = schoolYear.date_start.split('-')[0];
+            const e = schoolYear.date_end.split('-')[0];
+    
+            return `<div class="card-body">
+                        <li><b>Ecole: </b>          <span class="record-school">        ${school}</span></li>
+                        <li><b>Classe: </b>         <span class="record-classroom">     ${classroom}</span></li>
+                        <li><b>Quotient ${s}: </b>  <span class="record-quotient-q1">   ${quotient_1}</span></li>
+                        <li><b>Quotient ${e}: </b>  <span class="record-quotient-q2">   ${quotient_2}</span></li>
+                    </div>`;
+        }
+        catch (error) {
+            console.log (error);
+        }
+        return '';
+    }
+
+
+    // Add products to a child
+    function updateTabChildProducts (ul, sub) {
+        let snippet = '';
+
+        const categories = productHelper.categories();
+        
+        Object.keys(categories).forEach((key) => {
+            if (key !== '0' &&
+                categories[key]['products'].length) {
+                const category = categories[key];
+
+                // Create HTML element 
+                const li = document.createElement('li');
+                    li.className = 'product-category';
+                    li.setAttribute('data-category', key);
+                    li.innerHTML = `<h3 id="${key}" class="product-category-title">${category.name}</h3><ul class="product-category-products"></ul>`;
+
+                const group = li.querySelector('.product-category-products');
+
+                // SELECT ALL - Only for ALSH
+                // if (key !== '1') {
+                //     group.appendChild(
+                //         productHelper.createFromProduct('main', {'name': 'Tout sélectionner'})
+                //     );
+                // }
+                
+                // Add products to HTML category
+                category['products'].forEach((id) => {
+                    const product = productHelper.get(id);
+
+                    if (product) {
+                        // PERI
+                        if (product.category === 1 && product.active) {
+                            group.appendChild(
+                                productHelper.createFromProduct('normal', product, intel)
+                            );
+                        }
+                        // ALSH
+                        // Check subcategory (MINUS 6 or PLUS 6)
+                        else {
+                            if (product.subcategory === sub && product.active) {
+                                group.appendChild(
+                                    productHelper.createFromProduct('normal', product, intel)
+                                );
+                            }
+                        }
+                    }
+
+                });
+
+                ul.appendChild(li);
+    
+                // let type = 'normal';
+                // let _products = undefined;
+                // let snippet_products = '';
+    
+                // if (key === '1') {
+                //     _products = category;
+                // }
+                // else {
+                //     _products = category[sub];
+                // }
+
+                // for (let i = 0; i < _products.length; ++i)
+                //     snippet_products += createProduct(type, _products[i]);
+    
+                // snippet += `<li class="product-category" data-category=>
+                //                 <h3 class="product-category-title">${category.name, title}</h3>
+                //                 <ul class="product-category-products">${snippet_products}</ul>
+                //             </li>`;
+            }
+        });
+
+        return snippet;
+    }
+
+
+    /**
+     * Add events for 
+     *  Switch tab
+     *  Toggle product to cart
+     */
+    function updateEvents () {
+        // Tab header events
+        document
+            .querySelectorAll('.Tabs._Shop .Tabs-header .Tabs-header-item')
+            .forEach(item => item.addEventListener('click', (e) => {
+
+                // Unset active items 
+                document.querySelector('.Tabs-header-item.active').classList.remove('active');
+                document.querySelector('.Tabs-body-child.active').classList.remove('active');
+
+                // Find target ID
+                const id = e.target.getAttribute('data-id');
+
+                // Set new active items
+                e.target.classList.add('active');
+                document.querySelector(`.Tabs-body-child[data-id="${id}"]`).classList.add('active');
+            }));
+
+
+        // Product tile event
+        document
+            .querySelectorAll('.Tabs._Shop .Tabs-body .product-tile')
+            .forEach((item) => {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    let target = e.target;
+                    while (!target.classList.contains('product-tile')) {
+                        target = target.parentElement;
+                    }
+
+                    // console.log(target);
+
+                    const product_id = target.getAttribute('data-id');
+                    // const child_id = target.parentElement.parentElement.parentElement.getAttribute('data-id');
+
+                    document.querySelectorAll('.Tabs-body-child').forEach((item) => {
+                        if (item.querySelector(`.product-tile[data-id="${product_id}"]`) === target) {
+
+                            // console.log(item.getAttribute('data-id'));
+                            toggleProduct(item.getAttribute('data-id'), product_id);
+                        }
+                    });
+
+                    // toggleProduct(child_id, product_id);
+                });
+            });
+    }
+
+
+    // Update products from cart then previous order 
+    function updateProducts () {
+        const sum_tickets = {};
+
+        const add_ticket = function (child, product, type) {
+            const slug = `${child}x${product}`;
+            sum_tickets[slug] = type;
+        };
+
+        // Order tickets
+        if (orderHelper.payer === parent.id) {
+            for (const order of orderHelper.cart) {
+                for (const child of order.children) {
+                    // add_ticket(child, order.product, 'cart');
+                    productHelper.updateProductType('selected', order.product, child);
+                }
+            }
+        }
+
+        for (const order of orders.data) {
+            for (const ticket of order.tickets) {
+                // add_ticket(ticket.payee, ticket.product, 'bought');
+                productHelper.updateFromTicket(ticket);
+            }
+        }
+
+        // console.log(sum_tickets);
+
+        // for (const key of Object.keys(sum_tickets)) {
+        //     const slug = key.split('x');
+        //     const type = (sum_tickets[key] === 'cart') ? 'selected' : 'purchased';
+
+        //     productHelper.updateProductType(type, slug[1], slug[0]);
+        //     // productHelper.updateFromTicket(ticket);
+        // }
+    }
+
+
+    // Process Order data for SHOP
+    function updateFromStorage () {
+        orderHelper.cart.forEach((month) => {
+            const product = productHelper.get(month.product);
+
+            if (product) {
+
+                amount += product.price * month.children.length;
+                itemsSelected += month.children.length;
+                
+                // Update HTML tile
+                month.children.forEach((child) => {
+                    productHelper.updateProductType('selected', product, child);
+                });
+            }
+        });
+    }
+
+    
+    /**
+     *  Tiles and logics
+     */
+
+    function toggleProduct (child_id, product_id) {
+        var target = document.querySelector(`.Tabs-body-child[data-id="${child_id}"] .product-tile[data-id="${product_id}"]`);
+
+        if (target.classList.contains('normal') ||
+            target.classList.contains('selected')) {
+
+            if (toggleProduct_item(parseInt(child_id), parseInt(product_id))) {
+                target.className = 'product-tile selected';
+            }
+            else {
+                target.className = 'product-tile normal';
+            }
+        }
+        else if (target.classList.contains('main')) {
+
+        }
+
+        return;
+    }
+
+
+    function toggleProduct_item (child_id, product_id) {
+        // console.log('child_id: ' + child_id);
+        // console.log('product_id: ' + product_id);
+        
+        // Product lookup
+        let product = productHelper.get(product_id);
+
+        if (!product) {
+            console.log('products === undefined')
+            return 0;
+        }
+
+        let is_selected = false;
+
+        // PERI
+        // if (product['category'] === 1)
+        //     is_selected = togglePeri(product_id, child_id)
+        // else
+        //     is_selected = toggleAlsh(product_id, child_id)
+
+        is_selected = toggleCart(product_id, child_id);
+
+
+        // Update Cart Meta
+        if (is_selected) {
+            updateCartMeta(getPrice(intel, product), 1);
+        }
+        else {
+            updateCartMeta(-getPrice(intel, product), -1);
+        }
+
+        orderHelper.amount = amount;
+
+        console.log(orderHelper.peri);
+        console.log(orderHelper.alsh);
+
+        // updateCartMeta();
+        // cart_save();
+
+        return is_selected;
+    }
+
+
+    function toggleCart(product, child) {
+        const _cart = orderHelper.cart;
+
+        // Cart lookup
+        for (var i = 0; i < _cart.length; ++i) {
+            const month = _cart[i];
+
+            // If product exist
+            // Check child is in
+            if (month['product'] === product) {
+
+                let index = -1;
+
+                // if child not in - add him
+                if ((index = month['children'].indexOf(child)) === -1) {
+                    month['children'].push(child);
+                    return true;
+                }
+
+                // If child is in - remove him
+                else {
+                    month['children'].splice(index, 1);
+
+                    // if children list is empty remove it
+                    if (!month['children'].length)
+                        _cart.splice(i, 1);
+
+                    return false;
+                }
+            }
+        }
+
+        // if cart was not found
+        _cart.push({
+            'product': product,
+            'children': [child]
+        });
+
+        return true;
+    }
+
+
+    function togglePeri(product, child) {
+        const _peri = orderHelper.peri;
+
+        // Cart lookup
+        for (var i = 0; i < _peri.length; ++i) {
+            const month = _peri[i];
+
+            // If product exist
+            // Check child is in
+            if (month['product'] === product) {
+
+                let index = -1;
+
+                // if child not in - add him
+                if ((index = month['children'].indexOf(child)) === -1) {
+                    month['children'].push(child);
+                    return true;
+                }
+
+                // If child is in - remove him
+                else {
+                    month['children'].splice(index, 1);
+
+                    // if children list is empty remove it
+                    if (!month['children'].length)
+                        _peri.splice(i, 1);
+
+                    return false;
+                }
+            }
+        }
+
+        // if cart was not found
+        _peri.push({
+            'product': product,
+            'children': [child]
+        });
+
+        return true;
+    }
+
+
+    function toggleAlsh(product, child) {
+        const _alsh = orderHelper.alsh;
+        
+        // Cart lookup
+        for (var i = 0; i < _alsh.length; ++i) {
+
+            // If product exist
+            // Check child is in
+            if (_alsh[i]['child'] === child) {
+
+                let index = -1;
+
+                // if child not in - add him
+                if ((index = _alsh[i]['products'].indexOf(product)) === -1) {
+                    _alsh[i]['products'].push(product);
+                    return true;
+                }
+
+                // if product is in - remove him
+                else {
+                    _alsh[i]['products'].splice(index, 1);
+
+                    // if products list is empty remove it
+                    if (!_alsh[i]['products'].length)
+                        _alsh.splice(i, 1);
+
+                    return false;
+                }
+            }
+        }
+
+        // if cart was not found
+        _alsh.push({
+            'child': child,
+            'products': [product]
+        });
+
+        return true;
+    }
+
+
+
+    /**
+     * Controls events and logics
+     * 
+     */
+
+     // Useless - see events in HTML
+    function controlsEvents() {
+        document.querySelector('#Controls .controls-cancel')
+            .addEventListener('click', controlsCancel);
+
+        document.querySelector('#Controls .controls-previous')
+            .addEventListener('click', controlsPrevious);
+
+        document.querySelector('#Controls .controls-continue')
+            .addEventListener('click', controlsContinue);
+    }
+
+    
+    function controlsCancel() {
+        window.localStorage.removeItem('shop_child');
+        window.localStorage.removeItem('shop_order');
+
+        window.close();
+    }
+
+
+    function controlsPrevious () {
+        window.close();
+    }
+
+
+    function controlsContinue () {
+        // Check if order is correct
+        if (orderHelper.caster === 0 ||
+            orderHelper.payer === 0) {
+            updateStatus ('Casteur ou payeur non défini.');
+            return false;
+        }
+        
+        // Check payment type
+        // DIR
+        if (orderHelper.type === 2) {
+            if (!orderHelper.reference) {
+                updateStatus('Pas de référence pour le paiement.');
+                return false;
+            }
+        }
+        // OFF
+        else if (orderHelper.type === 1) {
+            orderHelper.reference = '';
+        }
+        // Anything else
+        else {
+            updateStatus('Type de paiement inconnu.');
+            return false;
+        }
+
+        // Check if there is products
+        if (!orderHelper.cart.length) {
+            updateStatus('Veuillez sélectionner au moins un produit.');
+            return false;
+        }
+
+        const order = orderHelper.toLocalStorage()
+        console.log(order);
+        window.localStorage.setItem('shop_order', order);
+
+        const child = window.localStorage.getItem('shop_child');
+        window.location = '/intern/shop/summary/' + child_id;
+    }
+
+
+
+    /*
+        GLOBAL
+    */
+    var amount = 0;
+    var itemsSelected = 0;
+
+    // var child_id = 0;
+    // var sibling = {};
+
+    // var shopHelper = new Shop();
+    var orderHelper = new OrderInterface();
+    var productHelper = new Product();
+
+    const CATEGORIES = [
+        'UNSET',
+        'PERISCOLAIRE',
+        'JANVIER',
+        'FEVRIER',
+        'MARS',
+        'AVRIL',
+        'MAI',
+        'JUIN',
+        'JUILLET',
+        'AOUT',
+        'SEPTEMBRE',
+        'OCTOBRE',
+        'NOVEMBRE',
+        'DECEMBRE',
+        'TOUSSAINT',
+        'NOEL',
+        'CARNAVAL',
+        'PAQUES',
+        'GRDS VACANCES JUILLET',
+        'GRDS VACANCES AOUT'
+    ];
+</script>
+{% endblock %}

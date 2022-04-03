@@ -1,0 +1,1160 @@
+{% extends 'intern/base.html' %}
+
+{% block title %}
+Commandes
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="/static/vendor/simplePagination.css" />
+{% endblock %}
+
+{% block main %}
+<div id="Orders" class="container">
+
+    <div class="wrapper-title">
+        <p class="title">Order (normal variant)</p>
+        <button class="ui button" onclick="om_run()">
+            Ouvrir
+        </button>
+    </div>
+
+    <div class="wrapper-content">
+
+        <!-- Copy this -->
+        <div class="Order Order-Modal ui longer modal js-modal">
+            <div class="header">
+                #<span class="js-modal-id">351</span> - 
+                <span class="js-modal-name">Paiement PERI/ALSH</span>
+            </div>
+            <div class="header">
+                <span class="js-modal-last-status"></span>
+                <span class="js-modal-selected float-right"></span>
+                <!-- <a class="ui red label js-order-status-canceled d-none">Annulé</a>
+                <a class="ui olive label js-order-status-reserved d-none">Réservé</a>
+                <a class="ui green label js-order-status-completed d-none">Payé</a>
+                <a class="ui teal label js-order-status-refunded d-none">Remboursé</a> -->
+            </div>
+            <div class="scrolling content js-modal-children">
+                <div class="content">
+                    <h4 class="ui sub header">Informations</h4>
+                    <div class="ui small feed row">
+                        <p class="col-12 col-sm-6"><b>Payeur:</b>       <span class="js-modal-payer">John Doe</span></p>
+                        <p class="col-12 col-sm-6"><b>Emetteur:</b>     <span class="js-modal-caster">Admin</span></p>
+                        <p class="col-12 col-sm-6"><b>Date:</b>         <span class="js-modal-date">01/01/2020 15h44</span></p>
+                        <p class="col-12 col-sm-6"><b>Référence:</b>    <span class="js-modal-ref">007</span></p>
+                        <p class="col-12 col-sm-6"><b>Commentaire:</b>  <span class="js-modal-comment">Aucun</span></p>
+                        <p class="col-12 col-sm-6"><b>Type:</b>         <span class="js-modal-type">Antenne</span></p>
+                        <p class="col-12 col-sm-6"><b>Quotient 1:</b>   <span class="js-modal-quotient-1"></span></p>
+                        <p class="col-12 col-sm-6"><b>Quotient 2:</b>   <span class="js-modal-quotient-2"></span></p>
+                    </div>
+                </div>
+                <div class="content js-modal-methods">
+                    <h4 class="ui sub header">Paiement - <a class="text-success"><b>TOTAL</b> <span class="js-modal-amount">578</span> €</a></h4>
+                    <!-- <div class="ui small feed row">
+                        <p class="col-12 col-sm-3"><b>Type:</b>         <span class="js-modal-type">Espèce</span></p>
+                        <p class="col-12 col-sm-3"><b>Montant:</b>      <span class="js-modal-amount">178</span> €</p>
+                        <p class="col-12 col-sm-3"><b>Référence:</b>    <span class="js-modal-ref">Aucune</span></p>
+                    </div>
+                    <div class="ui small feed row">
+                        <p class="col-12 col-sm-3"><b>Type:</b>         <span class="js-modal-type">Chèque</span></p>
+                        <p class="col-12 col-sm-3"><b>Montant:</b>      <span class="js-modal-amount">178</span> €</p>
+                        <p class="col-12 col-sm-3"><b>Référence:</b>    <span class="js-modal-ref">007</span></p>
+                    </div>
+                    <div class="ui small feed row">
+                        <p class="col-12 col-sm-3"><b>Type:</b>         <span class="js-modal-type">Paypal</span></p>
+                        <p class="col-12 col-sm-3"><b>Montant:</b>      <span class="js-modal-amount">178</span> €</p>
+                        <p class="col-12 col-sm-3"><b>Référence:</b>    <span class="js-modal-ref">007</span></p>
+                    </div> -->
+                </div>
+                <div class="content js-modal-status">
+                    <h4 class="ui sub header">Status</h4>
+                    <!-- <div class="ui small feed row">
+                        <p class="col-12 col-sm-3"><b>Status:</b>       <span class="js-modal-status-status"><a class="ui red label">Annulé</a></span></p>
+                        <p class="col-12 col-sm-3"><b>Date:</b>         <span class="js-modal-status-date">02/01/2020 15h44</span></p>
+                    </div>
+                    <div class="ui small feed row">
+                        <p class="col-12 col-sm-3"><b>Status:</b>       <span class="js-modal-status-status"><a class="ui green label">Payé</a></span></p>
+                        <p class="col-12 col-sm-3"><b>Date:</b>         <span class="js-modal-status-date">01/01/2020 15h44</span></p>
+                    </div> -->
+                </div>
+                <!-- <div class="content js-modal-child">
+                    <h4 class="ui sub header"><span class="js-modal-names">Enfant 1</span> - <span class="js-modal-dob">01/01/2017</span> - <span class="js-modal-classroom">STP</span></h4>
+                    <div class="ui small feed row">
+                        <div class="products">
+                            <div class="product-tile purchased">
+                                <div class="product-tile-head">
+                                    <div class="product-meta-title">Septembre</div>
+                                </div>
+                            
+                                <div class="product-tile-footer">
+                                    <div class="product-meta-price">16 €</div>
+                                    <div class="product-meta-bought"><a class="ui green label">payé</a> le <span>01/01/2020</span></div>
+                                </div>
+                            </div>
+                            <div class="product-tile purchased">
+                                <div class="product-tile-head">
+                                    <div class="product-meta-title">Octobre</div>
+                                </div>
+                            
+                                <div class="product-tile-footer">
+                                    <div class="product-meta-price">16 €</div>
+                                    <div class="product-meta-bought"><a class="ui red label">annulé</a> le <span>01/01/2020</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+        
+                <!-- <div class="ui mini test modal transition" style="display: block !important;">
+                    <div class="header">
+                      Profile Picture
+                    </div>
+                    <div class="scrolling image content">
+                      <div class="ui medium image">
+                        <img src="/images/wireframe/image.png">
+                      </div>
+                      <div class="description">
+                        <div class="ui header">Modal Header</div>
+                        <p>This is an example of expanded content that will cause the modal's dimmer to scroll</p>
+                        <img class="ui wireframe image" src="/images/wireframe/paragraph.png">
+                        <div class="ui divider"></div>
+                        <img class="ui wireframe image" src="/images/wireframe/paragraph.png">
+                        <div class="ui divider"></div>
+                        <img class="ui wireframe image" src="/images/wireframe/paragraph.png">
+                        <div class="ui divider"></div>
+                        <img class="ui wireframe image" src="/images/wireframe/paragraph.png">
+                        <div class="ui divider"></div>
+                        <img class="ui wireframe image" src="/images/wireframe/paragraph.png">
+                        <div class="ui divider"></div>
+                        <img class="ui wireframe image" src="/images/wireframe/paragraph.png">
+                        <div class="ui divider"></div>
+                        <img class="ui wireframe image" src="/images/wireframe/paragraph.png">
+                      </div>
+                    </div>
+                    <div class="actions">
+                      <div class="ui primary approve button">
+                        Proceed
+                        <i class="right chevron icon"></i>
+                      </div>
+                    </div>
+                  </div>         -->
+            </div>
+            <div class="actions">
+                <button class="ui button grey js-modal-print">Imprimer</button>
+                <button class="ui button red js-modal-cancel-order">Annuler reçu</button>
+                <button class="ui button orange js-modal-cancel-tickets d-none">Annuler tickets</button>
+                <button class="ui button grey js-modal-close">Fermer</button>
+            </div>
+        
+        </div>
+    </div>
+
+    <div class="wrapper-title">
+        <p class="title">Order (print variant)</p>
+        <button class="ui button" onclick="op_run()">
+            Ouvrir
+        </button>
+    </div>
+
+    <div class="wrapper-content">
+        <div id="print-modal" class="ui longer modal js-modal">
+            <div class="scrolling content">
+
+                <!-- Copy this -->
+                <div class="Order Order-Print">
+                    <div class="content js-modal-children">
+                        <div class="header row">
+            
+                            <div class="content js-modal-titles col-sm-6">
+                                <span class="display-3">UPEEM</span>
+                                <br/>
+
+                                <b><span class="h3 js-modal-name">Paiement PERI/ALSH</span></b>
+                                <br/>
+
+                                <p class="js-modal-last-status">
+                                    <b>Status: <span class="h4"></span></b>
+                                </p>
+                                <br/>
+                            </div>
+            
+                            <div class="content js-modal-intels col-sm-6">
+                                <h4 class="ui sub header">Informations</h4>
+                                <div class="ui small feed row">
+                                    <p class="col-12 col-sm-6"><b>N° reçu: Site_    <span class="js-modal-id"></span></b></p>
+                                    <p class="col-12 col-sm-6"><b>Payeur:</b>       <span class="js-modal-payer">John Doe</span></p>
+                                    <p class="col-12 col-sm-6"><b>Emetteur:</b>     <span class="js-modal-caster">Admin</span></p>
+                                    <p class="col-12 col-sm-6"><b>Date:</b>         <span class="js-modal-date">01/01/2020 15h44</span></p>
+                                    <p class="col-12 col-sm-6"><b>Type:</b>         <span class="js-modal-type">Antenne</span></p>
+                                    <p class="col-12 col-sm-6"><b>Référence:</b>    <span class="js-modal-ref">007</span></p>
+                                    <p class="col-12 col-sm-6"><b>Quotients:</b>    <span class="js-modal-quotients"></span></p>
+                                    <p class="col-12 col-sm-6"><b>Commentaire:</b>  <span class="js-modal-comment">Aucun</span></p>
+                                </div>
+                            </div>
+            
+                        </div>
+
+                        <div class="content row">
+                            <div class="content js-modal-methods-status col-sm-6">
+
+                                <div class="content js-modal-methods">
+                                    <h4 class="ui sub header">Paiements - <span class="h4"><b>TOTAL: <span class="js-modal-amount"></span> €</span></b></h4>
+                                    <table class="ui celled table text-center">
+                                        <thead>
+                                            <tr class="ui small feed">
+                                                <th>Type</th>
+                                                <th>Montant</th>
+                                                <th>Référence</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody></tbody>
+                                    </table>
+                                    <br/>
+                                </div>
+                                
+                                <div class="content js-modal-status">
+                                    <h4 class="ui sub header">Status</h4>
+                                    <table class="ui celled table text-center">
+                                        <thead>
+                                            <tr class="ui small feed">
+                                                <th>Status</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="content js-modal-lexique col-sm-6">
+                                <h4 class="ui sub header">Descriptif prestations</h4>
+                                
+                                <table class="ui celled table">
+                                    <thead>
+                                        <tr class="ui small feed">
+                                            <th>Code</th>
+                                            <th>Description</th>
+                                            <th>Qté</th>
+                                            <th>P.U.</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+            
+                                    <tbody>
+                                        <tr class="ui small feed x-peri-1">
+                                            <td class="x-code">PERI-1</td>
+                                            <td class="x-desc">Périscolaire Tarif F1</td>
+                                            <td class="x-qtty"></td>
+                                            <td class="x-unit"></td>
+                                            <td class="x-sum" ></td>
+                                        </tr>
+                                        <tr class="ui small feed x-peri-2">
+                                            <td class="x-code">PERI-2</td>
+                                            <td class="x-desc">Périscolaire Tarif F2</td>
+                                            <td class="x-qtty"></td>
+                                            <td class="x-unit"></td>
+                                            <td class="x-sum" ></td>
+                                        </tr>
+                                        <tr class="ui small feed x-peri-3">
+                                            <td class="x-code">PERI-3</td>
+                                            <td class="x-desc">Périscolaire Tarif F3</td>
+                                            <td class="x-qtty"></td>
+                                            <td class="x-unit"></td>
+                                            <td class="x-sum" ></td>
+                                        </tr>
+                                        <tr class="ui small feed x-peri-4">
+                                            <td class="x-code">PERI-4</td>
+                                            <td class="x-desc">Périscolaire Tarif F4</td>
+                                            <td class="x-qtty"></td>
+                                            <td class="x-unit"></td>
+                                            <td class="x-sum" ></td>
+                                        </tr>
+                                        <tr class="ui small feed x-xtra-m-ne">
+                                            <td class="x-code">XTRA-M-NE</td>
+                                            <td class="x-desc">Extrascolaire Moins de 6ans Tarif NE</td>
+                                            <td class="x-qtty"></td>
+                                            <td class="x-unit"></td>
+                                            <td class="x-sum" ></td>
+                                        </tr>
+                                        <tr class="ui small feed x-xtra-m-q2">
+                                            <td class="x-code">XTRA-M-Q2</td>
+                                            <td class="x-desc">Extrascolaire Moins de 6ans Tarif Q2</td>
+                                            <td class="x-qtty"></td>
+                                            <td class="x-unit"></td>
+                                            <td class="x-sum" ></td>
+                                        </tr>
+                                        <tr class="ui small feed x-xtra-m-q1">
+                                            <td class="x-code">XTRA-M-Q1</td>
+                                            <td class="x-desc">Extrascolaire Moins de 6ans Tarif Q1</td>
+                                            <td class="x-qtty"></td>
+                                            <td class="x-unit"></td>
+                                            <td class="x-sum" ></td>
+                                        </tr>
+                                        <tr class="ui small feed x-xtra-p-ne">
+                                            <td class="x-code">XTRA-P-NE</td>
+                                            <td class="x-desc">Extrascolaire Plus de 6ans Tarif NE</td>
+                                            <td class="x-qtty"></td>
+                                            <td class="x-unit"></td>
+                                            <td class="x-sum" ></td>
+                                        </tr>
+                                        <tr class="ui small feed x-xtra-p-q2">
+                                            <td class="x-code">XTRA-P-Q2</td>
+                                            <td class="x-desc">Extrascolaire Plus de 6ans Tarif Q2</td>
+                                            <td class="x-qtty"></td>
+                                            <td class="x-unit"></td>
+                                            <td class="x-sum" ></td>
+                                        </tr>
+                                        <tr class="ui small feed x-xtra-p-q1">
+                                            <td class="x-code">XTRA-P-Q1</td>
+                                            <td class="x-desc">Extrascolaire Plus de 6ans Tarif Q1</td>
+                                            <td class="x-qtty"></td>
+                                            <td class="x-unit"></td>
+                                            <td class="x-sum" ></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="ui button grey" onclick="$('#print-modal').modal('hide')">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="/static/styles/Orders.css" />
+{% endblock %}
+
+{% block body_extensions %}{% endblock %}
+
+{% block scripts %}
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+<script src="/static/vendor/simplePagination.js"></script>
+<script src="/static/scripts/Orders.js"></script>
+<script src="/static/scripts/Order.js"></script>
+<script src="/static/scripts/Product.js"></script>
+{{ products | json_script:'products_json' }}
+
+<!-- App -->
+<script>
+    var productHelper = new Product();
+
+    window.addEventListener('load', () => {
+        App.init();
+        // getOrder();
+
+        // const _products = '{{ products | safe }}';
+        const _products = JSON.parse(document.getElementById('products_json').textContent);
+
+        // Prepare products
+        productHelper.init(_products);
+    });
+
+    function _date (date) {
+        const first = date.split('T')[0];
+        const sec = first.split('-');
+        return `${sec[2]}/${sec[1]}/${sec[0]}`;
+    }
+
+    function _datetime (date) {
+        const first = date.split('T');
+        const sec = first[0].split('-');
+        const third = first[1].split(':');
+        return `${sec[2]}/${sec[1]}/${sec[0]} ${third[0]}:${third[1]}`;
+    }
+</script>
+
+<!-- Order Modal -->
+<script>
+    var om_Order = new OrderInterface();
+    var om_OrderModal = new UI_OrderModal();
+
+    function om_run () {
+        om_Order.fromID(435)
+        .then(() => om_OrderModal.render(om_Order))
+        .catch((err) => alert('Impossible d\'ouvrir le modal.'));      
+    }
+</script>
+
+<!-- Order Print -->
+<script>
+    var op_Order = new OrderInterface();
+    var op_OrderPrint = new UI_OrderPrint();
+
+    function op_run () {
+        op_Order.fromID(435)
+        .then(() => {
+            $('#print-modal').modal('show');
+            op_OrderPrint.render(op_Order);
+        })
+        .catch((err) => { 
+            alert('Impossible d\'ouvrir le modal.'); 
+            console.error(err);
+        });      
+    }
+</script>
+
+<script>
+    /**
+     * Manage order modal
+     * 
+     * TODO:
+     *  Quotient
+     * Bugs:
+     *  Class SP
+     *  Ticket price
+     */
+     class OrderV2 {
+        constructor () {
+            this._order = undefined;
+
+            this._family = {
+                'parent': {},
+                'children': {},
+                'intel': {},
+                'records': []
+            };
+
+            this._tickets_selected = [];
+
+            this.ORDERTYPES = [
+                '<i>Inconnu</i>',
+                'ANTENNE',
+                'DIRECTRICE',
+                'EN LIGNE',
+                'MIGRATION',
+                'MIGRATION DIR.'
+            ];
+            
+            this.METHODTYPES = [
+                '<i>Inconnu</i>',
+                'ESPECES',
+                'CHEQUE',
+                'EN LIGNE',
+                'VIRMENT',
+                'AVOIR',
+                'PAYPAL',
+                'STRIPE',
+            ];
+
+            this.STATUSLABELS = [
+                '<a class="ui black label">Inconnu</a>',
+                '<a class="ui olive label">Réservé</a>',
+                '<a class="ui green label">Payé</a>',
+                '<a class="ui grey label">Reporté</a>',
+                '<a class="ui teal label">Remboursé</a>',
+                '<a class="ui red label">Annulé</a>',
+            ];
+
+            this.CLASSROOMS = [
+                '<i>Aucune classe</i>',
+                'STP',
+                'SP',
+                'SM',
+                'SG',
+                'CP',
+                'CE1',
+                'CE2',
+                'CM1',
+                'CM2',
+                'AUTRES',
+            ];
+        }
+
+
+        clear () {
+            this._order = undefined;
+
+            this._family = {
+                'parent': {},
+                'children': {},
+                'intel': {},
+                'records': []
+            };
+            
+            this._tickets_selected = [];
+
+            // 
+            document.querySelector('.js-modal-selected').innerHTML = '0 ticket sélectionné';
+
+            // Clear methods
+            document.querySelectorAll('.js-modal-methods .ui.small.feed.row').forEach(item => item.remove());
+
+            // Clear status
+            document.querySelectorAll('.js-modal-status .ui.small.feed.row').forEach(item => item.remove());
+
+            // Clear children
+            document.querySelectorAll('.js-modal-child').forEach(item => item.remove());
+
+            document.querySelector('.js-modal-cancel-tickets').classList.add('d-none');
+        }
+
+
+        render (order) {
+            console.log(order);
+
+            this.clear();
+            
+            this._order = order;
+
+            $('.js-modal').modal('show');
+            // $('.ui.longer.modal').modal('show');
+
+            this.renderOrder();
+
+            const self = this;
+
+            document.querySelector('.js-modal-close').onclick = (e) => self.close();
+            document.querySelector('.js-modal-cancel-order').onclick = (e) => self.cancelOrder();
+            document.querySelector('.js-modal-cancel-tickets').onclick = (e) => self.cancelTickets();
+        }
+
+
+        /**
+         * Actually render the modal
+         */
+        renderOrder () {
+            try {
+                
+                document.querySelector('.js-modal-id').innerHTML = this._order.id;
+                document.querySelector('.js-modal-name').innerHTML = this._order.name;
+    
+                // Order status
+                const status = this._order.status[0].status;
+                document.querySelector('.js-modal-last-status').innerHTML = this.STATUSLABELS[status];
+
+                // Date
+                const date = this._order.status[0].date;
+                document.querySelector('.js-modal-date').innerHTML = _datetime(date);
+
+                // Ref
+                document.querySelector('.js-modal-ref').innerHTML = this._order.reference;
+
+                // Comment
+                document.querySelector('.js-modal-comment').innerHTML = this._order.comment;
+
+                // Type
+                document.querySelector('.js-modal-type').innerHTML = this.ORDERTYPES[this._order.type];
+
+                // Amount
+                document.querySelector('.js-modal-amount').innerHTML = this._order.amount;
+
+                // Methods
+                const modal_methods = document.querySelector('.js-modal-methods');
+                for (const method of this._order.methods) {
+                    const xref = (ref) => { return (ref) ? ref : '<i>Aucune référence</i>'; }
+
+                    modal_methods.innerHTML += `
+                    <div class="ui small feed row">
+                        <p class="col-12 col-sm-3"><b>Type:</b>         <span>${this.METHODTYPES[method.method]}</span></p>
+                        <p class="col-12 col-sm-3"><b>Montant:</b>      <span>${method.amount}</span> €</p>
+                        <p class="col-12 col-sm-3"><b>Référence:</b>    <span>${xref(method.reference)}</span></p>
+                    </div>`;
+                }
+
+                // Status
+                const modal_status = document.querySelector('.js-modal-status');
+                for (const status of this._order.status) {
+                    modal_status.innerHTML += `
+                    <div class="ui small feed row">
+                        <p class="col-12 col-sm-3"><b>Status:</b>       <span>${this.STATUSLABELS[status.status]}</span></p>
+                        <p class="col-12 col-sm-3"><b>Date:</b>         <span>${_datetime(status.date)}</span></p>
+                    </div>`;
+                }
+                
+                // Tickets
+                const children = {};
+                const modal_children = document.querySelector('.js-modal-children');
+
+                // Order tickets
+                for (const ticket of this._order.tickets) {
+                    if (!children[ticket.payee]) {
+                        children[ticket.payee] = [];
+                    }
+
+                    children[ticket.payee].push(ticket);
+                }
+
+                for (const id of Object.keys(children)) {
+                    const products = document.createElement('div');
+                    products.className = 'products';
+
+                    for (const ticket of children[id]) {
+                        const product = productHelper.get(ticket.product);
+                        if (product) {
+                            const tile = productHelper.render('order-modal', product, id);
+                            
+                            // Ticket status
+                            const date = ticket.status[0].date;
+                            const status = ticket.status[0].status;
+                            tile.querySelector('.product-meta-bought').innerHTML = `${this.STATUSLABELS[status]} le ${_date(date)}`;                  
+
+                            tile.setAttribute('data-ticket', ticket.id);
+                            
+                            products.appendChild(tile);
+                        }
+                    }
+
+                    modal_children.innerHTML += `
+                    <div class="content js-modal-child" data-child="${id}">
+                        <h4 class="ui sub header">
+                            <span class="js-modal-names"></span> - 
+                            <span class="js-modal-dob"></span> - 
+                            <span class="js-modal-classroom"></span></h4>
+                        <div class="ui small feed row">
+                            <div class="products">${products.innerHTML}</div>
+                        </div>
+                    </div>`;
+                }
+
+                const self = this;
+
+                document.querySelectorAll('.product-tile').forEach((tile) => {
+                    tile.onclick = function (e) {
+                        self.ticket_onClick(this);
+                    };
+                });
+
+                this.readFamily();
+            }
+            catch (error) {
+                console.error(error);
+            }
+        }
+
+
+        /**
+         *  Update UI with family details
+         */
+        updateFamily () {
+            // Update parent
+            const parent = this._family.parent;
+
+            document.querySelector('.js-modal-payer').innerHTML = `${parent.first_name} ${parent.last_name}`;
+            
+            
+            // Update children
+            document.querySelectorAll('.content.js-modal-child').forEach(item => {
+                const id = parseInt(item.getAttribute('data-child'));
+                if (id) {
+                    let dob = '<i>Pas de date de naissance</>';
+                    let names = '<i>Aucun nom trouvé</>';
+
+                    for (const child of this._family.children) {
+                        if (child.id === id) {
+                            dob = child.dob;
+                            names = `${child.first_name} ${child.last_name}`;
+                            break;
+                        }
+                    }
+
+                    item.querySelector('.js-modal-dob').innerHTML = dob;
+                    item.querySelector('.js-modal-names').innerHTML = names;
+
+                    let classroom = '<i>Aucune classe</i>';
+                    for (const record of this._family.records) {
+                        if (record.child === id) {
+                            classroom = this.CLASSROOMS[record.classroom];
+                            break;
+                        }
+                    }
+
+                    item.querySelector('.js-modal-classroom').innerHTML = classroom;
+                }
+            });
+        }
+
+
+        // EVENTS
+
+        ticket_onClick (target) {
+            const id = parseInt(target.getAttribute('data-ticket'));
+            console.log(id);
+            if (id) {
+                this.updateSelectedTickets(id);
+            }
+        }
+
+
+        close_onClick () { this.close(); }
+
+
+        // LOGICS
+
+        /**
+         * 
+         */
+        updateSelectedTickets (id) {
+            const tile = document.querySelector(`.product-tile[data-ticket="${id}"]`);
+            if (!tile) {
+                return false;
+            }
+            
+            let index = -1;
+            if ((index = this._tickets_selected.indexOf(id)) >= 0) {
+                tile.classList.remove('selected');
+                this._tickets_selected.splice(index, 1);
+            }
+            else {
+                tile.classList.add('selected');
+                this._tickets_selected.push(id);
+            }
+
+            // Update UI
+            document.querySelector('.js-modal-selected').innerHTML = this._tickets_selected.length + ` ticket(s) sélectionné(s)`;
+
+            if (this._tickets_selected.length) {
+                document.querySelector('.js-modal-cancel-tickets').classList.remove('d-none');
+            }
+            else {
+                document.querySelector('.js-modal-cancel-tickets').classList.add('d-none');
+            }
+
+            return true;
+        }
+
+
+        print () {}
+
+
+        refresh () {
+            const self = this;
+            this.readOrder(this._order.id)
+            .then(data => {
+                try {
+                    self.render(data.order);
+                }
+                catch (error) {
+                    console.error(error);
+                }
+            })
+            .catch(err => {
+                console.error(err);
+            });
+        }
+
+
+        close () {
+            if (this._tickets_selected.length) {
+
+                const choice = confirm(`Etes-vous sûr de vouloir quitter, ${this._tickets_selected.length} ticket(s) sélectionné(s) ?`);
+
+                if (choice) {
+                    $('.js-modal').modal('hide');
+                    // $('.ui.longer.modal').modal('hide');
+                }
+            }
+        }
+
+
+        cancelOrder () {
+            const self = this;
+            const choice = confirm(`Etes-vous sûr de vouloir annuler ce reçu ?`);
+            
+            if (choice) {
+                return this._cancelOrder()
+                .then(data => self.cancel_onSuccess(data))
+                .catch(err => self.cancel_onFailure(err));
+            }
+            return false;
+        }
+
+
+        cancelTickets () {
+            if (this._tickets_selected.length) {
+
+                const self = this;
+                const choice = confirm(`Etes-vous sûr de vouloir annuler ${this._tickets_selected.length} ticket(s) ?`);
+
+                if (choice) {
+                    return this._cancelTickets()
+                    .then(data => self.cancel_onSuccess(data))
+                    .catch(err => self.cancel_onFailure(err));
+                }
+            }
+            return false;
+        }
+
+
+        cancel_onSuccess (data) {
+            this.refresh();
+            console.log(data.cancel_status);
+        }
+
+
+        cancel_onFailure (err) {
+            console.error(err);
+        }
+
+
+        // API Calls
+
+        readOrder (id) {
+            return App.get(`/api/orders/?pk=${id}`, true);
+        }
+
+        /**
+         *  Get family details
+         *  - Parent
+         *  - Sibling (children + intels)
+         *  - Records
+         */
+        readFamily () {
+            const self = this;
+
+            // Get active school year
+            let schoolYear = {};
+            for (const s of App.schoolYears) if (s.is_active) { schoolYear = s; break; }
+
+            return new Promise(function (resolve, reject) {
+
+                // Get parent
+                App.get(`/api/user/${self._order.payer}/`, true)
+                .then((data) => resolve(data))
+                .catch((err) => reject(err));
+            })
+            .then (function (result) {
+                // Parent
+                console.log(result);
+                self._family.parent = result.user;
+
+                return App.get(`/api/sibling/?parent=${self._order.payer}`, true);
+            })
+            .then (function (result) {
+                // Sibling
+                console.log(result);
+
+                for (const _ of result.sibling.intels) {
+                    if (_.school_year === schoolYear.id) {
+                        self._family.intel = _;
+                        break;
+                    }
+                }
+                
+                self._family.children = result.sibling.children;
+
+                return App.get(`/api/record/?parent=${self._order.payer}`, true);
+            })
+            // .then (function (result) {
+            //     console.log(sibling);
+            //     return parent.readUser(
+            //         sibling._parent,
+            //         (data) => console.log(data),
+            //         (err) => console.log(err)
+            //         // readRecords_onSuccess,
+            //         // readRecords_onFailure
+            //     );
+            // })
+            // .then (function (result) {
+            //     return App.get(`/api/order/?payer=${parent.id}`, true)
+            //         .then((data) => {
+            //             console.log(data);
+            //             orders = data.orders;
+            //         })
+            //         .catch((err) => console.log(err));
+            // })
+            .then ((data) => {
+                // Records
+                console.log(data);
+
+                for (const _ of data.records) {
+                    if (_.school_year === schoolYear.id) {
+                        self._family.records.push(_);
+                        break;
+                    }
+                }
+
+                self.updateFamily();
+            })
+            .catch ((err) => {
+                console.log(err);
+            });
+        }
+
+
+        _cancelOrder () {
+            return App.post(`/api/order/cancel/`, JSON.stringify({
+                'client': this._order.payer,
+                'order_id': this._order.id
+            }), true);
+        }
+
+
+        _cancelTickets () {
+            if (this._tickets_selected.length) {
+                return App.post(`/api/tickets/cancel/`, JSON.stringify({
+                    'client': this._order.payer,
+                    'tickets': this._tickets_selected
+                }), true);
+            }
+
+            return false; 
+        }
+    }
+
+    /**
+     * Manage orders list
+     */
+    class OrdersV2 {
+        constructor () {
+            this._order = undefined;
+            this._orders = [];
+
+            this._Order = new OrderV2();
+        }
+
+        render (data) {
+            this._orders = data;
+
+            const self = this;
+
+            const content = document.querySelector('#OrdersList .list-group');
+            content.innerHTML = '';
+
+            const pks = {};
+
+            for (const order of this._orders) {
+                let status = 'INCONNU';
+                const _status = order.status[0];
+                switch (_status.status) {
+                    case 1:
+                        status = 'EN COURS';
+                        break;
+                    case 2:
+                        status = 'COMPLET';
+                        break;
+                    case 3:
+                        status = 'REPORTE';
+                        break;
+                    case 4:
+                        status = 'REPORTE';
+                        break;
+                    case 5:
+                        status = 'ANNULE';
+                        break;
+                    default:
+                        break;   
+                }
+
+                const item = document.createElement('div');
+
+                item.className = 'list-group-item';
+                item.setAttribute('data-id', order.id);
+                item.setAttribute('data-payer', order.payer);
+
+                item.innerHTML = `#${order.id} - <span class="js-names"></span> - ${order.amount}€ - ${_date(order.date)} - ${status} - ${order.tickets.length} produit(s)`;
+
+                item.addEventListener('click', (e) => self.onClick(e.target));
+
+                pks[order.payer] = order.payer;
+
+                content.appendChild(item);
+            }
+
+            this.updateUsersNames(pks);
+        }
+
+        onClick (target) {
+            console.log(this._orders.length);
+            console.log(target.getAttribute('data-id'));
+
+            const data_id = parseInt(target.getAttribute('data-id'));
+
+            // if (target.classList.contains('active')) {
+            //     target.classList.remove('active');
+    
+            //     this._order = undefined;
+            // }
+            // else {
+            //     document.querySelectorAll('.list-group-item').forEach(item => {
+            //         item.classList.remove('active');
+            //     });
+    
+            //     target.classList.add('active');
+            //     for (let order of this._orders) {
+            //         if (order.id === data_id) this._order = order;
+            //     }
+            // }
+
+            for (let order of this._orders) {
+                if (order.id === data_id) this._order = order;
+            }
+
+            this.openOrder()
+        }
+
+        openOrder () {
+            this._Order.render(this._order);
+        }
+
+        closeOrder () {
+            document.querySelectorAll('.list-group-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            this._order = undefined;
+        }
+
+        // API Calls
+
+        updateUsersNames (pks) {
+            const _ = [];
+            const self = this;
+            Object.keys(pks).forEach(key => _.push(key));
+
+            App.get(`/api/user/names/?pk_in=${_.join(',')}`, true)
+            .then(data => {
+                for (const user of data.users) self.updateUserName(user);
+            });
+        }
+
+        updateUserName (user) {
+            document.querySelectorAll(`.list-group-item[data-payer="${user.id}"] .js-names`).forEach(item => item.innerHTML = `${user.last_name} ${user.first_name}`);
+        }
+
+    }
+
+
+    const params = {
+        id: 0,
+
+        payee_id: 0,
+        caster_id: 0,
+        payer_id: 0,
+        product_id: 0,
+
+        page: 1,
+
+        date_end: '',
+        date_start: '',
+
+        has_changed: false,
+
+        getUrl () {
+            let url = `/api/orders/`;
+
+            if (this.id) {
+                url += `?pk=${this.id}`;
+            }
+            else {
+                url += `?page=${params.page}`;
+
+                if (this.payee_id) {
+                    url += `&payee=${this.payee_id}`;
+                }
+                if (this.caster_id) {
+                    url += `&caster=${this.caster_id}`;
+                }
+                if (this.payer_id) {
+                    url += `&payer=${this.payer_id}`;
+                }
+                if (this.product_id) {
+                    url += `&product=${this.product_id}`;
+                }
+
+                if (this.date_start) {
+                    url += `&date_start=${this.date_start}`;
+                }
+                if (this.date_end) {
+                    url += `&date_end=${this.date_end}`;
+                }
+            }
+            return url;
+        },
+    }
+
+
+    class Tickets {
+        constructor () {}
+
+
+    }
+
+
+    // const order = new OrderV2();
+    // const orders = new OrdersV2();
+
+    window.addEventListener('load', () => {
+        // App.init();
+        // getOrder();
+    });
+
+    function getOrder () {
+        // if (!params.has_changed) {
+        //     console.log('Aucun changement effectué');
+        //     return;
+        // }
+        
+        const url = params.getUrl();
+        console.log(url);
+
+        App.get(url, true)
+            .then(data => getOrder_onSuccess(data))
+            .catch((err) => getOrder_onFailure(err));
+    }
+
+    function getOrder_onSuccess (data) {
+        console.log(data);
+
+        if (data.order) {
+            orders.render ([data.order]);
+        }
+        else {
+            if (data.orders && data.orders.data) {
+                
+                $('#OrdersList .list-group-pagination').pagination({
+                    items: data.orders.count,
+                    itemsOnPage: 25,
+                    currentPage: params.page,
+                    cssStyle: 'light-theme',
+                    prevText: 'Précédent',
+                    onPageClick: function (pageNumber, event) {
+                        params.page = pageNumber;
+                        getOrder();
+                    }
+                });
+    
+                orders.render (data.orders.data);
+            }
+            else {
+                console.log('No data found');
+                Alert.alertDanger('Echec lors de la récupération des données');
+            }
+        }
+    }
+    
+    function getOrder_onFailure (err) {
+        console.log(err);
+        Alert.alertDanger('Echec lors de la récupération des données');
+    }
+ 
+    function filters_onChange (e) {
+        const target = e.getAttribute('data-target');
+
+        if (params.hasOwnProperty(target)) {
+            params[target] = e.value;
+            params.has_changed = true;
+        }
+        else {
+            console.log('No target found for ' + target);
+        }
+    }
+
+    function filters_onClick () {
+        if (params.has_changed) {
+            getOrder();
+            params.has_changed = false;
+        }
+        else {
+            console.log('Aucun changement effectué');
+        }
+    }
+
+</script>
+{% endblock %}

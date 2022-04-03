@@ -1,0 +1,132 @@
+<html>
+{% load static %}
+<head>
+    <title>Mot de passe perdu</title>
+    <meta content="utf-8">
+    
+    <link rel="stylesheet" href="/static/styles/Common.css" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/static/vendor/fa/css/all.min.css" />
+</head>
+
+
+<style>
+    .ForgottenPassword {
+        width: 100vw;
+        height: 100vh;
+
+        top: 0;
+        left: 0;
+        z-index: 2;
+        position: absolute;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .wrapper {
+        /* width: 300px;
+        min-height: 300px; */
+        margin: 10px;
+        padding: 1rem 5rem;
+        background: #eee;
+        border-radius: 5px;
+
+        overflow: hidden;
+        text-align: center;
+
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
+    p {
+        margin: 0;
+        color: gray;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .ForgottenPassword-error {
+        color: #dc3545;
+        display: none;
+        text-align: center;
+    }
+    .ForgottenPassword-error.show {
+        display: inline;
+    }
+    
+    form {
+        margin: 1rem;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+    }
+    
+
+    input {
+        border: none;
+        box-shadow: none;
+        border-bottom: 2px solid hsla(0, 0%, 80%, 1);
+        border-radius: 0;
+
+        flex: 1;
+        margin: 0;
+
+        color: hsla(0, 0%, 50%, 1);
+        background-color: transparent;
+    }
+
+    input:focus {
+        outline: none;
+        border-bottom-color: hsla(0, 0%, 50%, 1);
+    }
+
+    input.error {
+        border-bottom-color: #b14853;
+    }
+
+    .ForgottenPassword-button {
+        margin: 0;
+        padding: 0.25rem 0.5rem;
+        
+        color: white;
+        font-weight: bold;
+        background-color: hsla(211, 100%, 60%, 1);
+        
+        border: 0;
+        
+    }
+    .ForgottenPassword-button:hover { background-color: hsla(211, 100%, 50%, 1); }
+</style>
+
+<body>
+    <div class="container">
+
+        <div id="background"></div>
+
+        <div class="ForgottenPassword">
+            <div class="wrapper">
+                <p>Ce compte a déjà été confirmé.</p>
+                <p>Vous serez bientôt redirigé.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/vendor/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/static/scripts/App.js"></script>
+    <script src="/static/scripts/User.js"></script>
+
+    <script>
+        window.onload = function () {
+            window.setTimeout(
+                () => window.location.href = '/accueil/',
+                5000
+            );
+        }
+    </script>
+</body>
+
+</html>

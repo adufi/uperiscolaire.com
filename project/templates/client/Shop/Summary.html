@@ -1,0 +1,1167 @@
+{% extends 'client/base.html' %}
+
+{% block title %}
+Résumé prestations 2020-2021
+{% endblock %}
+
+{% block main %}
+<div id="Shop" class="container wrapper">
+    <div class="wrapper-title">
+        <p class="title">Résumé - Paiement ALSH/PERI 2020-2021</p>
+    </div>
+    
+    <div class="wrapper-content">
+        
+        <div id="main-messages" class="messages">
+            <div class="ui success message">
+                <div class="header">
+                    Notification(s)
+                </div>
+                <ul class="list"></ul>
+            </div>
+            
+            <div class="ui error message">
+                <!-- <i class="close icon"></i> -->
+                <div class="header">
+                    Une ou plusieurs erreurs sont présentes
+                </div>
+                <ul class="list"></ul>
+            </div>
+            
+            <div class="ui warning message">
+                <!-- <i class="close icon"></i> -->
+                <div class="header">
+                    Attention!
+                </div>
+                <ul class="list"></ul>
+            </div>
+        </div>
+        
+        <div id="Summary">
+            <div class="Controls _Summary">
+                <div class="Controls-texts col">
+                    <div class="">
+                        <p><span class="controls-items_selected">0</span> produit(s) sélectionné(s)</p>
+                    </div>
+                </div>
+    
+                <div class="Controls-buttons col">
+                    <button class="controls-cancel btn btn-danger">Annuler</button>
+                    <button class="controls-previous btn btn-warning">Retour</button>
+                    
+                    <button class="controls-reserve btn btn-success d-none" disabled>Réserver</button>
+    
+                    <button class="controls-pay btn btn-success">
+                        Reste à payer (<span class="controls-amount">0</span> €)
+                    </button>
+    
+                    <a class="ui button grey js-print d-none">Imprimer reçu</a>
+                    <button class="ui button grey js-send-email d-none" disabled>Envoyer par mail</button>
+                </div>
+                <div class="Controls-buttons col-12">
+                    <div class="Controls-alert alert alert-danger" role="alert"></div>
+                </div>
+            </div>
+    
+            <div class="Dir-Intels _Summary row">
+    
+                <div class="Dir Dir-summary col-6">
+                    <div class="card">
+                        <label class="Dir-label"><b>Ticket personnalisé</b></label>
+                        <label class="Dir-type-label">
+                            <b>Type: </b>
+                            <span></span>
+                        </label>
+                        <label class="Dir-reference-label">
+                            <b>Référence: </b>
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="Intels col-6">
+                    <div class="card">
+                        <div class="Intels-caster col-sm-">
+                            <label><b>Emetteur: </b></label>
+                            <span class="Intels__first_name"></span>
+                            <span class="Intels__last_name"></span>
+                        </div>
+                        <div class="Intels-parent col-sm-">
+                            <label><b>Parent: </b></label>
+                            <span class="Intels__first_name"></span>
+                            <span class="Intels__last_name"></span>
+                            - <span class="Intels__email"></span>
+                        </div>
+                        <div class="Intels-credit col-sm-">
+                            <label><b>Avoir: </b></label>
+                            <i><span class="Intels__credit">0</span></i> €
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="Tabs _Summary">
+            
+                <div class="Tabs-header">
+                    <ul class="Tabs-header-group"></ul>
+                </div>
+            
+                <div class="Tabs-body">
+                    <ul class="Tabs-body-group"></ul>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <link rel="stylesheet" href="/static/styles/Shop/Shop.css" />
+</div>
+{% endblock %}
+
+{% block body_extensions %}
+{% include 'client/Shop/_payment.html' %}
+
+<div id="payment-modal" class="my-modal hide" tabindex="-1" role="dialog">
+    <div class="my-modal-background"></div>
+    
+    <div class="my-modal-dialog">
+        <div class="my-modal-content modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="payment-name">UPEEM - ALSH&PERI</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+                    <span aria-hidden="true" id="span-close-modal">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div id="payment-alert" class="alert alert-danger" role="alert"></div>
+
+                <div>
+                    <p>Montant: <b><span id="payment-amount"></span> €</b></p>
+                </div>
+
+                <form>
+                    <fieldset class="form-group">
+                        <legend class="col-form-label col-sm-2 pt-0">Espèce</legend>
+
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="input-cash">
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset class="form-group">
+                        <legend class="col-form-label col-sm-2 pt-0">Chèque</legend>
+
+                        <div class="form-group">
+                            <label for="input-check-amount">Montant</label>
+                            <input type="number" class="form-control" id="input-check-amount">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-check-id">Référence</label>
+                            <input type="text" class="form-control" id="input-check-id" placeholder="CA 1687961">
+                            <div>
+                                <p>Référence banques</p>
+                                <ul>
+                                    <li>Caisse d'épargne: CE</li>
+                                    <li>LCL: LCL</li>
+                                    <li>Crédit agricole: CA</li>
+                                    <li>Crédit Mutuel: CM</li>
+                                    <li>BRED: BRED</li>
+                                    <li>La banque postal: BPOST</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                        <legend class="col-form-label col-sm-2 pt-0">VADS</legend>
+
+                        <div class="form-group">
+                            <div class="content text-center">
+                                <p>
+                                    Les paiements nécessite un temps de traitement,
+                                    <br>
+                                    ils <b>seront pris en compte</b> mais <b>pas visible immédiatement</b>.
+                                </p>
+                                <p>
+                                    <div class="ui buttons">
+                                        <button class="ui button cancel">Retour</button>
+                                        <div class="or" data-text="ou"></div>
+                                        <a id="vads_link" class="ui positive button" target="_blank">Payer</a>
+                                    </div>
+                                </p>
+                                <p>
+                                    <i class="icon cc visa"></i>
+                                    <i class="icon cc mastercard"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="payment-button-close" onclick="closeModal()">Fermer</button>
+                <button type="button" class="btn btn-success" id="payment-button-save" onclick="modalPay()">Payer</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/scripts/Order.js"></script>
+<script src="/static/scripts/Product.js"></script>
+
+<script src="/static/scripts/messages.js"></script>
+<script src="/static/scripts/User/UserDashboard.js"></script>
+<script src="/static/scripts/Shop/Summary.js"></script>
+
+<script>
+    function getUrlID () {
+        const pathname = window.location.pathname;
+        const _ = pathname.split('prestations/')[1];  
+        return (!parseInt(_)) ? 0 : parseInt(_);
+    }
+
+    window.onload = function (e) {
+        default_container = 'Shop';
+        App.exec(apiChaining);
+        return;
+    }
+
+    const hp = new Summary();
+
+    function apiChaining () {
+        const urlID = getUrlID();
+        if (!urlID) {
+            throw 'Impossible de récupérer l\'ID dans l\'URL.';
+            Messages().error.write('apiChaining', 'Impossible de récupérer l\'ID dans l\'URL.');
+            return false;
+        }
+
+        hp.setCaster(App.caster);
+        
+        return new Promise(function (resolve, reject) {
+
+            App.get(`/api/shop/${urlID}/`, true)
+            .then(data => {
+                console.log(data);
+                
+                hp.fromAPIv2 (data);
+                hp.render ();            
+
+                resolve();
+            })
+            .catch (err => reject(err))
+        })
+        .then (() => {
+            return new Promise((resolve, reject) => {
+                App.get('/api/params/product/')
+                .then((data) => {
+                    try{
+                        console.log(data);
+                        // schoolYear = data.school_year;
+                        // productHelper.init(data.products);
+                        
+                        hp.setProducts(data.products);
+                        hp.setActiveSchoolYear(data.school_year);
+                    }
+                    catch (error) {
+                        reject(error);
+                    }
+                    resolve(1);
+                })
+                .catch(err => reject(err))
+            }) 
+        })
+        .then (() => run() )
+    }
+
+    function run () {
+        if (!hp.isReady()) {
+
+            const save = window.localStorage.getItem('ShopOrder');
+            if (save) {
+                if (!hp.fromLocalOrder(JSON.parse(save))) {
+                    // window.localStorage.removeItem('ShopOrder');
+                }
+            }
+            else {
+                Messages().error.write('localStorage', 'Pas de commande en cours.');
+            }
+        }
+        else {
+            hp.renderVerify();
+        }
+
+        // orderHelper.verify(
+        //     verify_onSuccess,
+        //     verify_onFailure
+        // );
+
+        return;
+    }
+
+    // OrderHelper
+    function verify_onSuccess (data) {
+        // Update items selected and amount
+        shopHelper.updateCartMeta (
+            data['amount'],
+            data['tickets'].length
+        );
+
+        // Sibling - Intels
+        if (!sibling.has_active_intel) {
+            Alert.alertDanger('');
+            return false;
+        }
+
+        for (const _ of Object.values(sibling._intels)) {
+            if (_.school_year === schoolYear.id) {
+                intel = _;
+                break;
+            }
+        }
+
+        //
+        dir_updateUI(orderHelper.reference);
+
+        intels_update(App.caster, parent);
+
+        // ... product
+        updateTickets(data['tickets'], data['tickets_invalid']);
+
+        // Release 1.5.2
+        // VADS Payment
+        const link = getVadsLink(
+            parent.id,
+            parent.email,
+            data['amount'],
+            orderHelper.cart
+        );
+
+        document.getElementById('vads_link').href = link;
+    }
+
+
+    function verify_onFailure (err) {
+        console.log(err);
+        Alert.alertDanger('Echec lors de la vérification de la commande.');
+    }
+
+
+    function pay_onSuccess (data) {
+        closeModal();
+
+        Alert.hide();
+        Alert.alertSuccess('Paiement réussi.');
+        
+        console.log(data);
+
+        // Old
+        // setTimeout(() => {
+        //     window.open('/intern/order/print/' + data.order.id);
+        // }, 3000);
+
+        // New
+        orderHelper.id = data.order.id;
+
+        document.querySelector('.js-print').classList.remove('d-none');
+        document.querySelector('.js-send-mail').classList.remove('d-none');
+
+        return;
+
+        if (!id) {
+            alert.innerHTML = 'Erreur, lors de la commande.';
+            alert.classList.add('show');
+            return;
+        }
+
+        // order['id'] = id;
+        window.localStorage.setItem('order_id', id);
+
+        confirm('La commande a bien été ajouté.');
+    }
+
+
+    function pay_onFailure (err) {
+        // updateStatus('Echec lors du paiement de la commande.');
+        if (err.message) {
+            const alert = document.getElementById('payment-alert');
+            alert.classList.add('show');
+            alert.innerHTML = err.message;
+        }
+        console.log(err);
+    }
+
+
+    function reserve_onSuccess (data) {
+        updateStatus('Réservation réussie. Redirection en cours...');
+        console.log(data);
+
+        setTimeout(() => {
+            window.open('/intern/order/print/' + data.order.id);
+        }, 3000);
+    }
+
+
+    function reserve_onFailure (err) {
+        updateStatus('Echec lors de la réservation de la commande.');
+        console.log(err);
+    }
+
+
+    /*********************
+     * CONTROLS
+     *********************/
+
+    function updateCartMeta (_amount, _itemsSelected) {
+        amount += _amount;
+        itemsSelected += _itemsSelected;
+
+        document
+            .querySelectorAll('.controls-amount')
+            .forEach((item) => { item.innerHTML = amount });
+
+        document
+            .querySelectorAll('.controls-items_selected')
+            .forEach((item) => { item.innerHTML = itemsSelected });
+
+        // Payment modal amount
+        const x = document.getElementById('payment-amount');
+        if (x)
+            x.innerHTML = amount;
+    }
+     
+
+    function updateStatus (status) {
+        document
+            .querySelectorAll('.Controls .Controls-alert')
+            .forEach((item) => {
+                item.innerHTML = status;
+                item.classList.add('show');
+            });
+    }
+
+
+    /*********************
+     * DIR
+     *********************/
+    function dir_updateUI(reference) {
+        document.querySelector('.Dir-reference-label').innerHTML = reference;   
+        if (reference)
+            document.querySelector('.Dir-summary').classList.remove('hide');
+    
+        else
+            document.querySelector('.Dir-summary').classList.add('hide');
+    }
+
+
+    /*********************
+     * INTELS
+     *********************/
+    function intels_update (caster, parent) {
+        orderHelper.setType('OFF');
+        orderHelper.setPayer(parent.id);
+        orderHelper.setCaster(caster.id);
+
+        intels_updateCaster(caster);
+        intels_updateParent(parent);
+        intels_updateCredit(parent);
+    }
+    
+
+    function intels_updateCaster (caster) {
+        macro_innerHTML('.Intels-caster .Intels__first_name', caster.first_name);
+        macro_innerHTML('.Intels-caster .Intels__last_name', caster.last_name);
+
+        return true;
+    }
+
+
+    function intels_updateParent (parent) {
+        try {
+            macro_innerHTML('.Intels-parent .Intels__first_name', parent.first_name);
+            macro_innerHTML('.Intels-parent .Intels__last_name', parent.last_name);
+    
+            if (parent.email) {
+                console.log('..');
+                macro_innerHTML('.Intels-parent .Intels__email', parent.email);
+            }
+            else {
+                console.log('no');
+                macro_innerHTML('.Intels-parent .Intels__email', '<i>Pas d\'email.</i>');
+            }
+        }
+        catch (error) {
+            
+        }
+
+        return true;
+    }
+
+
+    function intels_updateCredit (parent) {
+        macro_innerHTML('.Intels-credit .Intels__credit', client.credit);
+        return true;
+    }
+    
+
+    function updateComment(comment) {
+        document.querySelector('#Comment textarea').innerHTML = comment;
+    }
+
+
+    /**
+     * SUMMARY 
+     */
+    
+    // Add tickets to HTML after verifications 
+    function updateTickets(tickets, tickets_invalid) {
+        const childrenTickets = {};
+
+        // Sort tickets by child
+        for (let i = 0; i < tickets.length; ++i) {
+            const ticket = tickets[i];
+
+            if (!childrenTickets[ticket.payee])
+                childrenTickets[ticket.payee] = {
+                    'valid': [],
+                    'invalid': []
+                };
+
+            childrenTickets[ticket.payee]['valid'].push(ticket);
+        }
+
+        for (let i = 0; i < tickets_invalid.length; ++i) {
+            const ticket = tickets_invalid[i];
+
+            if (!childrenTickets[ticket.payee])
+                childrenTickets[ticket.payee] = {
+                    'valid': [],
+                    'invalid': []
+                };
+
+            childrenTickets[ticket.payee]['invalid'].push(ticket);
+        }
+
+        // Create UI
+        const body = document.querySelector('.Tabs._Summary .Tabs-body .Tabs-body-group');
+        for (const id of Object.keys(childrenTickets)) {
+
+            const child = sibling.child(id);
+            if (!child) {
+                console.log('No child found for ID ' + id);
+                continue;
+            }
+            
+            const tickets = childrenTickets[id]['valid'];
+            const tickets_invalid = childrenTickets[id]['invalid'];
+
+            // Create wrapper
+            let title = child['first_name'];
+
+            let record = undefined;
+            for (const _record of Object.values(records.records())) {
+                if (_record.child_id === child.id && 
+                    _record.school_year === schoolYear.id) {
+                    record = _record;
+                    break;
+                }
+            }
+
+            if (record) {
+                const school = (record['school']) ? record['school'] : '<i>pas d\'école renseignée</i>'
+                const classroom = CLASSROOMS[record['classroom']];
+                const quotient_2 = QUOTIENT[intel['quotient_2']];
+                const quotient_1 = QUOTIENT[intel['quotient_1']];
+
+                title += ' - ' + school;
+                title += ` - ${quotient_1}/${quotient_2}`;
+            }
+
+            const wrapper = document.createElement('div');
+                wrapper.className = 'wrapper';
+                // wrapper.setAttribute('data-index', i);
+                wrapper.setAttribute('data-child', id);
+                wrapper.innerHTML = `<div class="wrapper-title">
+                        <p class="title">${title}</p>
+                    </div>
+                    <div class="wrapper-content">
+                        <ul class="product-category-products"></ul>
+                    </div>`;
+
+
+            const content = wrapper.querySelector('.product-category-products');
+
+            // Add tickets
+            tickets.forEach((ticket) => {
+                const product = productHelper.get(ticket.product);
+
+                if (product) {
+                    content.appendChild(
+                        productHelper.createFromTicket('summary-ok', product, ticket)
+                    );
+                }
+            });
+
+            // Add invalid tickets
+            tickets_invalid.forEach((ticket) => {
+                let product = undefined;
+                if (ticket.product === -1) {
+                    product = {
+                        'id': -1,
+                        'name': 'Erreur'
+                    };
+
+                    // Remove child/product from cart
+                    for (const item of orderHelper.cart) {
+                        orderHelper.removeProduct(ticket.payee, item.product);
+                    }
+                    
+                }
+                else {
+                    product = productHelper.get(ticket.product);
+                    orderHelper.removeProduct(ticket.payee, ticket.product);
+                }
+                
+                if (product) {
+                    content.appendChild(
+                        productHelper.createFromTicket('summary-ban', product, ticket)
+                    );
+                }
+            });
+
+            body.appendChild(wrapper);
+        };
+    }
+
+
+    function updateTab (children) {
+        console.log(children);
+
+        Object.keys(children).forEach((key, index) => {
+            const child = children[key];
+            // const child = sibling.child(id);
+
+            if (index === 0) {
+                updateTabHeader(child['id'], child['first_name'], true);
+                updateTabChild(child, true);
+            }
+            else {
+                updateTabHeader(child['id'], child['first_name']);
+                updateTabChild(child);
+            }
+
+        });
+    }
+
+
+    // 
+    function updateTabHeader (id, name, active = false) {
+        const li = document.createElement('li');
+
+        li.setAttribute('data-id', id);
+        // li.setAttribute('data-index', index);
+
+        li.classList.add('Tabs-header-item');
+        if (active)
+            li.classList.add('active');
+
+        // li.onclick = renderHeader_onClick
+        li.innerHTML = name;
+
+        // 
+        document
+            .querySelector('#Tabs-header .Tabs-header-group')
+            .appendChild(li);
+    }
+
+
+    /**
+     * Check child age
+     * Build body item
+     */
+    function updateTabChild (child, active = false) {
+        sub = 2;
+        if (child['record']['classroom'] >= 1 &&
+            child['record']['classroom'] <= 4) {
+            sub = 1;
+        }
+
+        let products_ul = document.createElement('ul');
+            products_ul.innerHTML = updateTabChildProducts(sub);
+            products_ul.className = 'Tabs-body-child-products';
+            products_ul.setAttribute('data-id', child['id']);
+            // products_ul.setAttribute('data-index', index);
+
+        let record_ul = document.createElement('ul');
+            record_ul.className = 'Tabs-body-child-record';
+            record_ul.innerHTML = updateTabChildRecord(child['record']);
+
+        let wrapper_content = document.createElement('div');
+            wrapper_content.className = 'wrapper-content';
+
+            wrapper_content.appendChild(record_ul);
+            wrapper_content.appendChild(products_ul);
+
+        let title = document.createElement('p');
+            title.className = 'title';
+            title.innerHTML = child['first_name'];
+
+        let wrapper_title = document.createElement('div');
+            wrapper_title.className = 'wrapper-title';
+
+            wrapper_title.appendChild(title);
+
+        let wrapper = document.createElement('div');
+            wrapper.className = 'wrapper';
+
+            wrapper.appendChild(wrapper_title);
+            wrapper.appendChild(wrapper_content);
+
+        let li = document.createElement('li');
+            li.className = 'Tabs-body-child ' + ((active) ? 'active' : '');
+            li.setAttribute('data-id', child['id']);
+
+
+            li.appendChild(wrapper);
+
+
+        document
+            .querySelector('#Tabs-body .Tabs-body-group')
+            .appendChild(li);
+    }
+
+
+    function updateTabChildRecord (record) {
+        const classroom = Shop.Utils.RECORD_CLASSROOM[record['classroom']];
+        const quotient_q1 = Shop.Utils.RECORD_QUOTIENT[record['caf']['quotient_q1']];
+        const quotient_q2 = Shop.Utils.RECORD_QUOTIENT[record['caf']['quotient_q2']];
+
+        return `<li><b>Ecole: </b>          <span class="record-school">        ${record['school']}</span></li>
+                <li><b>Classe: </b>         <span class="record-classroom">     ${classroom}</span></li>
+                <li><b>Quotient 2019: </b>  <span class="record-quotient-q1">   ${quotient_q1}</span></li>
+                <li><b>Quotient 2020: </b>  <span class="record-quotient-q2">   ${quotient_q2}</span></li>`;
+    }
+
+
+    function updateTabChildProducts (sub) {
+        let snippet = '';
+
+        Object.keys(categories).forEach((key) => {
+            if (key !== '0') {
+                const category = categories[key];
+                
+                const title = CATEGORIES[key];
+    
+                let type = 'normal';
+                let _products = undefined;
+                let snippet_products = '';
+    
+                if (key === '1') {
+                    _products = category;
+                }
+                else {
+                    _products = category[sub];
+                }
+
+                for (let i = 0; i < _products.length; ++i)
+                    snippet_products += createProduct(type, _products[i]);
+    
+                snippet += `<li class="product-category" data-category=>
+                                <h3 class="product-category-title">${title}</h3>
+                                <ul class="product-category-products">${snippet_products}</ul>
+                            </li>`;
+            }
+        });
+
+        return snippet;
+    }
+
+
+    function createProduct(type, product) {
+        return `<li class="product-tile ${type}" data-id="${product.id}">
+                <div class="product-tile-head">
+                    <div class="product-meta-title">${product.name}</div>
+                </div>
+            
+                <div class="product-tile-body">
+                    <div class="product-meta-add"><i class="fas fa-plus"></i></div>
+                    <div class="product-meta-ban"><i class="fas fa-ban"></i></div>
+                    <div class="product-meta-check"><i class="fas fa-check"></i></div>
+                    <div class="product-meta-selected"><i class="fas fa-cart-arrow-down"></i></div>
+                    <div class="product-meta-checkbox"><input type="checkbox" onclick=""/></div>
+                </div>
+            
+                <div class="product-tile-footer">
+                    <div class="product-meta-price">${product.price} E</div>
+                    <div class="product-meta-bought">payé le <span></span></div>
+                </div>
+            </li>`;
+    }
+
+
+    /**
+     * Add events for 
+     *  Switch tab
+     *  Toggle product to cart
+     */
+    function updateEvents () {
+        // Tab header events
+        document
+            .querySelectorAll('#Tabs-header .Tabs-header-item')
+            .forEach(item => item.addEventListener('click', (e) => {
+
+                // Unset active items 
+                document.querySelector('.Tabs-header-item.active').classList.remove('active');
+                document.querySelector('.Tabs-body-child.active').classList.remove('active');
+
+                // Find target ID
+                const id = e.target.getAttribute('data-id');
+
+                // Set new active items
+                e.target.classList.add('active');
+                document.querySelector(`.Tabs-body-child[data-id="${id}"]`).classList.add('active');
+            }));
+
+
+        // Product tile event
+        document
+            .querySelectorAll('#Tabs-body .product-tile')
+            .forEach((item) => {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    let target = e.target;
+                    while (!target.classList.contains('product-tile')) {
+                        target = target.parentElement;
+                    }
+
+                    // console.log(target);
+
+                    const product_id = target.getAttribute('data-id');
+                    // const child_id = target.parentElement.parentElement.parentElement.getAttribute('data-id');
+
+                    document.querySelectorAll('.Tabs-body-child').forEach((item) => {
+                        if (item.querySelector(`.product-tile[data-id="${product_id}"]`) === target) {
+
+                            // console.log(item.getAttribute('data-id'));
+                            toggleProduct(item.getAttribute('data-id'), product_id);
+                        }
+                    });
+
+                    // toggleProduct(child_id, product_id);
+                });
+            });
+    }
+
+
+    
+    /**
+     *  Tiles and logics
+     */
+
+    function toggleProduct (child_id, product_id) {
+        var target = document.querySelector(`.Tabs-body-child[data-id="${child_id}"] .product-tile[data-id="${product_id}"]`);
+
+        if (target.classList.contains('normal') ||
+            target.classList.contains('selected')) {
+
+            if (toggleProduct_item(parseInt(child_id), parseInt(product_id))) {
+                target.className = 'product-tile selected';
+            }
+            else {
+                target.className = 'product-tile normal';
+            }
+        }
+
+        return;
+    }
+
+
+    function toggleProduct_item (child_id, product_id) {
+        // console.log('child_id: ' + child_id);
+        // console.log('product_id: ' + product_id);
+        
+        // Product lookup
+        let product = products[product_id];
+
+        if (!product) {
+            console.log('products === undefined')
+            return 0;
+        }
+
+        let is_selected = false;
+
+        // PERI
+        if (product['category'] === 1)
+            is_selected = togglePeri(product_id, child_id)
+        else
+            is_selected = toggleAlsh(product_id, child_id)
+
+
+        // Update Cart Meta
+        if (is_selected) {
+            Shop.setAmount(product['price']);
+            Shop.setItemsSelected(1);
+        }
+        else {
+            Shop.setAmount(-product['price']);
+            Shop.setItemsSelected(-1);
+        }
+
+        console.log(order['peri'])
+        console.log(order['alsh'])
+
+        //  ();
+        // cart_save();
+
+        return is_selected;
+    }
+
+
+    function togglePeri(product, child) {
+        const _peri = order['peri']
+
+        // Cart lookup
+        for (var i = 0; i < _peri.length; ++i) {
+            const month = _peri[i];
+
+            // If product exist
+            // Check child is in
+            if (month['product'] === product) {
+
+                let index = -1;
+
+                // if child not in - add him
+                if ((index = month['children'].indexOf(child)) === -1) {
+                    month['children'].push(child);
+                    return true;
+                }
+
+                // If child is in - remove him
+                else {
+                    month['children'].splice(index, 1);
+
+                    // if children list is empty remove it
+                    if (!month['children'].length)
+                        _peri.splice(i, 1);
+
+                    return false;
+                }
+            }
+        }
+
+        // if cart was not found
+        _peri.push({
+            'product': product,
+            'children': [child]
+        });
+
+        return true;
+    }
+
+
+    function toggleAlsh(product, child) {
+        const _alsh = order['alsh'];
+        
+        // Cart lookup
+        for (var i = 0; i < _alsh.length; ++i) {
+
+            // If product exist
+            // Check child is in
+            if (_alsh[i]['child'] === child) {
+
+                let index = -1;
+
+                // if child not in - add him
+                if ((index = _alsh[i]['products'].indexOf(product)) === -1) {
+                    _alsh[i]['products'].push(product);
+                    return true;
+                }
+
+                // if product is in - remove him
+                else {
+                    _alsh[i]['products'].splice(index, 1);
+
+                    // if products list is empty remove it
+                    if (!_alsh[i]['products'].length)
+                        _alsh.splice(i, 1);
+
+                    return false;
+                }
+            }
+        }
+
+        // if cart was not found
+        _alsh.push({
+            'child': child,
+            'products': [product]
+        });
+
+        return true;
+    }
+
+
+    /**
+     * Controls events and logics
+     * 
+     */
+    
+    function controlsCancel() {
+        window.localStorage.removeItem('shop_child');
+        window.localStorage.removeItem('ShopOrder');
+
+        window.close();
+    }
+
+
+    function controlsPrevious () {
+        window.location = `/acheter-prestations/${urlID}`;
+    }
+
+
+    function controlsReserve () {
+        console.log( orderHelper.reserve(
+            reserve_onSuccess,
+            reserve_onFailure
+        ));
+    }
+
+
+    function controlsPay () {
+        openModal();
+    }
+
+    function controlsPrint () {
+        if (orderHelper.id) {
+            window.open(`/order/print/${orderHelper.id}`);
+        }
+        else {
+            Alert.alertDanger('Aucune numéro de reçu trouvé.');
+        }
+    }
+
+
+    function controlsSendMail () {
+        if (orderHelper.id) {
+            window.open(`/order/print/${this.orderHelper.id}`);
+        }
+        else {
+            Alert.alertDanger('Aucune numéro de reçu trouvé.');
+        }
+    }
+
+
+    /**
+     * MODAL
+     */
+    function openModal () {
+        document.getElementById('payment-modal').classList.remove('hide');
+        initModal ();
+    }
+    
+    
+    function closeModal () {
+        document.getElementById('payment-modal').classList.add('hide');
+    }
+
+
+    function initModal () {
+
+    }
+
+
+    function modalPay () {
+        const alert = document.getElementById('payment-alert');
+                
+        alert.classList.remove('show');
+
+        const cash = document.getElementById('input-cash').value;
+        const check = document.getElementById('input-check-amount').value;
+        const check_id = document.getElementById('input-check-id').value;
+
+        if (!cash && !check) {
+            alert.innerHTML = 'Veuillez choisir un moyen de paiement.';
+            alert.classList.add('show');
+            return false;
+        }
+
+        if (Boolean(check) ^ Boolean(check_id)) {
+            alert.innerHTML = 'Paiement chèque incomplet.';
+            alert.classList.add('show');
+            return false;
+        }
+
+        const methods = [];
+
+        if (cash) {
+            methods.push({
+                'method': 1, // Utils.ORDER_METHOD['CASH'],
+                'reference': '',
+                'amount': parseFloat(cash)
+            });
+        }
+
+        if (check) {
+            methods.push({
+                'method': 2, // Utils.ORDER_METHOD['CHECK'],
+                'reference': check_id,
+                'amount': parseFloat(check)
+            });
+        }
+
+        orderHelper.setMethods (methods);
+
+        orderHelper.pay(
+            pay_onSuccess,
+            pay_onFailure
+        );
+
+        return true;
+    }
+    
+
+
+    /*
+        VARS
+    */
+    var amount = 0;
+    var itemsSelected = 0;
+    
+    // var child_id = 0;
+    // var sibling = {};
+
+    // var orderHelper = new OrderInterface();
+    // var productHelper = new Product();
+
+    const CATEGORIES = [
+        'UNSET',
+        'PERISCOLAIRE',
+        'JANVIER',
+        'FEVRIER',
+        'MARS',
+        'AVRIL',
+        'MAI',
+        'JUIN',
+        'JUILLET',
+        'AOUT',
+        'SEPTEMBRE',
+        'OCTOBRE',
+        'NOVEMBRE',
+        'DECEMBRE',
+        'TOUSSAINT',
+        'NOEL',
+        'CARNAVAL',
+        'PAQUES',
+        'GRDS VACANCES JUILLET',
+        'GRDS VACANCES AOUT'
+    ];
+</script>
+{% endblock %}

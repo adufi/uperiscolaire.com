@@ -1,0 +1,2046 @@
+{% extends 'intern/base.html' %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block head_ext %}
+    <link rel="stylesheet" href="/static/v2/css/user_dashboard.css" />
+{% endblock %}
+
+{% block main %}
+<div id="UserDashboard" class="page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <div class="left-side-tabs">
+                    <div class="links">
+                        <a href="#" class="link-item active">Vue d'ensemble</a>
+                        <a href="/v2/dashboard/profil/" class="link-item">Mon Profil</a>
+                        <a href="/v2/dashboard/famille/" class="link-item">Ma Famille</a>
+                        <a href="#" class="link-item">Mes Reçus</a>
+                        <a href="#" class="link-item">Me déconnecter</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9 col-md-8">
+                <div class="right-side-tabs">
+                    <div class="right-title">
+                        <h2 class="ui header">
+                            <i class="user icon"></i>Mon profil
+                        </h2>
+                    </div>
+
+                    <div class="profil">
+                        <div class="ui card">
+                            <div class="content">
+                                <!-- <div class="header">Arnaud ANGELY</div> -->
+                                <form id="main-form" class="ui form custom main">
+                                    <div class="ui error message default">
+                                        <div class="header">Une ou plusieurs erreurs sont présentes</div>
+                                        <ul class="list"></ul>
+                                    </div>
+
+                                    <div id="main-messages" class="messages">
+                                        <div class="ui success message">
+                                            <i class="close icon"></i>
+                                            <div class="header">
+                                                Notification(s)
+                                            </div>
+                                            <ul class="list"></ul>
+                                        </div>
+                
+                                        <div class="ui error message">
+                                            <i class="close icon"></i>
+                                            <div class="header">
+                                                Une ou plusieurs erreurs sont présentes
+                                            </div>
+                                            <ul class="list"></ul>
+                                        </div>
+                                    </div>
+
+                                    <h3 class="ui dividing header"><i class="address book outline icon"></i>Informations</h3>
+
+                                    <div class="field">
+                                        <div class="two fields">
+                                            <div id="field[last_name]" class="required field">
+                                                <label>Nom</label>
+                                                <input type="text" 
+                                                    id="user[last_name]" 
+                                                    name="user[last_name]" 
+                                                    object="last_name" 
+                                                    object_name="Nom" 
+                                                    placeholder="Nom" 
+                                                    value="" default=""
+                                                    maxlength="128" 
+                                                    for="field[last_name]"
+                                                    onchange="MainForm.onChange(this)"
+                                                    required>
+                                            </div>
+
+                                            <div id="field[first_name]" class="required field">
+                                                <label>Prénom</label>
+                                                <input type="text"
+                                                    id="user[first_name]"  
+                                                    name="user[first_name]" object="first_name"
+                                                    object_name="Prénom" 
+                                                    placeholder="Prénom" 
+                                                    value="" default=""
+                                                    maxlength="128" 
+                                                    for="field[first_name]"
+                                                    onchange="MainForm.onChange(this)"
+                                                    required>
+                                            </div>
+                                        </div>
+    
+                                        <div class="fields">
+    
+                                            <div id="field[email]" class="required eight wide field">
+                                                <label>Email</label>
+                                                <input type="email"
+                                                    id="user[email]" 
+                                                    name="user[email]" 
+                                                    object="email" 
+                                                    object_name="Email" 
+                                                    placeholder="Email" 
+                                                    value="" default=""
+                                                    maxlength="128" 
+                                                    for="field[email]"
+                                                    onchange="" disabled>
+                                            </div>
+                                            
+                                            <div id="field[gender]" class="eight wide field">
+                                                <div id="genders" class="required grouped fields">
+                                                    <label for="gender">Genre</label>
+                                                    <div class="field">
+                                                        <div class="ui radio checkbox">
+                                                            <input type="radio" 
+                                                                id="user[gender_m]" 
+                                                                name="user[gender]" 
+                                                                object="gender_m"
+                                                                object_name="Genre"
+                                                                value="1" default=""
+                                                                for="field[gender]"
+                                                                onchange="MainForm.onChange(this)">
+
+                                                            <label for="user[gender_f]">Père</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="ui radio checkbox">
+                                                            <input type="radio" 
+                                                                id="user[gender_f]" 
+                                                                name="user[gender]" 
+                                                                object="gender_f"
+                                                                object_name="Genre"
+                                                                value="2" default=""
+                                                                for="field[gender]"
+                                                                onchange="MainForm.onChange(this)">
+
+                                                            <label for="user[gender_m]">Mère</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="ui radio checkbox">
+                                                            <input type="radio" 
+                                                                id="user[gender_t]" 
+                                                                name="user[gender]" 
+                                                                object="gender_t"
+                                                                object_name="Genre"
+                                                                value="3" default=""
+                                                                for="field[gender]"
+                                                                onchange="MainForm.onChange(this)">
+
+                                                            <label for="user[gender_t]">Tuteur</label>
+                                                        </div>
+                                                    </div>                            
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="field[job]" class="eight wide field">
+                                            <label>Profession</label>
+                                            <input type="text" 
+                                                id="user[job]" 
+                                                name="user[job]" 
+                                                object="job"
+                                                object_name="Profession" 
+                                                placeholder="Profession" 
+                                                value="" default=""
+                                                maxlength="128" 
+                                                value="" default=""
+                                                for="field[job]"
+                                                onchange="MainForm.onChange(this)">
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 
+                                        PHONES
+                                     -->
+                                    <h3 class="ui dividing header"><i class="phone icon"></i>Téléphones</h3>
+
+                                    <div class="field">
+                                        <div class="three fields">
+                                            <div id="field[cell]" class="required field">
+                                                <label>Portable</label>
+                                                <input 
+                                                    type="tel" 
+                                                    id="user[phone_cell]" 
+                                                    name="user[phone_cell]" 
+                                                    object="phone_cell" 
+                                                    object_name="Portable" 
+                                                    placeholder="Portable" 
+                                                    value="" default=""
+                                                    for="field[cell]"
+                                                    onchange="MainForm.onChange(this)"
+                                                    required>
+                                            </div>
+                                            <div id="field[home]" class="field">
+                                                <label>Fixe</label>
+                                                <input 
+                                                    type="tel" 
+                                                    id="user[phone_home]" 
+                                                    name="user[phone_home]" 
+                                                    object="phone_home" 
+                                                    object_name="Fixe" 
+                                                    placeholder="Fixe" 
+                                                    value="" default=""
+                                                    for="field[home]"
+                                                    onchange="MainForm.onChange(this)">
+                                            </div>
+
+                                            <div id="field[pro]" class="field">
+                                                <label>Professionnel</label>
+                                                <input 
+                                                    type="tel" 
+                                                    id="user[phone_pro]" 
+                                                    name="user[phone_pro]" 
+                                                    object="phone_pro" 
+                                                    object_name="Professionnel" 
+                                                    placeholder="Professionnel" 
+                                                    value="" default=""
+                                                    for="field[pro]"
+                                                    onchange="MainForm.onChange(this)">
+                                        </div>
+                                    </div>
+
+                                    <h3 class="ui dividing header"><i class="address book outline icon"></i>Adresse</h3>
+
+                                    <div class="field">
+
+                                        <div id="field[address_1]" class="required field">
+                                            <label>Ligne 1</label>
+                                            <input 
+                                                type="text" 
+                                                id="user[address_1]" 
+                                                name="user[address_1]" 
+                                                object="address_1" 
+                                                object_name="Adresse 1" 
+                                                placeholder="Adresse 1" 
+                                                value="" default=""
+                                                maxlength="128"
+                                                for="field[address_1]"
+                                                onchange="MainForm.onChange(this)"
+                                                required>
+                                        </div>
+
+                                        <div id="field[address_2]" class="field">
+                                            <label>Ligne 2</label>
+                                            <input 
+                                                type="text" 
+                                                id="user[address_2]" 
+                                                name="user[address_2]" 
+                                                object="address_2" 
+                                                object_name="Adresse 2" 
+                                                placeholder="Adresse 2" 
+                                                value="" default=""
+                                                maxlength="128"
+                                                for="field[address_2]"
+                                                onchange="MainForm.onChange(this)"
+                                                required>
+                                        </div>
+
+                                        <div id_="cities" id="field[city]" class="required eight wide field">
+                                            <label>Commune</label>
+                                            <div class="ui selection dropdown">
+                                                <input
+                                                    type="hidden" 
+                                                    id="user[city]"
+                                                    name="user[city]" 
+                                                    object="address_city" 
+                                                    object_name="Commune" 
+                                                    for="field[city]"
+                                                    value="" default=""
+                                                    onchange="MainForm.onChange(this)"
+                                                    required
+                                                    >
+                                            
+                                                <i class="dropdown icon"></i>
+                                                <div class="default text">Commune</div>
+                                                <div class="menu">
+                                                    <div class="item" data-value="97216">L'Ajoupa-Bouillon</div>
+                                                    <div class="item" data-value="97217">Les Anses-d'Arlet</div>
+                                                    <div class="item" data-value="97218">Basse-Pointe</div>
+                                                    <div class="item" data-value="97222">Bellefontaine</div>
+                                                    <div class="item" data-value="97221">Le Carbet</div>
+                                                    <div class="item" data-value="97222">Case-Pilote</div>
+                                                    <div class="item" data-value="97223">Le Diamant</div>
+                                                    <div class="item" data-value="97224">Ducos</div>
+                                                    <div class="item" data-value="97250">Fonds-Saint-Denis</div>
+                                                    <div class="item" data-value="97200">Fort-de-France</div>
+                                                    <div class="item" data-value="97240">Le François</div>
+                                                    <div class="item" data-value="97218">Grand'Rivière</div>
+                                                    <div class="item" data-value="97213">Gros-Morne</div>
+                                                    <div class="item" data-value="97232">Le Lamentin</div>
+                                                    <div class="item" data-value="97214">Le Lorrain</div>
+                                                    <div class="item" data-value="97218">Macouba</div>
+                                                    <div class="item" data-value="97225">Le Marigot</div>
+                                                    <div class="item" data-value="97290">Le Marin</div>
+                                                    <div class="item" data-value="97260">Le Morne-Rouge</div>
+                                                    <div class="item" data-value="97226">Le Morne-Vert</div>
+                                                    <div class="item" data-value="97250">Le Prêcheur</div>
+                                                    <div class="item" data-value="97211">Rivière-Pilote</div>
+                                                    <div class="item" data-value="97215">Rivière-Salée</div>
+                                                    <div class="item" data-value="97231">Le Robert</div>
+                                                    <div class="item" data-value="97227">Sainte-Anne</div>
+                                                    <div class="item" data-value="97228">Sainte-Luce</div>
+                                                    <div class="item" data-value="97230">Sainte-Marie</div>
+                                                    <div class="item" data-value="97270">Saint-Esprit</div>
+                                                    <div class="item" data-value="97212">Saint-Joseph</div>
+                                                    <div class="item" data-value="97250">Saint-Pierre</div>
+                                                    <div class="item" data-value="97233">Schœlcher</div>
+                                                    <div class="item" data-value="97220">La Trinité</div>
+                                                    <div class="item" data-value="97229">Les Trois-Îlets</div>
+                                                    <div class="item" data-value="97280">Le Vauclin</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 
+                                        FAMILY
+                                            QUOTIENTS
+                                            QUOTIENTS HISTORY
+                                     -->
+                                    <h3 class="ui dividing header family">
+                                        <i class="users icon"></i>
+                                        Informations familiales
+                                        <a class="link admin" onclick="Quotients.open()">voir historique</a>
+                                    </h3>
+
+                                    <div class="field main family">
+
+                                        <div class="three fields">
+                                            <div class="required field">
+                                                <label>Numéro CAF</label>
+                                                <input type="text" name="quotient[family_rn]" object="family_rn" placeholder="CAF #" onchange="Quotients.onChange(this)">
+                                            </div>
+
+                                            <div class="field">
+                                                <label>Quotient 1</label>
+                                                <div class="ui selection dropdown">
+                                                    <input id="quotient[family_q1]" type="hidden" name="quotient[family_q1]" object="family_q1" onchange="Quotients.onChange(this)">
+                                                    <i class="dropdown icon"></i>
+                                                    <div class="default text">Quotient 1</div>
+                                                    <div class="menu">
+                                                        <div class="item" data-value="1">NE</div>
+                                                        <div class="item" data-value="2">Q2</div>
+                                                        <div class="item" data-value="3">Q1</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="field">
+                                                <label>Quotient 2</label>
+                                                <div class="ui selection dropdown">
+                                                    <input id="quotient[family_q2]" type="hidden" name="quotient[family_q2]" object="family_q2" onchange="Quotients.onChange(this)">
+                                                    <i class="dropdown icon"></i>
+                                                    <div class="default text">Quotient 2</div>
+                                                    <div class="menu">
+                                                        <div class="item" data-value="1">NE</div>
+                                                        <div class="item" data-value="2">Q2</div>
+                                                        <div class="item" data-value="3">Q1</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 
+                                        ACCOUNTING
+                                            CREDIT
+                                            CREDIT - HISTORY
+                                     -->
+                                    <h3 class="ui dividing header admin">
+                                        <i class="euro sign icon"></i>
+                                        Informations comptables
+                                        <a class="link admin" onclick="Accounting.open()">voir historique</a>
+                                    </h3>
+
+                                    <div class="field admin client">
+                                        <div class="two fields">
+                                            <div class="required field credit">
+                                                <label>Avoir</label>
+                                                <input id="client[credit]" type="number" name="client[credit]" object="credit" placeholder="Avoir" onchange="Accounting.onChange(this)">
+                                            </div>
+    
+                                            <div class="required field type">
+                                                <label>Type</label>
+                                                <div class="ui selection dropdown">
+                                                    <input id="client[type]" type="hidden" name="client[type]" object="type" onchange="Accounting.onChange(this)">
+                                                    <i class="dropdown icon"></i>
+                                                    <div class="default text">Type</div>
+                                                    <div class="menu">
+                                                        <div class="item" data-value="1">MANUEL</div>
+                                                        <div class="item" data-value="2">ANN. ORDER</div>
+                                                        <div class="item" data-value="3">ANN. TICKET</div>
+                                                        <div class="item" data-value="4">ACHAT</div>
+                                                        <div class="item" data-value="5">REMBOURSEMENT</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="field comment">
+                                            <label>Commentaire</label>
+                                            <textarea id="client[comment]" rows="2" name="credit[comment]" object="comment" onchange="Accounting.onChange(this)"></textarea>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 
+                                        NEWSLETTER
+                                     -->
+                                    <div class="ui segment">
+                                        <div id="field[accept_newsletter]" class="field">
+                                          <div class="ui toggle checkbox">
+                                            <input 
+                                                type="checkbox" 
+                                                id="user[accept_newsletter]" 
+                                                class="hidden" 
+                                                name="user[accept_newsletter]" 
+                                                object="accept_newsletter" 
+                                                object_name="Newsletter" 
+                                                value="" default=""
+                                                for="field[accept_newsletter]"
+                                                onchange="MainForm.onChange(this)">
+                                            <label>S'inscrire à la newletter de l'UPEM.</label>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!--
+                                FOOTER
+                             -->
+                            <div class="extra content">
+                                <span>
+                                    <i class="user icon"></i>
+                                    Inscrit le <span class="js-date-created"></span>
+                                </span>
+
+                                <span class="right floated">
+                                    <div class="ui green button save" onclick="form_onSubmit()">
+                                        Enregistrer
+                                    </div>
+                                    <div class="ui blue button update" onclick="form_onUpdate()">
+                                        Mettre à jour
+                                    </div>
+                                    <div class="ui  button">
+                                        Fiche
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 
+                        MODAL
+                        CLIENT
+                     -->
+                    <div class="ui modal accounting">
+                        <div class="header">Historique des avoirs</div>
+                        <div class="scrolling content">
+                            <div class="history no-item">
+                                <span>Aucun élément d'historique</span>
+                            </div>
+
+                            <div class="ui error message">
+                                <div class="header">Une ou plusieurs erreurs sont présentes</div>
+                                <ul class="list"></ul>
+                            </div>
+
+                            <form class="ui form custom credit-history">
+                                
+                                <!-- <div class="history item">
+                                    <div class="title">
+                                        <span class="js-credit-id">#1324</span>
+                                        <span class="js-credit-date">le 12/48/7896</span>
+                                    </div>
+
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label>
+                                                <span>Valeur:</span>
+                                                <span class="js-credit-value">100 </span>
+                                                <span class="js-credit-mod">(-15) </span>
+                                                <span class="js-credit-currency">€</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="two fields">
+                                        <div class="field">
+                                            <label for="">Casteur</label>
+                                            <input type="number" name="credit[caster]" placeholder="#ID" />
+                                        </div>
+                                        <div class="field">
+                                            <label>Type</label>
+                                            <div class="ui selection dropdown">
+                                                <input type="hidden" name="credit[type]">
+                                                <i class="dropdown icon"></i>
+                                                <div class="default text">Type</div>
+                                                <div class="menu">
+                                                    <div class="item" data-value="1">MANUEL</div>
+                                                    <div class="item" data-value="2">ANN. ORDER</div>
+                                                    <div class="item" data-value="3">ANN. TICKET</div>
+                                                    <div class="item" data-value="4">ACHAT</div>
+                                                    <div class="item" data-value="5">REMBOURSEMENT</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label>Commentaire</label>
+                                        <textarea rows="2" name="credit[comment]"></textarea>
+                                    </div>
+
+
+                                </div> -->
+
+                            </form>
+
+                        </div>
+                        <div class="actions">
+                            <div class="ui blue button update" onclick="Accounting.updateHistory()">
+                                Mettre à jour
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 
+                        MODAL
+                        QUOTIENTS
+                     -->
+                    <div class="ui modal quotients">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            Historique quotients
+                        </div>
+                        <div class="scrolling content">
+                            <div class="ui error message">
+                                <div class="header">Une ou plusieurs erreurs sont présentes</div>
+                                <ul class="list"></ul>
+                            </div>
+
+                            <form class="ui form custom quotients-history">
+                                <div class="field"></div>
+                            </form>
+                        </div>
+                        <div class="actions">
+                            <div class="ui black deny button">
+                                Fermer
+                            </div>
+                            <div class="ui positive blue button" onclick="Quotients.updateHistory()">
+                                Mettre à jour
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/v2/js/User.js"></script>
+<script src="/static/v2/js/messages.js"></script>
+<script>
+    let urlID = 0;
+
+    const user = new User2();
+    const client = new Client();
+    const intels = new Intels();
+
+    const schoolYears = JSON.parse(window.localStorage.getItem('schoolYears'));
+
+    const inputs_profile = [];
+
+    const quotients = [];
+    const accounting = [];
+
+    const FieldHelper = {
+        
+        _el(el) {
+            if (typeof(el) === "string") {
+                return document.getElementById(el);
+            }
+            else if (el instanceof HTMLInputElement) {
+                return el;
+            }
+            else {
+                return undefined;
+            }
+        },
+
+        // RENDER
+        //
+
+        initValue (el, value) {
+            switch (el.getAttribute('type')) {
+                case 'radio': {
+                    const radios = document.querySelectorAll(`input[name="${el.name}"]`);
+                    if (radios) {
+                        for (const radio of radios) {
+                            radio.setAttribute('default', value);
+
+                            if (('' + value) === radio.value) {
+                                radio.checked = 'true';
+                            }
+                        }
+                    }
+                    break;
+                }
+
+                case 'checkbox': {
+                    el.checked = value;
+                    el.value = '' + value;
+                    el.setAttribute('default', '' + value);
+                    break;
+                }
+
+                case 'hidden': {
+                    this.setSelectValue(el, value);
+                    el.setAttribute('default', value);
+                    break;
+                }
+                
+                default: {
+                    el.value = value;
+                    el.setAttribute('default', value);
+                    break;
+                }
+            }
+        },
+
+
+        setSelectValue (el, value) {
+            const dropdown = el.parentElement;
+            if (!dropdown) {
+                return false;
+            }
+
+            const item = dropdown.querySelector(`.item[data-value="${value}"]`);
+            if (!item) {
+                return false;
+            }
+
+            const text = dropdown.querySelector('.default.text');
+            if (!text) {
+                return false;
+            }
+
+            text.className = 'text';
+            text.innerHTML = item.innerHTML;
+
+            el.value = value;
+
+            return true;
+        },
+
+
+        getValue (el) {
+            switch (el.getAttribute('type')) {
+                case 'radio': {
+                    const radios = document.querySelectorAll(`input[name="${el.name}"]`);
+                    if (radios) {
+                        let checked = false;
+                        for (const radio of radios) {
+                            if (radio.checked) return radio.value;
+                        }
+                    }
+                    return false;
+                    break;
+                }
+
+                default: {
+                    return el.value;
+                    break;
+                }
+            }
+        },
+
+        // VERIFICATION
+        // AND
+        // VALIDATION
+
+        hasChanged (el) {
+            el = this._el(el);
+
+            if (el) {
+                const def = el.getAttribute('default');
+
+                // Exception
+                if (el.getAttribute('type') === 'radio') {
+                    const radios = document.querySelectorAll(`input[name="${el.name}"]`);
+                    if (radios) {
+                        for (const radio of radios) {
+                            if (radio.checked) {
+                                return radio.value !== def;
+                            }
+                        }
+                    }
+                    return false;
+                }
+                else {
+                    const value = el.value;
+    
+                    return value !== def;
+                }
+
+
+                if (def) {
+                    return value !== def;
+                }
+                
+                return true;
+            }
+            else {
+                // Error
+                console.log(`Error: Aucun élément trouvé.`);
+                return false;
+            }
+        },
+
+        isValid (el) {
+            el = this._el(el);
+            // console.log(el);
+
+            const r = this._isValid(el);
+            // console.log(r);
+
+            this.setError(el, Boolean(r), r);
+            return !Boolean(r);
+        },
+
+        _isValid (el) {
+            let value = el.value;
+
+            const type = el.getAttribute('type') || 'text';
+            const required = el.required || false;
+            const maxLength = el.maxLength || 128;
+
+            // console.log(type);
+            // console.log(value);
+            // console.log(required);
+            
+            if (type) {
+                let r = 'Ce champ contient une erreur';
+
+                switch (type) {
+                    case 'text': {
+                        r = VALIDATION.char(value, required, maxLength);
+                        break;
+                    }
+                    
+                    case 'number': {
+                        r = VALIDATION.number(parseInt(value), required);
+                        break;
+                    }
+
+                    case 'tel': {
+                        r = VALIDATION.phone(value, required);
+                        break;
+                    }
+
+                    case 'email': {
+                        r = VALIDATION.email(value, required);
+                        break;
+                    }
+
+                    case 'checkbox': {
+                        el.value = '' + el.checked;
+                        r = '';
+                    }
+
+                    case 'hidden': {
+                        try {
+                            const _ = el.getAttribute('values');
+                            const __ = window[_];
+                            r = VALIDATION.select(value, __(), required);
+                        }
+                        catch (e) {
+                            console.error(e);
+                            r = 'Une erreur est survenue.';
+                        }
+                        break;
+                    }
+
+                    // Should be in VALIDATION
+                    case 'radio': {
+                        const radios = document.querySelectorAll(`input[name="${el.name}"]`);
+                        if (radios) {
+                            let checked = false;
+                            for (const radio of radios) {
+                                if (radio.checked) {
+                                    checked = true;
+                                    break;
+                                }
+                            }
+
+                            if (!checked && required) {
+                                r = 'Aucune valeur selectionnée';
+                            }
+                            else {
+                                r = '';
+                            }
+                        }
+                        else {
+                            r = 'Impossible de récupérer les radios.';
+                        }
+                        break;
+                    }
+                }
+
+                return r;
+            }
+
+            return true;
+        },
+
+        // Highlight input and set form error
+        setError (el, flag, resp = '') {
+            // Get Element
+            el = this._el(el);
+            
+            // Set form error
+            // ...
+            if (flag) {
+                // Set error message
+                const n = el.getAttribute('object_name');
+                const msg = (n) ? `(${n}) ${resp}` : resp;
+
+                console.error (msg);
+
+                Messages().error.write(el.id, msg);
+            }
+            else {
+                Messages().error.deleteMessage(el.id);
+            }
+
+            // Set field error
+            if (el.getAttribute('for')) {
+                const _ = document.getElementById(
+                    el.getAttribute('for')
+                );
+
+                if (flag) _.classList.add('error');
+                else _.classList.remove('error');
+            }
+
+            return true;
+        }
+    };
+
+
+    window.onload = function () {
+        App.init();
+
+        default_message = 'main-form';
+
+        urlID = getUrlID();
+        if (urlID) {
+            apiChaining();
+            return true;
+        }
+        else {
+            Messages().error.write('app', 'Impossible de récupérer l\'ID.');
+            return false;
+        }
+    }
+
+    function getUrlID () {
+        const pathname = window.location.pathname;
+        const _ = pathname.split('profil/')[1];
+
+        return (!parseInt(_)) ? 0 : parseInt(_);
+    }
+
+
+    function apiChaining () {
+        return new Promise(function (resolve, reject) {
+            resolve(1);
+        })
+        .then (() => {
+            console.log('1');
+            return client.getClient(
+                urlID, true,
+                (client) => Accounting.render(client),
+                (err) => { throw (err); }
+                );
+                return true; 
+        })
+        .then (() => {
+            console.log('3');
+            intels._user_id = urlID;
+
+            return intels.getIntels(
+                (data) => {Quotients.render()}, // quotients_init(),
+                (err) => { throw err; }
+            );
+            return true; 
+        })
+        .then (() => {
+            console.log('2');
+            return user.getUserByID(
+                urlID,
+                (user) => MainForm.render(user),
+                (err) => { throw err; }
+            );
+            return true; 
+        })
+        // .then (function (result) {
+        //     return child.readUser(
+        //         child_id,
+        //         (data) => console.log(data),
+        //         (err) => console.log(err)
+        //         // readUser_onSuccess,
+        //         // readUser_onFailure
+        //     );
+        // })
+        .then ((data) => {
+            console.log('2');
+            run();
+        })
+        .catch ((err) => {
+            console.log(err);
+
+            FormMaster.addMessage('client', Errors.process(err));
+            FormMaster.disableForm();
+        });
+    }
+
+
+    function run () {
+        $('.ui.checkbox').checkbox();
+        // $('.ui.dropdown').dropdown();
+        $('.ui.dropdown').dropdown({transition: 'drop', on: 'click' });
+        // form_init();
+    }
+
+
+    const MainForm = {
+        _inputs: {
+            'first_name':   document.getElementById('user[first_name]'),
+            'last_name':    document.getElementById('user[last_name]'),
+            'email':        document.getElementById('user[email]'),
+            'gender':       document.getElementById('user[gender_m]'),
+            'job':          document.getElementById('user[job]'),
+
+            'phone_cell':   document.getElementById('user[phone_cell]'),
+            'phone_home':   document.getElementById('user[phone_home]'),
+            'phone_pro':    document.getElementById('user[phone_pro]'),
+
+            'address_1':    document.getElementById('user[address_1]'),
+            'address_2':    document.getElementById('user[address_2]'),
+            'address_city': document.getElementById('user[city]'),
+
+            'accept_newsletter': document.getElementById('user[accept_newsletter]')
+        },
+        
+        render (user) {
+            // Fill inputs
+            FieldHelper.initValue(this._inputs.last_name, user.last_name);
+            FieldHelper.initValue(this._inputs.first_name, user.first_name);
+
+            FieldHelper.initValue(this._inputs.gender, user.gender);
+
+            FieldHelper.initValue(this._inputs.job, user.job);
+            FieldHelper.initValue(this._inputs.email, user.auth.email);
+            
+            if (user.phones) {
+                FieldHelper.initValue(this._inputs.phone_cell, user.phones.phone_cell);
+                FieldHelper.initValue(this._inputs.phone_home, user.phones.phone_home);
+                FieldHelper.initValue(this._inputs.phone_pro, user.phones.phone_pro);
+            }
+            
+            if (user.addresses && user.addresses.length) {
+                FieldHelper.initValue(this._inputs.address_1, user.addresses[0].address1);
+                FieldHelper.initValue(this._inputs.address_2, user.addresses[0].address2);
+
+                FieldHelper.initValue(this._inputs.address_city, user.addresses[0].zip_code);
+            }
+
+            // FieldHelper.initValue(this._inputs.)
+
+            // document.querySelector('input[name="user[accept_newsletter]"]').checked = user.accept_newsletter;
+
+            // Is admin form
+            // if (true) {
+            //     document.querySelector('form').classList.add('admin');
+            // }
+
+
+
+            // Add date_created
+            // document.querySelector('js-date-created').innerHTML = '...';
+        },
+    
+    
+        onChange (el) {
+            FieldHelper.isValid(el);
+        },
+
+        hasChanged () {
+            for (const input of Object.values(this._inputs)) {
+                if (FieldHelper.hasChanged(input)) {
+                    console.log(input);
+                    return true
+                };
+            }
+            return false;
+        },
+
+        update () {
+            Messages().error.clearMessages();
+
+            if (!this.hasChanged()) {
+                Messages().error.write('mf_update', 'Aucun changement effectué.');
+                return false;
+            }
+
+            let valid = true;
+
+            for (const input of Object.values(this._inputs)) {
+                console.log(input);
+                if (!FieldHelper.isValid(input)) {
+                    valid = false;
+                }
+            }
+
+            if (valid) {
+                const data = {
+                    'first_name':   this._inputs.first_name.value,
+                    'last_name':    this._inputs.last_name.value,
+                    'gender':       FieldHelper.getValue(this._inputs.gender),
+                    'job':          this._inputs.job.value,
+                };
+
+                console.log(data);
+            }
+
+            return valid;
+        },
+    };
+
+
+    const IntelHistoryFields = {
+        _inputs: {
+            'rn': document.getElementById('intel[rn]'),
+            'q1': document.getElementById('intel[q1]'),
+            'q2': document.getElementById('intel[q2]'),
+    
+            // _history: {}
+        },
+        
+        render (intels) {
+            // const historyForm = document.getElementById('.modal.quotients .form');
+            // if (!historyForm) {
+            //     FormMaster.addMessage('quotients', 'Une erreur est survenue.');
+            //     throw 'Formulaire historique client non définie.';
+            // }
+            // else {
+            //     form.innerHTML = '';
+            // }
+    
+            // console.log(form);
+            
+            for (const sy of schoolYears) {
+    
+                // INTEL
+                let intel = {id: 0, recipent_number: 0, quotient_1: 0, quotient_2: 0};
+                for (const _ of intels) {
+    
+                    if (_.school_year === sy.id) {
+                        intel = _;
+                        break;
+                    }
+                }
+    
+                // TITLE
+                const date_start_year = sy.date_start.split('-')[0];
+                const date_end_year = sy.date_end.split('-')[0];
+                
+                let title = date_start_year + ' - ' + date_end_year;
+    
+                // console.log(title);
+    
+                // ACTIVE SY
+                if (sy.is_active) {
+                    // Update title
+                    title += ' (active)';
+    
+                    console.log(title);
+                    console.log(intel);
+                    
+                    if (intel) {
+                        this._inputs.rn.value = intel.recipent_number;
+                        this._inputs.rn.setAttribute('default', intel.recipent_number);
+    
+                        if (intel.quotient_1) {
+                            // this._inputs.q1.value = intel.quotient_1;
+                            this._inputs.q1.setAttribute('default', intel.quotient_1);
+    
+                            FieldHelper.setSelectValue(
+                                this._inputs.q1,
+                                intel.quotient_1
+                            );
+    
+                            // const _ = s1.parentElement.querySelector('.default.text')
+                            // _.classList.remove('default');
+                            // _.innerHTML = QUOTIENTS.values[];
+                        }
+    
+                        if (intel.quotient_2) {
+                            // this._inputs.q2.value = intel.quotient_2;
+                            this._inputs.q2.setAttribute('default', intel.quotient_2);
+    
+                            FieldHelper.setSelectValue(
+                                this._inputs.q2,
+                                intel.quotient_2
+                            );
+    
+                            // s2.value = intel.quotient_2;
+                            // const _ = s2.parentElement.querySelector('.default.text')
+                            // _.classList.remove('default');
+                            // _.innerHTML = QUOTIENTS.values[intel.quotient_2];
+                        }
+                    }
+                }
+    
+                /*
+                form.innerHTML += `
+                    <h3 class="ui dividing header">${title}</h3>
+                    <div class="three fields">
+                        <div class="required field">
+                            <label>Numéro CAF</label>
+                            <input type="text" name="quotient[rn]" object="rn" data-sy=${sy.id} value="${intel.recipent_number}" placeholder="CAF #"  onchange="quotients_onChange(this)">
+                        </div>
+    
+                        <div class="field">
+                            <label>Quotient 1</label>
+                            <div class="ui selection dropdown">
+                                <input type="hidden" name="quotient[q1]" object="q1" data-sy=${sy.id} onchange="Quotients.onChange(this)">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Quotient 1</div>
+                                <div class="menu">
+                                    <div class="item" data-value="1">NE</div>
+                                    <div class="item" data-value="2">Q2</div>
+                                    <div class="item" data-value="3">Q1</div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="field">
+                            <label>Quotient 2</label>
+                            <div class="ui selection dropdown">
+                                <input type="hidden" name="quotient[q2]" object="q2" data-sy=${sy.id} onchange="Quotients.onChange(this)">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Quotient 1</div>
+                                <div class="menu">
+                                    <div class="item" data-value="1">NE</div>
+                                    <div class="item" data-value="2">Q2</div>
+                                    <div class="item" data-value="3">Q1</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+    
+                this._inputs.history[sy.id] = {
+                    q1: document.querySelector(`input[data-sy="${sy.id}"][name="quotient[q1]"]`),
+                    q2: document.querySelector(`input[data-sy="${sy.id}"][name="quotient[q2]"]`),
+                    recipent_number: document.querySelector(`input[data-sy="${sy.id}"][name="quotient[rn]"]`),
+                };
+                console.log(document.querySelector(`select[data-sy="${sy.id}"][object="quotient[q1]"]`));
+                */
+            }
+        },
+    
+    
+        mainFormChanged (el) {
+            FieldHelper.isValid(el);
+        },
+
+        hasChanged () {
+            for (const input of Object.values(this._inputs)) {
+                console.log(input);
+                if (FieldHelper.hasChanged(input)) return true;
+            }
+            return false;
+        },
+
+        update () {
+            Messages().error.clearMessages();
+
+            if (!this.hasChanged()) {
+                Messages().error.write('ifh_update', 'Aucun changement effectué.');
+                return false;
+            }
+
+            let valid = true;
+
+            for (const input of Object.values(this._inputs)) {
+                console.log(input);
+                if (!FieldHelper.isValid(input)) {
+                    valid = false;
+                }
+            }
+
+            if (valid) {
+                const data = {
+                    'recipent_number': this._inputs.rn.value,
+                    'quotient_1': this._inputs.q1.value,
+                    'quotient_2': this._inputs.q2.value,
+                };
+
+                console.log(data);
+            }
+
+            return valid;
+        },
+    };
+
+
+    /**
+     * Family and Quotients related Initialization
+     * - Build quotient modal
+     * - Set modal default values
+     * - Set values to main family inputs
+     * - Add attributes to main family inputs
+     */
+    function quotients_init () {
+    }
+
+    function quotients_open () {
+        $('.ui.modal.quotients').modal('show');
+    }
+    
+    function quotients_onChange (e) {
+        if (!e.getAttribute('data-sy')) throw FormException('core', 'Pas d\'année scolaire sur cet élément.');
+        if (!e.getAttribute('object')) throw FormException('core', 'Pas d\'objet sur cet élément.');
+
+        const result = intels.onChange(e);
+        if (result) {
+
+        }
+        else {}
+    }
+
+    function quotients_update () {
+        
+    }
+
+
+    const FormMaster = {
+
+        default_form: document.querySelector('form.main'),
+        isEnabled: true,
+
+        buttonSave: undefined,
+        buttonUpdate: undefined,
+
+        disableForm () {
+            this.isEnabled = false;
+
+            document.querySelector('.ui.button.save').classList.add('disabled');
+            document.querySelector('.ui.button.update').classList.add('disabled');
+        },
+
+        
+        addMessage (name, message, form=undefined) {
+            if (!form) form = this.default_form;
+
+            let item = document.querySelector(`li[name="${name}"]`);
+            if (!item) {
+                item = document.createElement('li');
+                item.setAttribute('name', name);
+            }
+            item.innerHTML = message;
+
+            // Add error to form class list
+            form.classList.add('error');
+
+            // Add item to list
+            form.querySelector('.error.message .list').appendChild(item);
+        },
+
+        deleteMessages (name, form=undefined) {
+            if (!form) form = this.default_form;
+
+            const list = form.querySelector('.error.message .list');
+
+            list.querySelectorAll(`li[name="${name}"]`).forEach(item => list.removeChild(item));
+
+            // If no item left remove error to form
+            if (!list.children.length) form.classList.remove('error');
+        },
+
+        clearMessages (form=undefined) {
+            if (!form) form = this.default_form;
+
+            // Clear messages
+            form.querySelector('.error.message .list').innerHTML = '';
+
+            // Remove error to form classes
+            form.classList.remove('error');
+        },
+
+
+        save () {},
+
+        update () {
+
+        },
+    };
+
+    /**
+     * 
+     * TODO
+     * - Date formatting
+     * - History value span as description
+     * - Success msg on updateSuccess (updateClient, updateHistory)
+     */
+    const Accounting = {
+        _inputs: {
+            type: document.getElementById('client[type]'),
+            credit: document.getElementById('client[credit]'),
+            comment: document.getElementById('client[comment]'),
+
+            history: {}
+        },
+
+        default_form: document.querySelector('.form.credit-history'),
+        error_msg_ctn: document.querySelector('.modal.accounting .content'),
+
+        open () {
+            $('.ui.modal.accounting').modal('show');
+        },
+    
+        render (client) {
+            // Sanity check
+            // console.log('render');
+            // console.log(client);
+
+            // Set credit input
+            this._inputs.credit.value = client.credit;
+
+            // Render history
+            if (!client.hasOwnProperty('credit_history') || !client.credit_history.length) {
+                this._no_history();
+            }
+            else {
+                this._history(client);
+            }
+        },
+
+        _no_history () {
+            document.querySelector('.modal.accounting').classList.add('no-item');
+        },
+
+        _history (client) {
+            const form = document.querySelector('.modal.accounting .form');
+            if (!form) {
+                FormMaster.addMessage('accounting', 'Une erreur est survenue.');
+                throw 'Formulaire historique client non définie.';
+            }
+            else {
+                form.innerHTML = '';
+            }
+            console.log(form);
+
+            let actual = client.credit;
+
+            for (const h of client.credit_history) {
+
+                const mod = actual - h.value;
+                let pre = (mod > 0) ? '+' : '';
+
+                form.innerHTML += `<div class="history item" data-history="${h.id}">
+                    <div class="title">
+                        <span class="js-client-id">#${h.id}</span>
+                        <span class="js-client-date">le ${h.date}</span>
+                    </div>
+
+                    <div class="two fields">
+                        <div class="field">
+                            <label>
+                                <span>Valeur:</span>
+                                <span class="js-client-value">${h.value} </span>
+                                <span class="js-client-mod">(${pre}${mod}) </span>
+                                <span class="js-client-currency">€</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="two fields">
+                        <div class="field caster">
+                            <label for="">Casteur</label>
+                            <input type="number" name="client[caster]" object="caster" placeholder="#ID" data-history="${h.id}" onchange="Accounting.onChange(this)" value="${h.caster}" />
+                        </div>
+                        <div class="field type">
+                            <label>Type</label>
+                            <div class="ui selection dropdown">
+                                <input type="hidden" name="client[type]" object="type" data-history="${h.id}" onchange="Accounting.onChange(this)" value="${h.type}" />
+                                <i class="dropdown icon"></i>
+                                <div class="text">${CREDITHISTORYTYPE.toSelect(h.type)}</div>
+                                <div class="menu">
+                                    <div class="item" data-value="1">MANUEL</div>
+                                    <div class="item" data-value="2">ANN. ORDER</div>
+                                    <div class="item" data-value="3">ANN. TICKET</div>
+                                    <div class="item" data-value="4">ACHAT</div>
+                                    <div class="item" data-value="5">REMBOURSEMENT</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field comment">
+                        <label>Commentaire</label>
+                        <textarea rows="2" name="client[comment]" object="comment" data-history="${h.id}" onchange="Accounting.onChange(this)">${h.comment}</textarea>
+                    </div>
+                </div>`;
+
+                actual = h.value;
+
+                // Register values
+                this._inputs.history[h.id] = {
+                    type: document.querySelector(`input[data-history="${h.id}"][name="client[type]"]`),
+                    caster: document.querySelector(`input[data-history="${h.id}"][name="client[caster]"]`),
+                    comment: document.querySelector(`textarea[data-history="${h.id}"][name="client[comment]"]`),
+                };
+            }
+        },
+
+        onChange (e) {
+            console.log(e);
+            
+            const object = e.getAttribute('object');
+            const history_id = e.getAttribute('data-history');
+
+            if (object) {
+                try {
+                    const value = client.isValid(history_id, object, e.value);
+                    e.value = value;
+                }
+                catch (e) {
+                    console.error(e);
+
+                    // error
+                    if (e instanceof InputError) this.inputError(history_id, object, e);
+                }
+            }
+            else {
+                console.error(e);
+            }
+        },
+
+        // Update client intels
+        updateClient () {
+            FormMaster.clearMessages();
+
+            try {
+                client.updateClient(
+                    (client) => {this.render(client);},
+                    (err) => {this.onUpdateError(0, err);}
+                );
+                return true;
+            }
+            catch (e) {
+                if (e instanceof InputError) {
+                    this.inputError(0, e.type, e.message);
+                }
+
+                else if (e instanceof NoChangesDetected) {
+                    FormMaster.addMessage('change', 'Aucun changement détecté.');
+                }
+            }
+
+            return false;
+
+            const hasErrors = false;
+            const hasChange = false;
+
+            let id = 0;
+            try {
+
+                // Check whole inputs/data
+                for (id of ids) {
+                    client.historyValidation(id);
+                }
+
+                hasChange = true;
+            }
+            catch (e) {
+                if (e instanceof InputError) {
+                    this.inputError(id, e.type, e.message);
+                    return false;       
+                }
+
+                // On NoChangesDetected continue 
+                else if (e instanceof NoChangesDetected) {
+                    // FormMaster.addMessage('change', 'Aucun changement détecté.', this.error_msg_ctn);
+                }
+            }
+
+            // Check changes
+            if (!hasChange) {
+                FormMaster.addMessage('change', 'Aucun changement détecté.', this.error_msg_ctn);
+                return false;
+            }
+
+            console.log('updating...');
+
+            // Update
+            try {
+
+                // Check whole inputs/data
+                for (id of ids) {
+                    client.updateCreditHistory(
+                        id,
+                        (client) => {this.render(client)},
+                        (err) => {}
+                    );
+                }
+            }
+            catch (e) {
+                if (e instanceof InputError) {
+                    this.inputError(id, e.type, e.message);
+                    return false;       
+                }
+
+                // On NoChangesDetected continue 
+                else if (e instanceof NoChangesDetected) {
+                    // FormMaster.addMessage('change', 'Aucun changement détecté.', this.error_msg_ctn);
+                }
+            }
+        },
+
+        // Update credit history modal
+        updateHistory () {
+            FormMaster.clearMessages(this.error_msg_ctn);
+
+            const ids = [];
+            document.querySelectorAll('.history.item').forEach(x => ids.push(x.getAttribute('data-history')));
+
+            const hasErrors = false;
+            const hasChange = false;
+
+            let id = 0;
+            try {
+
+                // Check whole inputs/data
+                for (id of ids) {
+                    client.historyValidation(id);
+                }
+
+                hasChange = true;
+            }
+            catch (e) {
+                if (e instanceof InputError) {
+                    this.inputError(id, e.type, e.message);
+                    return false;       
+                }
+
+                // On NoChangesDetected continue 
+                else if (e instanceof NoChangesDetected) {
+                    // FormMaster.addMessage('change', 'Aucun changement détecté.', this.error_msg_ctn);
+                }
+            }
+
+            // Check changes
+            if (!hasChange) {
+                FormMaster.addMessage('change', 'Aucun changement détecté.', this.error_msg_ctn);
+                return false;
+            }
+
+            console.log('updating...');
+
+            // Update
+            try {
+
+                // Check whole inputs/data
+                for (id of ids) {
+                    client.updateCreditHistory(
+                        id,
+                        (client) => {this.render(client);},
+                        (err) => {this.onUpdateError(err);}
+                    );
+                }
+            }
+            catch (e) {
+                if (e instanceof InputError) {
+                    this.inputError(id, e.type, e.message);
+                    return false;       
+                }
+
+                // On NoChangesDetected continue 
+                else if (e instanceof NoChangesDetected) {
+                    // FormMaster.addMessage('change', 'Aucun changement détecté.', this.error_msg_ctn);
+                }
+            }
+        },
+
+        onUpdateError (history_id, err) {
+            console.log(err);
+            if (history_id) {
+                FormMaster.addMessage('credithistory', 'Une erreur est survenue lors de la mise à jour.', this.error_msg_ctn);
+            }
+            else {
+                FormMaster.addMessage('credithistory', 'Une erreur est survenue lors de la mise à jour.');
+            }
+        },
+
+        /** On error 
+         *  - Add error message
+         *  - Highlight faulty input
+         */
+        inputError (history_id, object, message) {
+            // Sanity check
+            console.error(object, message);
+            
+            // User form
+            if (!history_id) {
+                FormMaster.addMessage(object, message);
+
+                const e = document.querySelector('.field.client .field.' + object);
+                this.inputIsValid(e, false);
+            }
+
+            // History form
+            else {
+                FormMaster.addMessage(history_id + object, message, this.error_msg_ctn);
+
+                const e = document.querySelector(`.history.item[data-history="${history_id}"] .field.` + object);
+                this.inputIsValid(e, false);   
+            }
+        },
+
+        inputIsValid (e, flag) {
+            const macro = function (e, flag) {
+                return (!flag) ? 
+                    e.classList.add('error') :
+                    e.classList.remove('error');
+            };
+
+            try {
+                macro(e, flag);
+                return true;
+            }
+            catch (e) {
+                console.error(e);
+                return false;
+            }
+        },
+    }
+
+
+    /**
+     * 
+     * Require global schoolyear
+     * 
+     * 
+     */
+    const Quotients = {
+        _inputs: {
+            q1: document.querySelector('.field.main.family input[name="quotient[family_q1]"]'),
+            q2: document.querySelector('.field.main.family input[name="quotient[family_q2]"]'),
+            recipent_number: document.querySelector('.field.main.family input[name="quotient[family_rn]"]'),
+
+            history: {},
+        },
+
+        open () {
+            $('.ui.modal.quotients').modal('show');
+        },
+
+        _render () {
+            const form = document.querySelector('.modal.quotients .form');
+            if (!form) {
+                FormMaster.addMessage('quotients', 'Une erreur est survenue.');
+                throw 'Formulaire historique client non définie.';
+            }
+            else {
+                form.innerHTML = '';
+            }
+
+            console.log(form);
+            
+            for (const sy of schoolYears) {
+                // console.log(sy);
+
+                // INTEL
+                let intel = {id: 0, recipent_number: intels._recipent_number, quotient_1: 0, quotient_2: 0};
+                for (const _ of intels.intels()) {
+                    if (_.school_year === sy.id) {
+                        intel = _;
+                        break;
+                    }
+                }
+
+                // TITLE
+                const date_start_year = sy.date_start.split('-')[0];
+                const date_end_year = sy.date_end.split('-')[0];
+                
+                let title = date_start_year + ' - ' + date_end_year;
+
+                // console.log(title);
+
+                // ACTIVE SY
+                if (sy.is_active) {
+                    // Update title
+                    title += ' (active)';
+
+                    // Main Family inputs
+                    // Add attributes
+                    // Set default value 
+                    //
+                    // Set Main Family recipent number
+                    // Set INTELS recipent number
+                    const base = document.querySelector('.field.main.family');
+
+                    const rn = base.querySelector('input[name="quotient[family_rn]"]');
+                    const s1 = base.querySelector('input[name="quotient[family_q1]"]');
+                    const s2 = base.querySelector('input[name="quotient[family_q2]"]');
+
+                    // rn.setAttribute('data-sy', sy.id);
+                    // s1.setAttribute('data-sy', sy.id);
+                    // s2.setAttribute('data-sy', sy.id);
+                    
+                    if (intel) {
+                        // intels._recipent_number = intel.recipent_number;
+                        rn.value = intel.recipent_number;
+
+                        if (intel.quotient_1) {
+                            s1.value = intel.quotient_1;
+                            const _ = s1.parentElement.querySelector('.default.text')
+                            _.classList.remove('default');
+                            _.innerHTML = QUOTIENTS.values[intel.quotient_1];
+                        }
+        
+                        if (intel.quotient_2) {
+                            s2.value = intel.quotient_2;
+                            const _ = s2.parentElement.querySelector('.default.text')
+                            _.classList.remove('default');
+                            _.innerHTML = QUOTIENTS.values[intel.quotient_2];
+                        }
+                    }
+                }
+
+                form.innerHTML += `
+                    <h3 class="ui dividing header">${title}</h3>
+                    <div class="three fields">
+                        <div class="required field">
+                            <label>Numéro CAF</label>
+                            <input type="text" name="quotient[family_rn]" object="family_rn" data-sy=${sy.id} value="${intel.recipent_number}" placeholder="CAF #"  onchange="quotients_onChange(this)">
+                        </div>
+
+                        <div class="field">
+                            <label>Quotient 1</label>
+                            <div class="ui selection dropdown">
+                                <input type="hidden" name="quotient[family_q1]" object="family_q1" data-sy=${sy.id} onchange="Quotients.onChange(this)">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Quotient 1</div>
+                                <div class="menu">
+                                    <div class="item" data-value="1">NE</div>
+                                    <div class="item" data-value="2">Q2</div>
+                                    <div class="item" data-value="3">Q1</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Quotient 2</label>
+                            <div class="ui selection dropdown">
+                                <input type="hidden" name="quotient[family_q2]" object="family_q2" data-sy=${sy.id} onchange="Quotients.onChange(this)">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Quotient 1</div>
+                                <div class="menu">
+                                    <div class="item" data-value="1">NE</div>
+                                    <div class="item" data-value="2">Q2</div>
+                                    <div class="item" data-value="3">Q1</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+
+                this._inputs.history[sy.id] = {
+                    q1: document.querySelector(`input[data-sy="${sy.id}"][name="quotient[family_q1]"]`),
+                    q2: document.querySelector(`input[data-sy="${sy.id}"][name="quotient[family_q2]"]`),
+                    recipent_number: document.querySelector(`input[data-sy="${sy.id}"][name="quotient[family_rn]"]`),
+                };
+                console.log(document.querySelector(`select[data-sy="${sy.id}"][object="quotient[family_q1]"]`));
+            }
+        },
+
+        render () {
+            this._render();
+        },
+
+        onChange (e) {
+            console.log(e);
+            
+            const object = e.getAttribute('object');
+            const sy_id = e.getAttribute('data-sy');
+
+            if (object) {
+                try {
+                    const value = intels.isValid(history_id, object, e.value);
+                    e.value = value;
+                }
+                catch (e) {
+                    console.error(e);
+                    if (e instanceof InputError) this.inputError(history_id, object, e);
+                }
+            }
+            else {
+                console.error(e);
+                // error
+            }
+        },
+
+    };
+
+    /**
+     * FORM MNGT
+     * 
+     */
+    
+    /**
+     * - Fill input values
+     * - List inputs
+     * - Add Date created 
+     */
+    function form_init () {
+        const fields = user.fields;
+
+        // Fill inputs
+        document.getElementById('user[job]').value      = fields.job;
+        document.getElementById('user[email]').value    = fields.email; 
+        
+        if (fields.gender === 1) document.getElementById('user[gender_f]').checked = 'true';
+        if (fields.gender === 2) document.getElementById('user[gender_m]').checked = 'true';
+        if (fields.gender === 3) document.getElementById('user[gender_t]').checked = 'true';
+        
+        document.getElementById('user[first_name]').value = fields.first_name;
+        document.getElementById('user[last_name]').value  = fields.last_name;
+
+        document.getElementById('user[phone_cell]').value = fields.phone_cell;
+        document.getElementById('user[phone_home]').value = fields.phone_home;
+        document.getElementById('user[phone_pro]').value  = fields.phone_pro;
+
+        document.getElementById('user[address_1]').value = fields.address_1;
+        document.getElementById('user[address_2]').value = fields.address_2;
+
+        const _ = document.querySelector(`option[value="${fields.address_zip}"]`);
+        if (_) _.setAttribute('selected', true);
+
+        document.querySelector('input[name="user[accept_newsletter]"]').checked = fields.accept_newsletter;
+
+        // Is admin form
+        // if (true) {
+        //     document.querySelector('form').classList.add('admin');
+        // }
+
+
+
+        // Add date_created
+        // document.querySelector('js-date-created').innerHTML = '...';
+    }
+
+    function form_addMessage (name, message) {
+        let item = document.querySelector(`li[name="${name}"]`);
+        if (!item) {
+            item = document.createElement('li');
+            item.setAttribute('name', name);
+        }
+        item.innerHTML = message;
+
+        // Add error to form class list
+        document.querySelector('form').classList.add('error');
+
+        // Add item to list
+        document.querySelector('form .error.message .list').appendChild(item);
+    }
+
+    function form_deleteMessages (name) {
+        const list = document.querySelector('form .error.message .list');
+
+        list.querySelectorAll(`li[name="${name}"]`).forEach(item => list.removeChild(item));
+
+        // If no item left remove error to form
+        if (!list.children.length) document.querySelector('form').classList.remove('error');
+    }
+
+    function form_clearMessages () {
+        // Clear messages
+        document.querySelector('form .error.message .list').innerHTML = '';
+
+        // Remove error to form classes
+        document.querySelector('form').classList.remove('error');
+    }
+
+    /**
+     * On input value change
+     */
+    function form_onChange (e) {
+        console.log(e);
+
+        const object = e.getAttribute('object');
+        if (!object) {
+            form_inputIsValid(e, false);
+            form_addMessage('erreur', 'Le champ n\'est pas reconnu.');
+            return false;
+        }
+
+        try {
+            const value = (e.type !== 'checkbox') ? e.value : e.checked;
+            const is_valid = user.is_valid({
+                'name': object,
+                'value': value
+            });
+
+            console.log(is_valid);
+
+            form_inputIsValid(object, true);
+            form_deleteMessages(object);
+
+            e.value = is_valid;
+        }
+        catch (error) {
+            form_inputIsValid(e, false);
+
+            if (error instanceof FormException) {
+                if (error.type === 'input') {
+                    form_addMessage(object, error.message);
+                    return true;
+                }
+            }
+            form_addMessage('erreur', 'Une erreur est survenue.');
+        }
+    }
+    
+    function form_validationSuccess (e) {}
+
+    function form_validationError (e, error) {
+        console.error(error);
+        
+        if (error instanceof FormException) {
+            if (error.type === 'input') {
+                form_addMessage(error.name, error.message);
+                return true;
+            }
+        }
+        form_addMessage('error', 'Une erreur est survenue.');
+        return true;
+    }
+
+
+    /**
+ * 
+ */
+    function form_apiWrapper (cb) {
+        try {
+            form_clearMessages();
+
+            const errors = cb(
+                form_apiOnSuccess,
+                form_apiOnFailure
+            );
+
+            if (errors) {
+                console.log (errors);
+
+                for (const error of errors) {
+                    form_inputIsValid(error.name, false);
+                    form_addMessage(error.name, error.error);
+                }
+            }
+        }
+        catch (error) {
+            console.log(error);
+            form_addMessage('erreur', 'Une erreur est survenue.');
+        }
+    }
+
+
+    /**
+     *  
+     */
+    function form_onSubmit () {}
+
+    /**
+     * 
+     */
+    function form_onUpdate (e) {
+        form_apiWrapper((s, f) => { return user.update(s, f) });
+    }
+
+
+    function form_apiOnSuccess (data) {
+        console.log(data);
+    }
+
+
+    function form_apiOnFailure (err) {
+        form_addMessage('erreur', 'Une erreur est survenue.');
+    }
+
+
+    function form_inputIsValid (object, flag) {
+        const macro = function (e, flag) {
+            return (!flag) ? 
+                e.classList.add('error') :
+                e.classList.remove('error');
+        };
+
+        try {
+            switch (object) {
+                case 'gender': {
+                    macro(document.getElementById('genders'), flag);
+                    break;
+                }
+
+                case 'address_zip': {
+                    macro(document.getElementById('cities'), flag);
+                    break;
+                }
+    
+                default: {
+                    macro(
+                        document.querySelector(`input[object="${object}"]`).parentElement,
+                        flag
+                    );
+                    break;
+                }
+            }
+            return true;
+        }
+        catch (e) {
+            console.error(e);
+            return false;
+        }
+    }
+
+</script>
+{% endblock %}

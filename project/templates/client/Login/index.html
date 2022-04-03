@@ -1,0 +1,110 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="/static/vendor/bs4/css/bootstrap-grid.min.css" />
+<link rel="stylesheet" href="/static/vendor/semantic/semantic.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link rel="stylesheet" href="/static/styles/Login/styles.css">
+
+<div class="page">
+    <div class="container col-12 col-md-6 col-lg-4">
+
+        <div class="messages">
+            <div class="ui error message">
+                <p>Way to go!</p>
+            </div>
+        </div>
+
+        <div class="forms">
+            <div id="form-1" class="form-container active">
+                <form class="ui form">
+                    <div class="field">
+                        <label>Veuillez entrer votre adresse email</label>
+                        <input type="email" name="f1[email]" placeholder="Email">
+                    </div>
+                    <button class="ui button fluid" type="submit" onclick="f1.submit()">Continuer</button>
+                </form>
+            </div>
+            
+            <div id="form-2" class="form-container">
+                <form class="ui form">
+                    <div class="field">
+                        <label>Email</label>
+                        <input type="email" name="f2[email]" placeholder="Email">
+                    </div>
+                    <div class="field">
+                        <label>Mot de passe</label>
+                        <input type="password" name="f2[password]" placeholder="Mot de passe">
+                    </div>
+                    <button class="ui button fluid" type="submit">Me connecter</button>
+                </form>
+            </div>
+    
+            <div id="form-3" class="form-container">
+                <form class="ui form">
+                    <div class="field">
+                        <label>Email</label>
+                        <input type="email" name="f3[email]" placeholder="Email">
+                    </div>
+                    <div class="field">
+                        <label>Mot de passe</label>
+                        <input type="password" name="f3[password1]" placeholder="Mot de passe">
+                    </div>
+                    <div class="field">
+                        <label>Confirmer mot de passe</label>
+                        <input type="password" name="f3[password2]" placeholder="Mot de passe">
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="f3[agreement]" tabindex="0" class="hidden">
+                            <label>J'accepte les termes et conditions.</label>
+                        </div>
+                    </div>
+                    <button class="ui button fluid" type="submit">M'inscrire</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="/static/vendor/jquery/3.4.1/jquery.min.js"></script>
+<script src="/static/vendor/semantic/semantic.min.js"></script>
+<script>
+    function goto (id) {
+        const active = document.querySelector('.form-container.active');
+
+        if (active.id !== id) {
+            active.classList.add('deactive');
+            active.classList.remove('active');
+            document.getElementById(id).classList.add('active');
+        }
+    }
+
+    const f1 = {
+        login: function () {
+            goto ('form-2');
+        },
+
+        signup: function () {
+            goto ('form-3');
+            $('.ui.checkbox').checkbox();
+        },
+    };
+
+    function _email (email) {
+        if (!value) {
+            return 'Le champ ne peux pas être vide';
+        }
+
+        // !value.match(/^([+][\d]{1,3})?(0{1})?([1-9][\d]{8})$/)
+        if (!value.match(/^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/)) {
+            return 'Adresse email incorrect';
+        }
+
+        return '';
+    }
+
+    function _password (password1, password2=undefined, minLength) {
+
+    }
+</script>

@@ -1,0 +1,14 @@
+.wrapper.error .messages .message.error {
+  display: block;
+}
+.wrapper.success .messages .message.success {
+  display: block;
+}
+.wrapper.warning .messages .message.warning {
+  display: block;
+}
+.wrapper .messages .message {
+  display: none;
+}
+
+/*# sourceMappingURL=App.css.map */

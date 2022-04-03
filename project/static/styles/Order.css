@@ -1,0 +1,114 @@
+#Order {}
+
+#Order .Order-content {}
+
+#Order.Order-Print {
+    font-size: 12px;
+}
+
+#Order .t-row {
+    display: flex;
+}
+
+#Order .space-between {
+    justify-content: space-between;
+}
+
+#Order .t-block {
+    display: block;
+}
+
+#Order .t-inline {
+    display: inline;
+}
+
+#Order .t-inline-block {
+    width: 50%;
+    float: left;
+    display: inline-block;
+}
+
+#Order .t-bold {
+    font-weight: bold;
+}
+
+#Order .t-fieldset {
+    border: 1px solid black;
+}
+
+#Order .t-legend {
+    width: auto;
+    margin: 0 5px;
+    /* font-size: 16px; */
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#Order .t-intels { width: 100%; }
+
+#Order .t-methods {
+    display: flex;
+    flex-flow: row nowrap;
+    align-self: flex-start;
+}
+
+#Order .t-method {
+    margin: 5 10px;
+    padding: 2 10px;
+    text-align: center;
+    display: inline-flex;
+}
+#Order .t-method:first-child { margin-left: 0; }
+
+#Order .t-children { flex-flow: column; }
+
+#Order .t-products {
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+#Order .t-product {
+    /* width: 100px; */
+    width: 80px;
+    height: 60px;
+    margin: .25rem;
+    padding: .0rem;
+
+    border: 1px solid hsla(0, 0%, 85%, 1);
+    box-shadow: 0 0 1px black;
+
+    /* font-size: 14px; */
+    font-size: 12px;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+/*********************
+***      TABLE     ***
+*********************/
+#Order .t-lexique {
+    border: 0;
+    padding: .5rem 0;
+}
+
+.t-lexique table {
+    /* padd */
+}
+
+.t-lexique tr { display: none; }
+.t-lexique tr.show { display: table-row; }
+
+.t-lexique table, 
+.t-lexique th, 
+.t-lexique td {
+    border: 1px solid #AAA;
+    border-collapse: collapse;
+}
+
+.t-lexique td {
+    padding: 2px;
+}

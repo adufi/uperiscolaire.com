@@ -1,0 +1,141 @@
+<html>
+<head>
+    <title>{% block title %} UPEEM {% endblock %}</title>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link rel="stylesheet" href="/static/styles/App.css" />
+    <link rel="stylesheet" href="/static/styles/Common.css" />
+    <link rel="stylesheet" href="/static/styles/Home.css" />
+    
+    <link rel="stylesheet" href="/static/vendor/fa/css/all.min.css" />
+    <link rel="stylesheet" href="/static/vendor/bs4/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/vendor/semantic/semantic.min.css" />
+
+    <link rel="icon" type="image/png" href="/media/img/logoUpem561px-300x300.png">
+    
+    {% block styles %}
+    {% endblock %}
+</head>
+
+<body>
+    <noscript>Attention! L'activation du javascript est requise pour le bon fonctionnement du site.</noscript>
+
+    <div id="background"></div>
+
+    <div id='App'>
+
+        <nav class="navbar-top navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/accueil/">UPEEM</a>
+
+            <!-- <form class="navbar-search form-inline my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search">
+            </form> -->
+
+            <button class="btn side" type="button" data-toggle="collapse" data-target="#AppNavbarToggler"
+                aria-controls="AppNavbarToggler" aria-expanded="false" aria-label="Toggle navigation"
+                onclick="toggleSideMenu()">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <button class="btn responsive" type="button" data-toggle="collapse" data-target="#AppNavbarToggler"
+                aria-controls="AppNavbarToggler" aria-expanded="false" aria-label="Toggle navigation"
+                onclick="toggleResponsiveMenu()">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+
+        <div id="App__body">
+            
+            <div id="App__body__nav">
+                
+                <nav class="navbar-side">
+                    {% block nav %}
+                        <ul class="">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/accueil/">Accueil <span class="sr-only">(current)</span></a>
+                                <a class="nav-link login" href="/login/"><b>Se connecter/S'inscrire</b></a>
+                            </li>
+                            <li class="nav-item account d-none">
+                                <b>Mon compte</b>
+                                <div class="nav-sub">
+                                    <a class="nav-link nav-link-profile" data-href="/mon-profil/{caster}">
+                                        Informations parent
+                                    </a>
+                                    <a class="nav-link nav-link-family" data-href="/family/{caster}">
+                                        Informations enfants
+                                    </a>
+                                    <a class="nav-link nav-link-view" data-href="/consulter-prestations/{caster}">
+                                        Consulter prestations
+                                    </a>
+                                    <!-- <a class="nav-link nav-link-view" data-href="/acheter-prestations/{caster}">
+                                        Payer en ligne
+                                    </a> -->
+                                    <!-- <a class="nav-link" href="#">Mes reçus</a> -->
+                                </div>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <b>Prestations</b>
+                                <div class="nav-sub">
+                                    <a class="nav-link nav-link-profile">Informations parent</a>
+                                    <a class="nav-link nav-link-family">Informations enfants</a>
+                                </div>
+                            </li> -->
+                            <!-- <li class="nav-item active">
+                                <a class="nav-link text-danger nav-link-logout">Déconnexion</a>
+                            </li> -->
+                            <!-- <li class="nav-item">
+                                <a class="nav-link disabled" href="#">Disabled</a>
+                            </li> -->
+                        </ul>
+                    {% endblock %}
+                </nav>
+            </div>
+            
+            <div id="App__body__content">
+
+                <main>
+                    {% block main %}{% endblock %}
+                </main>
+                
+                <footer>
+                    
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <div id="App_Extensions">{% block body_extensions %}{% endblock %}{% block _extensions %}{% endblock %}</div>
+
+    <!-- jQuery -->
+    <script src="/static/vendor/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <!-- <script src="/static/vendor/bs4/js/bootstrap.min.js"></script> -->
+    <script src="/static/vendor/semantic/semantic.min.js"></script>
+    <!-- Scripts -->
+    <script src="/static/scripts/App.js"></script>
+
+    <script>
+        function toggleSideMenu () {
+            document.getElementById('App').classList.toggle('sidenav-toggle');
+        }
+
+        function toggleResponsiveMenu () {
+            document.getElementById('App').classList.toggle('responsive-toggle');
+        }
+    </script>
+
+    <style>
+        #background {
+            background-image: url(/media/img/{{ BACKGROUND_NAME }});
+        }
+    </style>
+
+    {% block scripts %}
+    {% endblock %}
+
+</body>
+
+</html>

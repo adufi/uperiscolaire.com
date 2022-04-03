@@ -1,0 +1,459 @@
+/* 
+#User
+    #User-status
+    #User-wrapper
+        .Profile
+            .Profile-wrapper
+                #Profile-status
+                fieldset
+                    legend
+                        .row
+                            .form-group
+                                label
+                                br
+                                input
+                .form-group
+                    button
+        .IntelCard
+            .IntelCard-wrapper
+                legend
+                .IntelCard-card
+
+    #Records-wrapper
+*/
+
+#User {
+
+}
+
+#User #User-status {
+
+}
+
+#User .wrapper-content { 
+    padding-right: 15px; 
+    padding-left: 15px; 
+}
+
+/************************************************* 
+    COMMON
+ *************************************************/
+.form-alert { display: none; }
+.form-alert.show { display: inherit; margin: 0.5rem 0; }
+
+
+/************************************************* 
+    FORMS
+ *************************************************/
+
+#User fieldset {}
+
+#User fieldset legend {}
+
+#User select,
+#User input[type="date"],
+#User input[type="text"],
+#User input[type="email"],
+#User input[type="phone"],
+#User input[type="number"],
+#User input[type="password"] {
+    width: 100%;
+    margin: 5px 0;
+    
+    border: none;
+    box-shadow: none;
+    border-bottom: 2px solid hsla(0, 0%, 80%, 1);
+    border-radius: 0;
+
+    color: hsla(0, 0%, 25%, 1);
+    background-color: transparent;
+}
+
+#User select:focus,
+#User input[type="date"]:focus,
+#User input[type="text"]:focus,
+#User input[type="email"]:focus,
+#User input[type="phone"]:focus,
+#User input[type="number"]:focus,
+#User input[type="password"]:focus {
+    outline: none;
+    border-bottom-color: hsla(0, 0%, 50%, 1);
+}
+
+#User input.error,
+#User select.error {
+    border-bottom-color: #b14853;
+}
+
+#User .form-group {
+    padding: 0 1rem;
+}
+
+#User .form-group label {
+    font-size: 14px;
+}
+
+
+
+/************************************************* 
+    BUTTONS
+ *************************************************/
+.button {
+    margin: 10px 0;
+    padding: 0.25rem 0.5rem;
+    
+    color: white;
+    font-weight: bold;
+    /* background-color: hsla(211, 100%, 60%, 1); */
+    
+    border: 0;
+    
+}
+.button:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.button-cyan { background-color: #17a2b8; }
+.button-cyan:hover { background-color: #138496; }
+
+.button-blue { background-color: hsla(211, 100%, 60%, 1); }
+.button-blue:hover { background-color: hsla(211, 100%, 50%, 1); }
+
+.button-dark { background-color: #343a40; }
+.button-dark:hover { background-color: #23272b; }
+
+.button-yellow { background-color: hsl(47deg 97% 53%); }
+.button-yellow:hover { background-color: hsl(47deg 97% 53%); }
+
+
+/************************************************* 
+    PROFILE
+ *************************************************/
+
+
+
+
+/************************************************* 
+    INTEL CARD
+ *************************************************/
+#User .IntelCard {}
+
+#User .IntelCard .IntelCard-wrapper {}
+
+#User .IntelCard .IntelCard-wrapper .IntelCard-card {
+    margin: 1rem;
+    padding: .25rem .5rem;
+    
+    display: block;
+    border: 1px solid gray;
+    border-radius: 5px;
+    
+    color: inherit;
+    text-align: center;
+    text-decoration: none;
+}
+
+#User .IntelCard .IntelCard-wrapper .IntelCard-card hr { margin: 0.5rem 0; }
+
+#User .IntelCard .IntelCard-wrapper .IntelCard-card .Intel-data {
+    font-size: 14px;
+}
+
+
+/************************************************* 
+    INTEL HISTORY
+ *************************************************/
+#IntelsModal .Intels-History { }
+
+#IntelsModal .Intels-History #IntelsModal-status {}
+
+#IntelsModal .Intels-History .active { margin: 0; }
+#IntelsModal .Intels-History .active .History-card {
+    border-width: 2px;
+}
+
+#IntelsModal .Intels-History .list { }
+
+#IntelsModal .Intels-History .template { display: none; }
+
+#IntelsModal .Intels-History .History-card {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+#IntelsModal .Intels-History .History-card .card-title {
+    padding-left: 1rem;
+}
+
+#IntelsModal .Intels-History .History-card .History-no_data {
+    margin: 1rem;
+}
+
+#IntelsModal .Intels-History .History-card .History-form {}
+
+
+
+/************************************************* 
+    FAMILY
+ *************************************************/
+#User .Family {}
+
+#User .Family .Family-wrapper {}
+
+#User .Family .Family-wrapper .Family-card {
+    margin: 1rem;
+    padding: .25rem .5rem;
+    
+    display: block;
+    border: 1px solid gray;
+    border-radius: 5px;
+    
+    color: inherit;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+}
+
+#User .Family .Family-wrapper .Family-card:hover {
+    background: hsla(0, 0%, 85%, 1);
+}
+.Family .Family-card.add { cursor: pointer; }
+
+
+/* #User .Family .Family-wrapper .Family-card span:last-child {
+    display: block;
+} */
+
+.Family .Family-wrapper .Family-card .Card_register  { display: none; }
+
+.Family .Family-wrapper .Family-card.danger .text-danger { display: inline; }
+.Family .Family-wrapper .Family-card.success .text-success { display: inline; }
+
+.Family .Family-card b span { display: inline; }
+
+.Family .Family-card b,
+.Family .Family-card .Card_record { display: block; }
+
+
+#Users .Users-List {
+    margin: 1rem 0;
+}
+
+#Users .Users-List .list-group-item {
+    /* color: #0a5467; */
+    cursor: pointer;
+}
+#Users .Users-List .list-group-item.active {}
+
+
+/************************************************* 
+    CHILD MODAL
+ *************************************************/
+
+
+
+/************************************************* 
+    RECORDS
+ *************************************************/
+#Records-wrapper {}
+ 
+#Records-wrapper .Records-Item {
+    margin: 1rem 0;
+}
+/* #Records-wrapper .Records-Item.data span.no_data { display: none }; */
+
+
+
+/************************************************* 
+    RECORD
+ *************************************************/
+ #Record {}
+
+ #Record .Record-wrapper {}
+
+ #Record .Record-wrapper #Record-status {}
+
+ #Record .Record-wrapper fieldset {}
+
+ #Record .Record-wrapper fieldset legend {}
+
+ #Record .Record-wrapper fieldset b.col-sm-12 {
+    border-bottom: 1px solid gray;
+    margin: 1rem;
+    padding: 0;
+}
+
+#Record .Record-wrapper fieldset span.Record-Description {
+    padding: 0 1rem;
+}
+
+#Record .Record-wrapper fieldset p.Record-Agreement {}
+#Record .Record-wrapper fieldset p.Record-Agreement ul {}
+#Record .Record-wrapper fieldset p.Record-Agreement ul li { list-style-type: disc;}
+#Record .Record-wrapper fieldset p.Record-Agreement {}
+    
+
+/************************************************* 
+    FAMILY 2
+ *************************************************/
+
+#Family-wrapper {}
+
+#Family-wrapper .Family-card {
+    margin: 1rem 0;
+    background: #eee;
+    border-radius: 5px;
+}
+
+#Family-wrapper .Family-card .article-head {
+    /* height: 40px; */
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background: orange;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+#Family-wrapper .Family-card .article-head i {
+    color: white;
+    font-size: 5rem;
+}
+
+#Family-wrapper .Family-card .article-body {
+    display: flex;
+    padding: 1rem;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#Family-wrapper .Family-card .article-body b { font-size: 20px; }
+
+#Family-wrapper .Family-card .article-body .child-name {
+    color: orange;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+#Family-wrapper .Family-card .article-body .Card_register  { display: none; }
+
+#Family-wrapper .Family-card .article-body.danger .text-danger { display: inline; }
+#Family-wrapper .Family-card .article-body.success .text-success { display: inline; }
+
+#Family-wrapper .Family-card .article-body button {}
+
+
+
+#Family-wrapper .Family-card-Add {
+    margin: 1rem 0;
+    background: #eee;
+    border-radius: 5px;
+}
+
+#Family-wrapper .Family-card-Add .article-head {
+    height: 40px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background: orange;
+}
+
+#Family-wrapper .Family-card-Add .article-body {
+    display: flex;
+    padding: 1rem;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#Family-wrapper .Family-card-Add .article-body .child-name {
+    color: gray;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+/************************************************* 
+    EXTENSION MODALS FORM/INPUTS
+ *************************************************/
+ .History-form {
+    display: flex;
+    flex-wrap: wrap;
+}
+.History-form hr {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#App_Extensions select,
+#App_Extensions input[type="date"],
+#App_Extensions input[type="text"],
+#App_Extensions input[type="email"],
+#App_Extensions input[type="phone"],
+#App_Extensions input[type="number"],
+#App_Extensions input[type="password"] {
+    width: 100%;
+    margin: 5px 0;
+    
+    border: none;
+    box-shadow: none;
+    border-bottom: 2px solid hsla(0, 0%, 80%, 1);
+    border-radius: 0;
+
+    color: hsla(0, 0%, 25%, 1);
+    background-color: transparent;
+}
+
+#App_Extensions select:focus,
+#App_Extensions input[type="date"]:focus,
+#App_Extensions input[type="text"]:focus,
+#App_Extensions input[type="email"]:focus,
+#App_Extensions input[type="phone"]:focus,
+#App_Extensions input[type="number"]:focus,
+#App_Extensions input[type="password"]:focus {
+    outline: none;
+    border-bottom-color: hsla(0, 0%, 50%, 1);
+}
+
+#App_Extensions input.error,
+#App_Extensions select.error {
+    border-bottom-color: #b14853;
+}
+
+#App_Extensions .form-group {
+    padding: 0 1rem;
+}
+
+#App_Extensions .form-group label {
+    font-size: 14px;
+}
+
+
+/************************************************* 
+    RECORD SCHOOL TAB
+ *************************************************/
+table {
+    width: 100%;
+    border-color: #000; 
+    background-color: #fff;
+}
+
+table td {
+    border: 1px solid darkgray;
+    padding: 0.25rem;
+    text-align: center;
+}
+
+.schoolcard ul li {
+    font-weight: 400;
+    list-style-type: disc;
+    list-style-position: inside;
+}
+

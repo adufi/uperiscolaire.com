@@ -1,0 +1,1509 @@
+{% extends 'intern/base.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="/static/styles/User.css" />
+{% endblock %}
+
+{% block main %}
+<div id="User" class="container">
+
+    <div id="User-status" class="form-status col-sm-12">
+        <div class="form-alert alert alert-danger" role="alert"></div>
+        <div class="form-alert alert alert-success" role="alert"></div>
+    </div>
+
+    <div id="Alert" class="col-sm-12">
+        <div class="Alert-container">
+            <div class="alert alert-primary" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-secondary" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-success" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-danger" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-warning" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-info" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-light" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-dark" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="User-wrapper" class="wrapper">
+        <div class="wrapper-title">
+            <p class="title">Mon profil</p>
+        </div>
+        <div class="wrapper-content">
+            <div class="row">
+
+                <div class="col-sm-12">
+
+                    <div class="Profile">
+
+                        <div class="Profile-wrapper">
+                            
+                            <div id="Profile-status" class="form-status col-sm-12">
+                                <div class="form-alert alert alert-danger" role="alert"></div>
+                                <div class="form-alert alert alert-success" role="alert"></div>
+                            </div>
+                            
+                            <fieldset class="Profile-base col-sm-12">
+                                <legend>Informations</legend>
+
+                                <div class="row">
+                                    
+                                    <div class="form-group col-sm-6">
+                                        <label for="user_last_name"><b>Nom *</b></label>
+                                        <br />
+                                        <input id="user_last_name" type="text" placeholder="Nom"
+                                            onchange="profile_onChange(this)" class="text-uppercase" />
+                                    </div>
+                                    
+                                    <div class="form-group col-sm-6">
+                                        <label for="user_first_name"><b>Prénom *</b></label>
+                                        <br />
+                                        <input id="user_first_name" type="text" placeholder="Prénom"
+                                            onchange="profile_onChange(this)" class="text-capitalize" />
+                                    </div>
+        
+                                    <div class="form-group col-sm-6">
+                                        <label for="user_dob"><b>Date de naissance *</b></label>
+                                        <br />
+                                        <input id="user_dob" type="date" placeholder="Date de naissance"
+                                            onchange="profile_onChange(this)" />
+                                    </div>
+
+                                    <div class="form-group col-sm-6">
+                                        <label for="user_job"><b>Profession</b></label>
+                                        <input id="user_job" type="text" onchange="profile_onChange(this)" class="text-capitalize" />
+                                    </div>
+
+                                    <div class="form-group col-sm-6">
+                                        <label for="user_birthplace"><b>Lieu de naissance</b></label>
+                                        <input id="user_birthplace" type="text" onchange="profile_onChange(this)" />
+                                    </div>
+
+                                    <div class="form-group col-sm-6 ">
+                                        <label><b>Genre *</b></label>
+                                        <br/>
+                                        
+                                        <label for="user_gender_m"><b>Père</b></label>
+                                        <input id="user_gender_m" name="user_gender" type="radio" onchange="profile_onChange(this)" />
+
+                                        <label for="user_gender_f"><b>Mère</b></label>
+                                        <input id="user_gender_f" name="user_gender" type="radio" onchange="profile_onChange(this)" />
+
+                                        <label for="user_gender_t"><b>Tuteur</b></label>
+                                        <input id="user_gender_t" name="user_gender" type="radio" onchange="profile_onChange(this)" />
+                                    </div>
+        
+                                    <div class="form-group col-sm-6">
+                                        <label for="user_email"><b>Email *</b></label>
+                                        <br />
+                                        <input id="user_email" type="email" placeholder="mon.email@mail.fr"
+                                            onchange="profile_onChange(this)" disabled class="text-lowercase"/>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="Profile-phones col-sm-12">
+                                <legend>Téléphones</legend>
+                            
+                                <div class="row">
+                            
+                                    <div class="form-group col-sm-6">
+                                        <label for="user_phone_cell"><b>Téléphone portable *</b></label>
+                                        <br />
+                                        <input id="user_phone_cell" type="phone" placeholder="0696 12 34 56" onchange="profile_onChange(this)" />
+                                    </div>
+
+                                    <div class="form-group col-sm-6">
+                                        <label for="user_phone_home"><b>Téléphone fixe</b></label>
+                                        <br />
+                                        <input id="user_phone_home" type="phone" placeholder="0696 12 34 56" onchange="profile_onChange(this)" />
+                                    </div>
+
+                                    <div class="form-group col-sm-6">
+                                        <label for="user_phone_pro"><b>Téléphone professionnel</b></label>
+                                        <br />
+                                        <input id="user_phone_pro" type="phone" placeholder="0696 12 34 56" onchange="profile_onChange(this)" />
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="Profile-address col-sm-12">
+                                <legend>Adresse</legend>
+                            
+                                <div class="row">
+
+                                    <div class="form-group col-sm-12">
+                                        <label for="user_address1"><b>Ligne 1 *</b></label>
+                                        <br />
+                                        <input id="user_address1" type="text" placeholder="Ligne 1"
+                                            onchange="profile_onChange(this)" />
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <label for="user_address2"><b>Ligne 2</b></label>
+                                        <br />
+                                        <input id="user_address2" type="text" placeholder="Ligne 2"
+                                            onchange="profile_onChange(this)" />
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="user_city"><b>Commune *</b></label>
+                                        <br />
+                                        <select id="user_city" placeholder="Commune" onchange="city_onChange(this)">
+                                            <option value="0" default>Commune</option>
+                                            <option value="97216">L'Ajoupa-Bouillon</option>
+                                            <option value="97217">Les Anses-d'Arlet</option>
+                                            <option value="97218">Basse-Pointe</option>
+                                            <option value="97222">Bellefontaine</option>
+                                            <option value="97221">Le Carbet</option>
+                                            <option value="97222">Case-Pilote</option>
+                                            <option value="97223">Le Diamant</option>
+                                            <option value="97224">Ducos</option>
+                                            <option value="97250">Fonds-Saint-Denis</option>
+                                            <option value="97200">Fort-de-France</option>
+                                            <option value="97240">Le François</option>
+                                            <option value="97218">Grand'Rivière</option>
+                                            <option value="97213">Gros-Morne</option>
+                                            <option value="97232">Le Lamentin</option>
+                                            <option value="97214">Le Lorrain</option>
+                                            <option value="97218">Macouba</option>
+                                            <option value="97225">Le Marigot</option>
+                                            <option value="97290">Le Marin</option>
+                                            <option value="97260">Le Morne-Rouge</option>
+                                            <option value="97226">Le Morne-Vert</option>
+                                            <option value="97250">Le Prêcheur</option>
+                                            <option value="97211">Rivière-Pilote</option>
+                                            <option value="97215">Rivière-Salée</option>
+                                            <option value="97231">Le Robert</option>
+                                            <option value="97227">Sainte-Anne</option>
+                                            <option value="97228">Sainte-Luce</option>
+                                            <option value="97230">Sainte-Marie</option>
+                                            <option value="97270">Saint-Esprit</option>
+                                            <option value="97212">Saint-Joseph</option>
+                                            <option value="97250">Saint-Pierre</option>
+                                            <option value="97233">Schœlcher</option>
+                                            <option value="97220">La Trinité</option>
+                                            <option value="97229">Les Trois-Îlets</option>
+                                            <option value="97280">Le Vauclin</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="user_zip_code"><b>Code postal</b></label>
+                                        <br />
+                                        <input id="user_zip_code" type="number" placeholder="Code postal"
+                                            onchange="profile_onChange(this)" disabled />
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="Profile-family col-sm-12">
+                                <legend>Informations familiales</legend>
+                            
+                                <div class="row">
+
+                                    <div class="form-group col-sm-6">
+                                        <label for="intel_q1"><b>Quotient <span class="intel_s"></span></b></label>
+                                        <br />
+                                        <select id="intel_q1" placeholder="Quotient" onchange="intels_listenInputs(this)">
+                                            <option value="0" default>-----</option>
+                                            <option value="1">NE</option>
+                                            <option value="2">Q2</option>
+                                            <option value="3">Q1</option>
+                                        </select>
+                                    </div>
+                    
+                                    <div class="form-group col-sm-6">
+                                        <label for="intel_q2"><b>Quotient <span class="intel_e"></span></b></label>
+                                        <br />
+                                        <select id="intel_q2" placeholder="Quotient" onchange="intels_listenInputs(this)">
+                                            <option value="0" default>-----</option>
+                                            <option value="1">NE</option>
+                                            <option value="2">Q2</option>
+                                            <option value="3">Q1</option>
+                                        </select>
+                                    </div>
+                    
+                                    <div class="form-group col-sm-6">
+                                        <label for="intel_rn"><b>Numéro CAF *</b></label>
+                                        <br />
+                                        <input id="intel_rn" type="text" placeholder="Numéro CAF"
+                                            onchange="intels_listenInputs(this)" />
+                                    </div>
+
+                                    <div class="form-group col-sm-6">
+                                        <label for="credit"><b>Avoir</b></label>
+                                        <br />
+                                        <input id="credit" type="number" placeholder="Avoir"
+                                            onchange="credit_listenInputs(this)" />
+                                    </div>
+
+                                    <!-- <div class="form-group col-sm-6">
+                                        <label for="intel_q1"><b>Quotient <span class="intel_s"></span></b></label>
+                                        <br />
+                                        <select id="intel_q1" placeholder="Quotient" onchange="">
+                                            <option value="0" default>-----</option>
+                                            <option value="1">NE</option>
+                                            <option value="2">Q2</option>
+                                            <option value="3">Q1</option>
+                                        </select>
+                                    </div>
+        
+                                    <div class="form-group col-sm-6">
+                                        <label for="intel_q2"><b>Quotient <span class="intel_e"></span></b></label>
+                                        <br />
+                                        <select id="intel_q2" placeholder="Quotient" onchange="">
+                                            <option value="0" default>-----</option>
+                                            <option value="1">NE</option>
+                                            <option value="2">Q2</option>
+                                            <option value="3">Q1</option>
+                                        </select>
+                                    </div>
+        
+                                    <div class="form-group col-sm-6">
+                                        <label for="intel_rn"><b>Numéro CAF</b></label>
+                                        <br />
+                                        <input id="intel_rn" type="text" placeholder="Numéro CAF"
+                                            onchange="profile_onChange(this)" />
+                                    </div>
+
+                                    <br />
+
+                                    <div class="form-group col-sm-6">
+                                        <label for="intel_is"><b>Société d'assurance</b></label>
+                                        <br />
+                                        <input id="intel_is" type="text" placeholder="Société d'assurance"
+                                            onchange="profile_onChange(this)" />
+                                    </div>
+
+                                    <div class="form-group col-sm-6">
+                                        <label for="intel_ip"><b>Police d'assurance</b></label>
+                                        <br />
+                                        <input id="intel_ip" type="text" placeholder="Police d'assurance"
+                                            onchange="profile_onChange(this)" />
+                                    </div> -->
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="Profile-additional col-sm-12">
+                                <legend>Newsletters</legend>
+                            
+                                <div class="row">
+
+                                    <div class="form-group col-sm-12">
+                                        <input id="user_accept_newsletter" type="checkbox" onchange="profile_onChange(this)" />
+                                        <label for="user_accept_newsletter"><b>S'inscrire à la newsletter de l'UPEEM!</b></label>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <div class="form-group col-sm-12 text-right">
+                                <button id="Profile-Update" class="button button-blue" onclick="update()">Mettre à jour</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-sm-4 d-none">
+
+                    <div class="IntelCard">
+                        <div class="IntelCard-wrapper col-sm-12">
+                            <legend>Informations famille</legend>
+
+                            <div class="IntelCard-card">
+                                <b>Pas d'inscription pour cette année</b>
+                                <hr />
+
+                                <div class="Intel-no_data">
+                                    <span><i>Pas de données pour cette année</i></span>
+                                </div>
+
+                                <div class="Intel-data" style="display: none;">
+                                    <div class="col-sm-12">
+                                        <b>Quotient <span class="intel_s"></span>: </b>
+                                        <span class="intel_q1"></span>
+                                        <br />
+
+                                        <b>Quotient <span class="intel_e"></span>: </b>
+                                        <span class="intel_q2"></span>
+                                        <br />
+
+                                        <b>CAF: </b><span class="intel_rn"></span>
+                                        <br />
+
+                                        <b>Numéro de police: </b><span class="intel_ip"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-12 text-right">
+                                <button id="IntelCard-Add" class="button button-cyan" onclick="openModal('IntelsModal')">Ajouter</button>
+                                <button id="IntelCard-Update" class="button button-blue" onclick="openModal('IntelsModal')">Modifier</button>
+                                <button id="IntelCard-History" class="button button-dark"
+                                    onclick="openModal('IntelsModal')">Historique</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="Family">
+                        <div class="Family-wrapper col-sm-12">
+                            <legend>Ma famille</legend>
+                            <b>Enfant(s) lié(s)</b>
+
+                            <!-- <a class="Family-card success" href="#">
+                                <b>
+                                    <span class="Card_name">Enfant 1</span> -
+                                    <span class="Card_register text-success">Inscrit</span>
+                                    <span class="Card_register text-danger">Non inscrit</span>
+                                </b>
+                                <span class="Card_record">CM2 - HM</span>
+                            </a>
+
+                            <a class="Family-card danger" href="#">
+                                <b>
+                                    <span class="Card_name">Enfant 2</span> -
+                                    <span class="Card_register text-success">Inscrit</span>
+                                    <span class="Card_register text-danger">Non inscrit</span>
+                                </b>
+                                <span class="Card_record">CM2 - HM</span>
+                            </a>
+
+                            <a class="Family-card add">
+                                <b>
+                                    <i class="fa fa-plus text-success" aria-hidden="true"></i>
+                                    Ajouter enfant
+                                </b>
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- <div id="Records-wrapper"></div> -->
+</div>
+{% endblock %}
+
+{% block body_extensions %}
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="ChildModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter un enfant</h5>
+                <button type="button" class="close" data-dismiss="modal" onclick="closeModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="AddChild">
+                    <form class="wrapper">
+                        <div id="AddChild-status" class="form-status col-sm-12">
+                            <div class="form-alert alert alert-danger" role="alert"></div>
+                            <div class="form-alert alert alert-success" role="alert"></div>
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                            <label for="child_first_name"><b>Prénom *</b></label>
+                            <br />
+                            <input id="child_first_name" type="text" placeholder="Prénom"
+                                onchange="children_listenInputs(this)" />
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                            <label for="child_last_name"><b>Nom *</b></label>
+                            <br />
+                            <input id="child_last_name" type="text" placeholder="Nom"
+                                onchange="children_listenInputs(this)" />
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                            <label for="child_dob"><b>Date de naissance *</b></label>
+                            <br />
+                            <input id="child_dob" type="date" placeholder="Date de naissance"
+                                onchange="children_listenInputs(this)" />
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-cyan" onclick="createChild()">Ajouter</button>
+                <button type="button" class="button button-dark" data-dismiss="modal" onclick="closeModal()">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- <div class="modal fade" id="IntelsModal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Mon historique famille</h5>
+                <button type="button" class="close" data-dismiss="modal" onclick="closeModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body Intels-History">
+
+                <div id="IntelsModal-status" class="form-status">
+                    <div class="form-alert alert alert-danger" role="alert"></div>
+                    <div class="form-alert alert alert-success" role="alert"></div>
+                </div>
+
+                <div class="active">
+                    <b>Pas d'inscription pour cette année</b>
+                </div>
+
+                <div class="list"></div>
+
+                <div class="template" style="display: none;">
+                    <div class="History-card">
+                        <b class="card-title">2019 - 2020</b>
+                        <hr />
+
+                        <div class="History-no_data">
+                            <span><i>Pas de données pour cette année</i></span>
+                        </div>
+
+                        <div class="History-form">
+                            <div class="form-group col-sm-6">
+                                <label for="intel_q1"><b>Quotient <span class="intel_s"></span></b></label>
+                                <br />
+                                <select id="intel_q1" placeholder="Quotient" onchange="">
+                                    <option value="0" default>-----</option>
+                                    <option value="1">NE</option>
+                                    <option value="2">Q2</option>
+                                    <option value="3">Q1</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label for="intel_q2"><b>Quotient <span class="intel_e"></span></b></label>
+                                <br />
+                                <select id="intel_q2" placeholder="Quotient" onchange="">
+                                    <option value="0" default>-----</option>
+                                    <option value="1">NE</option>
+                                    <option value="2">Q2</option>
+                                    <option value="3">Q1</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label for="intel_rn"><b>Numéro CAF</b></label>
+                                <br />
+                                <input id="intel_rn" type="text" placeholder="Numéro CAF"
+                                    onchange="profile_onChange(this)" />
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="intel_ip"><b>Police d'assurance</b></label>
+                                <br />
+                                <input id="intel_ip" type="text" placeholder="Police d'assurance"
+                                    onchange="profile_onChange(this)" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="intels_update()">Mettre à jour</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    onclick="closeModal()">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/scripts/User.js"></script>
+<script>
+    let error = false;
+    let isAdmin = false;
+    let isChild = false;
+
+    let caster = undefined;
+
+    let userSibling = {};
+    let userProfile = {};
+    let userRecords = {};
+    let schoolYears = undefined;
+    
+    const user_id = {% if pk %} {{ pk }} {% else %} 0 {% endif %};
+    let parent_id = {% if pk %} {{ pk }} {% else %} 0 {% endif %};
+    
+    // let user_id = 29;
+    // let parent_id = 20;
+    
+    // index - SchoolYear
+    const intel = new Intel();
+    const childAdded = new User();
+    const intelsAdded = {};
+    
+    const userHelper = new User();
+    const intelsHelper = new Intels(parent_id);
+    const siblingHelper = new Sibling();
+
+    const recordHelper = new Record();
+    const recordsHelper = new Records();
+
+    const USERINPUTS = {
+        'user_first_name': document.getElementById('user_first_name'),
+        'user_last_name': document.getElementById('user_last_name'),
+        'user_dob': document.getElementById('user_dob'),
+        'user_job': document.getElementById('user_job'),
+        'user_gender_m': document.getElementById('user_gender_m'),
+        'user_birthplace': document.getElementById('user_birthplace'),
+        'user_phone_cell': document.getElementById('user_phone_cell'),
+        'user_phone_home': document.getElementById('user_phone_home'),
+        'user_phone_pro': document.getElementById('user_phone_pro'),
+        'user_email': document.getElementById('user_email'),
+        'user_address1': document.getElementById('user_address1'),
+        'user_address2': document.getElementById('user_address2'),
+        'user_city': document.getElementById('user_city'),
+        'user_zip_code': document.getElementById('user_zip_code'),
+        'user_accept_newsletter': document.getElementById('user_accept_newsletter'),
+        'intel_q1': document.getElementById('intel_q1'),
+        'intel_q2': document.getElementById('intel_q2'),
+        'credit': document.getElementById('credit'),
+
+        label: function (key) { return document.querySelector(`label[for="${key}"]`); },
+        // input: function (key) { return document.getElementById(this[key]); },
+        hide: function (key) { this[key].parentElement.style = 'display:none'; },
+    };
+
+
+    window.onload = function (e) {
+        App.init()
+        .then(() => {
+            // App.SchoolYears();
+            Alert.init();
+            // Login.init();
+            
+            caster = JSON.parse(
+                window.localStorage.getItem('caster')
+            );
+            
+            if (!caster) {
+                statusDanger('Impossible de récupérer le profil en cours.');
+                return false;
+            }
+    
+            schoolYears = App.schoolYears;
+    
+            if (!user_id) {
+                statusDanger('User ID non défini.');
+                return false;
+            }
+
+            return run();
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+        
+
+        // TODO
+        // Check App Schoolyears
+        // if (!schoolYears.length) {
+        //     statusDanger('Echec lors de la récupération des années scolaires.');
+        //     return false
+        // }
+
+    }
+
+
+    function credit_listenInputs (e) {
+        userHelper.credit = e.value;
+        userHelper.change_flag = true;
+        intel.has_changed = true;
+    }
+
+
+    function statusDanger(message) {
+        Alert.hide();
+        Alert.alertDanger(message);
+        return;
+        const base = document.getElementById('User-status');
+
+        base.querySelectorAll('.form-alert').forEach(item => { item.classList.remove('show'); });
+
+        const _ = base.querySelector('.form-alert.alert-danger');
+        _.innerHTML = message;
+        _.classList.add('show');
+    }
+
+
+    function statusSuccess(message) {
+        Alert.hide();
+        Alert.alertSuccess(message);
+        return;
+        const base = document.getElementById('User-status');
+
+        base.querySelectorAll('.form-alert').forEach(item => { item.classList.remove('show'); });
+
+        const _ = base.querySelector('.form-alert.alert-success');
+        _.innerHTML = message;
+        _.classList.add('show');
+    }
+    
+
+    function run () {
+        userHelper.readUser(
+            user_id,
+            readUser_onSuccess,
+            readUser_onFailure
+        );
+
+        return true;
+    }
+
+
+    function readUser_onSuccess(data) {
+        userProfile = data.user;
+
+        // Check role
+        error = true;
+        // Parent
+        if (userProfile.roles) {
+            for (const role of userProfile.roles) {
+                if (role.slug === 'child')
+                    isChild = true;
+            }
+            error = false;
+        }
+        // Caster
+        if (App.caster.roles) {
+            for (const role of App.caster.roles) {
+                if (role.slug === 'admin')
+                    isAdmin = true;
+            }
+            error = false;
+        }
+
+        if (error) {
+            // 
+        }
+
+        if (!userProfile.date_confirmed) {
+            Alert.alertDanger(`Compte non confirmé. Merci de vérifier votre boîte mail. Dans le cas échéant, <a href="/new-verification-link/${App.caster.id}/">merci de suivre ce lien.</a>`);
+        }
+
+        // Read Sibling
+        if (isChild) {
+            siblingHelper.readByChild(
+                user_id,
+                readSibling_onSuccess,
+                readSibling_onFailure
+            );
+
+            recordsHelper.readByChild(
+                user_id,
+                readRecords_onSuccess,
+                readRecords_onFailure
+            );
+        }
+
+        else
+            siblingHelper.readByParent(
+                user_id,
+                readSibling_onSuccess,
+                readSibling_onFailure
+            );
+
+
+        const r = renderProfile();
+
+        // renderIntels
+        // renderFamily
+        // render parent 1
+        // render parent 2
+        // render siblings
+
+        // intelsHelper.readByParent(
+        //     parent_id,
+        //     (data) => { 
+        //         console.log(data); 
+        //         renderIntels();
+        //     },
+        //     (err) => { 
+        //         console.log(err);
+        //         profile_statusDanger (err);
+        //         renderIntels ([]);
+        //     }
+        // );
+    }
+
+
+    function readUser_onFailure(err) {
+        console.log(err);
+        let message = 'Une erreur est survenue.';
+        if (err.erreur) {
+            message = err.erreur;
+        }
+        else if (err.message) {
+            message = err.message;
+        }
+        profile_statusDanger(message);
+    }
+
+
+    function readSibling_onSuccess(data) {
+        userSibling = data.sibling;
+        parent_id = data.sibling.parent;
+        childAdded.parent = data.sibling.parent;
+
+        for (const sy of App.schoolYears) {
+            if (sy.is_active) {
+                for (const _intel of data.sibling.intels) {
+                    if (_intel.school_year === sy.id) {
+                        intel.fromIntel(_intel);
+                        intel.fromSchoolYear(sy);
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+        // if (!intel.recipent_number) {
+        //     if (!document.querySelector('#Profile-status .alert-danger').classList.contains('show')) {
+        //         profile_statusDanger('Veuillez entrer votre numéro CAF.');
+        //     }
+        // }
+
+        document.getElementById('intel_q1').value = intel.quotient_1;
+        document.getElementById('intel_q2').value = intel.quotient_2;
+        document.getElementById('intel_rn').value = intel.recipent_number;
+
+        // renderIntels();
+        // renderChildren();
+    }
+
+
+    function readSibling_onFailure(err) {
+        console.log(err);
+
+        const message = Errors.process(err);
+        Alert.alertDanger(message);
+
+        // profile_statusDanger(err);
+    }
+
+
+    function readRecords_onSuccess(data) {
+        userRecords = data.records;
+
+        // renderRecords();
+    }
+
+
+    function readRecords_onFailure(err) {
+        console.log(err);
+
+        profile_statusDanger(err);
+    }
+
+
+    /*****************************************************************************
+    *  USER - PROFILE
+    *****************************************************************************/
+
+    function renderProfile() {
+        const userWrapper = document.getElementById('User-wrapper');
+        
+        if (userProfile.last_name && userProfile.first_name) {
+            const title = userProfile.last_name + ' ' + userProfile.first_name;
+
+            // Update document title
+            document.title = title;
+
+            // Set user wrapper title
+            userWrapper.querySelector('.title').innerHTML = title;
+        }
+        else {
+            // Update document title
+            document.title = 'Mon profil';
+            
+            // Set user wrapper title
+            userWrapper.querySelector('.title').innerHTML = 'Mon profil';
+        }
+        
+
+        // Set imcomplete data status
+        if (!userProfile.date_completed) {
+            profile_statusDanger('Attention, vos informations sont incomplètes. Veuillez les compléter.');
+        }
+        else {
+            // statusSuccess(`Inscription 2020-2021 ouverte. <a href="">Merci de suivre ce lien.</a>`)
+            Alert.alertSuccess('Informations parents enregistrées', 'Cliquez sur ce lien pour ajouter vos enfants', `/family/${App.caster.id}/`);
+        }
+
+        // Setup user form
+        if (!isChild)
+            formUser(userProfile);
+
+        else
+            formChild(userProfile);
+    }
+
+
+    function profile_statusSuccess(message) {
+        Alert.hide();
+        Alert.alertSuccess(message);
+        return;
+        const base = document.getElementById('Profile-status');
+
+        base.querySelectorAll('.form-alert').forEach(item => { item.classList.remove('show'); });
+
+        const _ = base.querySelector('.form-alert.alert-success');
+        _.innerHTML = message;
+        _.classList.add('show');
+    }
+    
+
+    function profile_statusDanger(message) {
+        Alert.hide();
+        Alert.alertDanger(message);
+        return;
+        const base = document.getElementById('Profile-status');
+
+        base.querySelectorAll('.form-alert').forEach(item => { item.classList.remove('show'); });
+
+        const _ = base.querySelector('.form-alert.alert-danger');
+        _.innerHTML = message;
+        _.classList.add('show');
+    }
+
+
+    /**
+     *  Update form a normal user
+     */
+    function formUser(user) {
+        try {
+            USERINPUTS['user_first_name'].value = user.first_name;
+            USERINPUTS['user_last_name'].value = user.last_name;
+
+            USERINPUTS['user_job'].value = user.job;
+            USERINPUTS['user_email'].value = user.email;
+            
+            if (user.accept_newsletter) {
+                document.getElementById('user_accept_newsletter').checked = true;
+            }
+            
+            if (user.gender === 1)
+                document.getElementById('user_gender_m').checked = true;
+            else if (user.gender === 2)
+                document.getElementById('user_gender_f').checked = true;
+            else if (user.gender === 3)
+                document.getElementById('user_gender_t').checked = true;
+            
+            USERINPUTS.hide('user_dob');
+            USERINPUTS.hide('user_birthplace');
+
+            if (user.phones) {
+                USERINPUTS['user_phone_cell'].value = user.phones.cell;
+                USERINPUTS['user_phone_home'].value = user.phones.home;
+                USERINPUTS['user_phone_pro'].value = user.phones.pro;
+            } 
+
+            if (user.address) {
+                USERINPUTS['user_address1'].value = user.address.address1;
+                USERINPUTS['user_address2'].value = user.address.address2;
+
+                USERINPUTS['user_city'].value = user.address.zip_code;
+                USERINPUTS['user_zip_code'].value = user.address.zip_code;
+            }
+
+            if (!isAdmin) {
+                USERINPUTS.hide('intel_q1');
+                USERINPUTS.hide('intel_q2');
+                USERINPUTS.hide('credit');
+                // document.getElementById('intel_q1').disabled = true;
+                // document.getElementById('intel_q2').disabled = true;
+                
+            }
+            else {
+                document.querySelector('#credit').value = userHelper.credit;
+            }
+        }
+        catch (error) {
+            console.log('An error occured in formUser() with message: ' + error);
+        }
+    }
+
+
+    /**
+     *  Update form a normal user
+     */
+    function formChild(user) {
+        try {
+            USERINPUTS['user_first_name'].value = user.first_name;
+            USERINPUTS['user_last_name'].value = user.last_name;
+
+            USERINPUTS['user_dob'].value = user.dob;
+            USERINPUTS['user_birthplace'].value = user.birthplace;
+
+            document.querySelector('label[for="user_gender_m"]').innerHTML = '<b>Garçon</b>';
+            document.querySelector('label[for="user_gender_f"]').innerHTML = '<b>Fille</b>';
+            document.querySelector('label[for="user_gender_t"]').style = 'display: none';
+            document.getElementById('user_gender_t').style = 'display: none';
+
+            if (user.gender === 1) {
+                document.getElementById('user_gender_m').checked = true;
+            }
+            else if (user.gender === 2) {
+                document.getElementById('user_gender_f').checked = true;
+            }
+            else if (user.gender === 3) {
+                console.log('Child gender is 3!!!');
+            }
+
+            // USERINPUTS.hide('user_email');
+
+            // USERINPUTS.hide('user_phone_cell');
+            // USERINPUTS.hide('user_phone_home');
+            // USERINPUTS.hide('user_phone_pro');
+
+            // USERINPUTS.hide('user_address1');
+            // USERINPUTS.hide('user_address2');
+
+            // USERINPUTS.hide('user_city');
+            // USERINPUTS.hide('user_zip_code');
+
+            USERINPUTS.hide('user_job');
+            USERINPUTS.hide('user_email');
+
+            document.querySelector('.Profile-Phones').style = 'display:none';
+            document.querySelector('.Profile-Address').style = 'display:none';
+            document.querySelector('.Profile-additional').style = 'display:none';
+            document.querySelector('.Profile-family').style = 'display:none';
+        }
+        catch (error) {
+            console.log('An error occured in formChild() with message: ' + error);
+        }
+    }
+
+
+    function inputDanger(id) {
+        document.getElementById(id).classList.add('error');
+    }
+
+
+    function inputNeutral(id) {
+        document.getElementById(id).classList.remove('error');
+    }
+
+
+    function profile_onChange(e) {
+        let value = e.value;
+        if (e.type === 'checkbox')
+            value = e.checked;
+        const result = userHelper.validate(e.id, value);
+        console.log(result);
+
+        if (!result.status) {
+            inputDanger(e.id);
+            profile_statusDanger(result.message);
+        }
+        else {
+            inputNeutral(e.id);
+        }
+    }
+
+
+    function city_onChange(e) {
+        profile_onChange(e);
+        if (e.value !== '0') {
+            document.getElementById('user_zip_code').value = e.value;
+        }
+    }
+
+
+    function update() {
+        let r = undefined;
+        if (isChild) {
+            r = userHelper.updateChild(
+                update_onSuccess,
+                update_onFailure
+            );
+        }
+        else {
+            p = intel.payload();
+
+            if (typeof(p) === 'object') {
+                r = userHelper.updateUser(
+                    update_onSuccess,
+                    update_onFailure
+                );
+            }
+            else {
+                profile_statusDanger(p);
+            }
+
+        }
+
+        if (typeof (r) === 'string')
+            profile_statusDanger(r);
+    }
+
+
+    function update_onSuccess(data) {
+        profile_statusSuccess('Informations enregistrées.');
+
+        if (!isChild) {
+            intels_update();
+        }
+
+        // window.setTimeout(
+        //     window.location.reload(), 3000);
+    }
+
+
+    function update_onFailure(err) {
+        console.log(err);
+        try {
+            if (typeof(err) === 'string') {
+                if (err.includes('Values can')) {
+                    profile_statusDanger('Erreur, informations incomplètes.');
+                }
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    /*****************************************************************************
+     *  INTELS
+     *****************************************************************************/
+
+    /** 
+     *  renderIntels
+     *      Update Intel card
+     *      Add school years to History
+     *      Update History with Intels
+     *      Update card buttons
+     */
+    function renderIntels() {
+        const card = document.querySelector('.IntelCard');
+        const history = document.querySelector('.Intels-History');
+
+        // Render active School Year
+        for (const sy of App.schoolYears) {
+            const s = sy.date_start.split('-')[0];
+            const e = sy.date_end.split('-')[0];
+
+            if (sy.is_active) {
+
+                // Add years to html
+                //
+                // Card
+
+                card.querySelector('.IntelCard-card b').innerHTML = `${s} - ${e}`;
+
+                card.querySelector('.intel_s').innerHTML = s;
+                card.querySelector('.intel_e').innerHTML = e;
+
+                history.querySelector('.active').innerHTML = siblingHelper.render(sy, isAdmin);
+            }
+
+            // Only History
+            else {
+                history.querySelector('.list').innerHTML += siblingHelper.render(sy, isAdmin);
+            }
+
+            // Sanity
+            // console.log(`${s} - ${e}`);
+        }
+
+        const Q = [
+            '-',
+            'NE',
+            'Q2',
+            'Q1'
+        ];
+
+        // Intels
+        const set_disable = (block, selector, value) => {
+            const _ = block.querySelector(selector);
+            _.value = value;
+            _.disabled = (isAdmin) ? false : true;
+        };
+
+        for (const intel of Object.values(siblingHelper.intels())) {
+
+            const block = history.querySelector(`.History-card[data-school="${intel.school_year}"]`);
+
+            if (!block) {
+                console.log('Could not find a school year card for intel: ' + intel.id);
+                continue;
+            }
+
+            // Mark history card
+            block.setAttribute('data-intel', intel.id);
+
+            if (intel.is_active) {
+                // Update card
+                card.querySelector('.Intel-data').style = 'display: inherit';
+                card.querySelector('.Intel-no_data').style = 'display: none';
+
+                card.querySelector('.intel_q1').innerHTML = Q[intel.quotient_1];
+                card.querySelector('.intel_q2').innerHTML = Q[intel.quotient_2];
+                card.querySelector('.intel_rn').innerHTML = intel.recipent_number;
+                card.querySelector('.intel_ip').innerHTML = intel.insurance_policy;
+
+                block.querySelector('input[name="intel_rn"]').value = intel.recipent_number;
+                block.querySelector('input[name="intel_ip"]').value = intel.insurance_policy;
+
+                block.querySelector('.History-form').style = 'display:inherit';
+            }
+            else {
+
+                set_disable(block, 'input[name="intel_rn"]', intel.recipent_number);
+                set_disable(block, 'input[name="intel_ip"]', intel.insurance_policy);
+            }
+
+            block.querySelector('.History-form').style = 'display: flex';
+            block.querySelector('.History-no_data').style = 'display: none';
+
+            set_disable(block, 'select[name="intel_q1"]', intel.quotient_1);
+            set_disable(block, 'select[name="intel_q2"]', intel.quotient_2);
+
+        }
+
+        // Buttons
+        if (siblingHelper.has_active_intel)
+            document.getElementById('IntelCard-Add').style = 'display: none';
+        else
+            document.getElementById('IntelCard-Update').style = 'display: none';
+
+        // Inputs
+        document.querySelectorAll('.History-card').forEach((card) => {
+            const sy = card.getAttribute('data-school');
+            const intel = card.getAttribute('data-intel');
+
+            card.querySelectorAll('input').forEach(input => {
+                input.addEventListener('change', () => intels_listenInputs(input, sy, intel));
+            });
+
+            card.querySelectorAll('select').forEach(input => {
+                input.addEventListener('change', () => intels_listenInputs(input, sy, intel));
+            });
+        });
+
+
+    }
+
+
+    function intels_listenInputs(e, sy_id, intel_id) {
+        console.log('intels_listenInputs');
+        console.log(e);
+        // console.log(sy_id);
+        // console.log(intel_id);
+
+        // if (!sy_id) {
+        //     console.log('intels_listenInputs() => Error with input: ' + e);
+        //     return false;
+        // }
+
+        // let intel = null;
+
+        // if (!intel_id) {
+        //     if (!intelsAdded[sy_id]) {
+        //         intelsAdded[sy_id] = new Intel(parent_id);
+        //         intelsAdded[sy_id].school_year = sy_id
+        //     }
+
+        //     intel = intelsAdded[sy_id];
+        // }
+        // else {
+        //     intel = siblingHelper.intel(intel_id);
+
+        //     if (!intel) {
+        //         console.log('intels_listenInputs() => Failed to get intel with ID: ' + intel_id);
+        //         return false;
+        //     }
+        // }
+
+        // Data validation
+
+        const value = e.value;
+
+        switch (e.localName) {
+            case 'input':
+                // No values should exceed 20 chars
+                if (value.length > 19) {
+                    inputDanger(e.id);
+                    profile_statusDanger('Ce champ contient trop de caractères (20 max.).');
+                    return false;
+                }
+                break;
+
+            case 'select':
+                const _ = parseInt(value);
+                if (!_) {
+                    inputDanger(e.id);
+                    profile_statusDanger('Veuillez sélectionner un quotient valide.');
+                    return false;
+                }
+                if (_ < 0 || _ > 3) {
+                    inputDanger(e.id);
+                    profile_statusDanger('Veuillez sélectionner un quotient parmi ceux proposés.');
+                    return false;
+                }
+                break;
+        }
+
+        switch (e.id) {
+            case 'intel_q1':
+                intel.quotient_1 = parseInt(value);
+                break;
+
+            case 'intel_q2':
+                intel.quotient_2 = parseInt(value);
+                break;
+
+            case 'intel_rn':
+                intel.recipent_number = value;
+                break;
+
+            // case 'intel_ip':
+            //     intel.insurance_policy = value;
+            //     break;
+        }
+        intel.has_changed = true;
+        userHelper.change_flag = true;
+    }
+
+
+    function intels_update() {
+        let r = '';
+        
+        intel.parent_id = userHelper.id;
+
+        if (intel.id) {
+            r = intel.update(
+                intels_update_onSuccess,
+                intels_update_onFailure
+            );
+        }            
+        else {
+
+            r = intel.create(
+                intels_update_onSuccess,
+                intels_update_onFailure
+            );
+        }
+        if (typeof(r) === 'string') {
+            profile_statusDanger(r);
+        }
+    }
+
+
+    function intels_create_onSuccess(data) {
+        intels_statusSuccess('Création effectuée avec succès.');
+    }
+
+
+    function intels_create_onFailure(err) {
+        intels_statusDanger('La création de ... a échouer.');
+    }
+
+
+    function intels_update_onSuccess(data) {
+        // intels_statusSuccess('Mise à jour effectuée avec succès.');
+        window.location.reload();
+    }
+
+
+    function intels_update_onFailure(err) {
+        console.log(err);
+        let message = 'La mise à jour a échoué.';
+        if (err.erreur) {
+            message = err.erreur;
+        }
+        else if (err.message) {
+            message = err.message;
+        }
+        profile_statusDanger(message);
+    }
+
+
+    function intels_statusDanger(message) {
+        const base = document.getElementById('IntelsModal-status');
+
+        base.querySelectorAll('.form-alert').forEach(item => { item.classList.remove('show'); });
+
+        const _ = base.querySelector('.form-alert.alert-danger');
+        _.innerHTML = message;
+        _.classList.add('show');
+    }
+
+
+    function intels_statusSuccess(message) {
+        const base = document.getElementById('IntelsModal-status');
+
+        base.querySelectorAll('.form-alert').forEach(item => { item.classList.remove('show'); });
+
+        const _ = base.querySelector('.form-alert.alert-success');
+        _.innerHTML = message;
+        _.classList.add('show');
+    }
+
+
+    /**************************************************************************************************
+     *  CHILDREN
+     **************************************************************************************************/
+
+    function renderChildren() {
+
+        for (const child of Object.values(siblingHelper.children())) {
+            if (child.id != user_id)
+                child.renderCard();
+        }
+
+        siblingHelper.renderCardAdd();
+    }
+
+
+    function children_listenInputs(e) {
+        const result = childAdded.validate(e.id, e.value);
+        console.log(result);
+
+        if (!result.status) {
+            inputDanger(e.id);
+            children_statusDanger(result.message);
+        }
+        else {
+            inputNeutral(e.id);
+        }
+    }
+
+
+    function children_statusDanger(message) {
+        const base = document.getElementById('AddChild-status');
+
+        base.querySelectorAll('.form-alert').forEach(item => { item.classList.remove('show'); });
+
+        const _ = base.querySelector('.form-alert.alert-danger');
+        _.innerHTML = message;
+        _.classList.add('show');
+    }
+
+
+    function createChild() {
+        const r = childAdded.createChild(
+            createChild_onSuccess,
+            createChild_onFailure
+        );
+
+        if (typeof (r) === 'string')
+            statusDanger(r);
+    }
+
+
+    function createChild_onSuccess(data) {
+        console.log(data);
+        statusSuccess('Informations enregistrées.');
+    }
+
+
+    function createChild_onFailure(err) {
+        console.log(err);
+        if (err.includes && err.includes('Values can')) {
+            statusDanger('Erreur, informations incomplètes.');
+        }
+    }
+
+
+    /*****************************************************************************
+     *  RECORDS
+     *****************************************************************************/
+
+    /* */
+    function renderRecords() {
+        if (!isChild)
+            return 'User is not a child';
+
+        const wrapper = document.getElementById('Records-wrapper');
+
+        for (const sy of App.schoolYears) {
+
+            // Create record wrapper
+            if (sy.is_active) {
+                const old = wrapper.innerHTML
+                wrapper.innerHTML = recordsHelper.renderRecordItem(sy);
+                wrapper.innerHTML += old;
+            }
+            else {
+
+                wrapper.innerHTML += recordsHelper.renderRecordItem(sy);
+            }
+        }
+
+        for (const record of Object.values(recordsHelper.records())) {
+            record.updateRecordItem();
+        }
+    }
+
+
+    /*****************************************************************************
+     *  RECORD
+     *****************************************************************************/
+
+    function renderRecord() {
+
+
+
+    }
+
+
+    /**************************************************************************************************
+     *  MODALS
+     **************************************************************************************************/
+
+    function openModal(id) {
+        document.getElementById(id).classList.add('show');
+    }
+
+
+    function closeModal() {
+        document.querySelectorAll('.modal').forEach(item => item.classList.remove('show'));
+    }
+
+
+    function postProcess() {
+        document.getElementById('user_dob').value = '{{ user.dob | safe }}';
+        document.getElementById('user_city').value = '{{ user.address.zip_code | safe }}';
+    }
+</script>
+{% endblock %}

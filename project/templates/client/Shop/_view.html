@@ -1,0 +1,119 @@
+<div id="View" class="col-12">
+    
+    <div class="ui bottom attached loading tab segment d-none">
+        <p>Récupération des produits...</p>
+        <p>Récupéation des données familiales...</p>
+    </div>
+    
+    <div class="Controls d-none">
+        <div class="Controls-texts col-6">
+            <div class="">
+                <p><span class="controls-items_selected">0</span> produit(s) sélectionné(s)</p>
+            </div>
+        </div>
+        
+        <div class="Controls-buttons col-6">
+            <button class="controls-cancel btn btn-danger" onclick="controlsCancel()">Annuler</button>
+            <button class="controls-previous btn btn-warning" onclick="controlsPrevious()">Retour</button>
+            
+            <button class="controls-continue btn btn-success" onclick="controlsContinue()">
+                Valider(<span class="controls-amount">0</span> €)
+            </button>
+        </div>
+        <div class="Controls-buttons col-12">
+            <div class="Controls-alert alert alert-danger" role="alert"></div>
+        </div>
+    </div>
+    
+    <div class="Dir-Intels row">
+        
+        <div class="Intels col-6 d-none">
+            <h4>Informations paiement</h4>
+            <div class="card">
+                <div class="Intels-caster col-sm-">
+                    <label><b>Emetteur: </b></label>
+                    <span class="Intels__first_name"></span>
+                    <span class="Intels__last_name"></span>
+                </div>
+                <div class="Intels-parent col-sm-">
+                    <label><b>Parent: </b></label>
+                    <span class="Intels__first_name"></span>
+                    <span class="Intels__last_name"></span>
+                    - <span class="Intels__email"></span>
+                </div>
+                <div class="Intels-credit col-sm-">
+                    <label><b>Avoir: </b></label>
+                    <i><span class="Intels__credit">0</span></i> €
+                </div>
+            </div>
+        </div>
+        
+        <div class="Dir col-6 d-none">
+            <h4>Paiement manuel</h4>
+            <form class="ui form">
+                <div class="field">
+                    <label for="shop[ref]">Référence</label>
+                    <input id="shop[ref]" type="text" name="shop[ref]" placeholder="Référence #">
+                </div>
+                
+                <div class="field">
+                    <label for="shop[type]">Type</label>
+                    <div id="shop[type]" class="ui fluid search selection dropdown">
+                        <input type="hidden" name="shop[type]" value="1">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Type</div>
+                        <div class="menu">
+                            <div class="item" data-value="1">ANTENNE</div>
+                            <div class="item" data-value="2">DIRECTRICE</div>
+                            <div class="item" data-value="3">EN LIGNE</div>
+                            <div class="item" data-value="4">MIGRATION</div>
+                            <div class="item" data-value="5">MIGRATION DIR.</div>
+                            <div class="item" data-value="6">MANUEL</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label form="shop[comment]">Commentaire</label>
+                    <textarea id="shop[comment]" name="shop[comment]" rows="2"></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="Children-Records row col-12">
+        <div class="Children col-12 col-md-6 d-none">
+            <h4>Mes enfants</h4>
+            
+            <div class="content">
+                <!-- <div class="ui big label">
+                    Big
+                </div> -->
+            </div>
+        </div>
+        
+        <div class="Records col-12 col-md-6 d-none">
+            <h4>Informations inscription</h4>
+            
+            <div class="content"></div>
+        </div>
+    </div>
+    
+    <div class="View row col-12 d-none">
+        <div class="content"></div>
+    </div>
+    
+    <div class="Tabs _Shop">
+        
+        <div class="Tabs-header">
+            <ul class="Tabs-header-group"></ul>
+        </div>
+        
+        <div class="Tabs-body">
+            <ul class="Tabs-body-group">
+                <div id="a" class="spinner-border"></div>
+                
+            </ul>
+        </div>
+    </div>
+</div>

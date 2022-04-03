@@ -1,0 +1,1 @@
+npx sass --watch project/static/css/src:project/static/css

@@ -1,0 +1,189 @@
+section {
+    padding: 1rem;
+}
+
+section.parameters {
+    display: flex;
+    flex-flow: row wrap;
+    grid-gap: 1rem;
+    align-items: center;
+    justify-content: center;
+
+    background-color: black;
+}
+
+section.parameters > * {
+    display: inline-block;
+}
+
+section.parameters label { color: white !important; }
+section.parameters input {
+    width: 100%;
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+section.messages {
+    width: 100%;
+    /* height: 0; */
+
+    z-index: 100;
+    position: absolute;
+
+    display: flex;
+    grid-gap: 1rem;
+    align-items: center;
+    flex-direction: column;
+}
+
+section.messages .ui.message {
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+    position: relative;
+}
+
+section.js-controls {
+    opacity: .8;
+}
+
+section.js-categories, 
+section.js-school-years {
+    display: flex;
+    grid-gap: .5rem;
+    flex-wrap: wrap;
+}
+
+section.js-categories button[data-modified], 
+section.js-school-years button[data-modified] {
+    font-family: Lato,'Helvetica Neue', Icons,Arial,Helvetica,sans-serif;
+}
+
+section.js-categories button[data-modified]::before, 
+section.js-school-years button[data-modified]::before {
+    content: "\f111";
+    font-size: 10px;
+    margin-right: 3px;
+    vertical-align: text-bottom;
+}
+
+section.js-categories button::after {
+    content: ' ('attr(data-len)')';
+}
+
+section.table {
+    overflow-x: auto;
+    text-align: left;
+}
+
+section.table .states {
+    margin-bottom: 1rem;
+}
+
+section.table .states .normal .detail       { min-width: 26px; min-height: 26px; background-color: #566e86; }
+section.table .states .outofstock .detail   { min-width: 26px; min-height: 26px; background-color: #f7ca4a; }
+section.table .states .expired .detail      { min-width: 26px; min-height: 26px; background-color: #f79454; }
+section.table .states .disabled .detail     { min-width: 26px; min-height: 26px; background-color: #767676; }
+
+section.table input {
+    text-align: left;
+    pointer-events: none;
+}
+
+section.table input.normal       { background-color: #566e86; }
+section.table input.outofstock   { background-color: #f7ca4a; }
+section.table input.expired      { background-color: #f79454; }
+section.table input.disabled     { background-color: #767676; }
+
+@media (max-width: 767px) {
+    section.table td input {
+        pointer-events: none;
+    }
+
+    section.table td.id input {
+        width: auto;
+    }
+
+    section.table td.name input {
+        width: 100%;
+    }
+
+    section.table td.name input::before {
+        content: '#'attr(data-id)' ';
+    }
+
+    section.table th:not(.name,.id),
+    section.table td:not(.name,.id) {
+        display: none;
+    }
+}
+
+
+/** 
+*** SAVE SUMMARY
+**/
+.ui.list.summary .ui.list {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.ui.list.summary .item.title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.ui.list.summary .item.product {
+    font-weight: bold;
+}
+
+
+/** 
+*** TABLE
+**/
+table {
+    min-width: 100%;
+    background: #34495E;
+    color: #fff;
+    border-radius: .4em;
+}
+
+th {
+    padding: .5rem;
+    color: #dd5;
+    text-transform: uppercase;
+}
+
+td { text-align: center; }
+
+td .icon { color: red; margin: 0; }
+
+td input {
+    width: 100%;
+    height: 47px;
+    padding: 1rem;
+
+    border: 0;
+    text-align: center;
+
+    color: white;
+    background-color: #566e86;
+}
+
+td input[name="id"]             { width: 100px; }
+td input[name="name"]           { width: 150px; }
+td input[name="slug"]           { width: 150px; }
+td input[name="description"]    { width: 150px; }
+td input[name="category"]       {  }
+td input[name="subcategory"]    {  }
+td input[name="date"]           {  }
+td input[name="date_start"]     {  }
+td input[name="date_end"]       {  }
+td input[name="stock_current"]  { width: 100px; }
+td input[name="stock_max"]      { width: 100px; }
+td input[name="price"]          { width: 100px; }
+td input[name="price_q1"]       { width: 100px; }
+td input[name="price_q2"]       { width: 100px; }
+td input[name="order"]          { width: 100px; }
+td input[name="active"]         {  }

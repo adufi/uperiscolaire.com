@@ -1,0 +1,158 @@
+{% extends 'intern/base.html' %}
+
+{% block title %}
+Consulter prestations
+{% endblock %}
+
+{% block main %}
+<div id="Shop" class="wrapper container">
+    <div class="wrapper-title">
+        <p class="title">Consulter paiements 2020-2021</p>
+    </div>
+
+    <div class="wrapper-content">
+
+        <div id="main-messages" class="messages">
+            <div class="ui success message">
+                <!-- <i class="close icon"></i> -->
+                <div class="header">
+                    Notification(s)
+                </div>
+                <ul class="list"></ul>
+            </div>
+
+            <div class="ui error message">
+                <!-- <i class="close icon"></i> -->
+                <div class="header">
+                    Une ou plusieurs erreurs sont présentes
+                </div>
+                <ul class="list"></ul>
+            </div>
+            
+            <div class="ui warning message">
+                <!-- <i class="close icon"></i> -->
+                <div class="header">
+                    Attention!
+                </div>
+                <ul class="list"></ul>
+            </div>
+        </div>          
+
+        {% include 'client/Shop/_view.html' %}
+    </div>
+
+    <link rel="stylesheet" href="/static/styles/Shop/Shop.css" />
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="/static/scripts/User.js"></script>
+<script src="/static/scripts/Order.js"></script>
+<script src="/static/scripts/Shop/Shop.js"></script>
+<script src="/static/scripts/messages.js"></script>
+<script src="/static/scripts/Product.js"></script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+<script>
+    function getUrlID () {
+        const pathname = window.location.pathname;
+        const _ = pathname.split('prestations/')[1];  
+        return (!parseInt(_)) ? 0 : parseInt(_);
+    }
+    
+    window.onload = function (e) {
+        default_container = 'Shop';
+        App.exec(apiChaining);
+        return;
+    }
+    
+    var shopHelper = new Shop();
+    
+    function apiChaining () {
+        const urlID = getUrlID();
+        if (!urlID) {
+            throw 'Impossible de récupérer l\'ID dans l\'URL.';
+            Messages().error.write('apiChaining', 'Impossible de récupérer l\'ID dans l\'URL.');
+            return false;
+        }
+        
+        return new Promise(function (resolve, reject) {
+
+            App.get(`/api/shop/${urlID}/`, true)
+            .then(data => {
+                console.log(data);
+                
+                // Release 1.5.3
+                if (data.hasOwnProperty('parent')) shopHelper.setParent_v2(data.parent);
+                if (data.hasOwnProperty('children')) shopHelper.setChildren_v2(data.children);
+                if (data.hasOwnProperty('orders')) shopHelper.setOrders_v2(data.orders);
+
+                resolve();
+            })
+            .catch (err => reject(err))
+        })
+        .then (() => {
+            return new Promise((resolve, reject) => {
+                App.get('/api/params/product/')
+                .then((data) => {
+                    try{
+                        console.log(data);
+                        // schoolYear = data.school_year;
+                        // productHelper.init(data.products);
+                        
+                        shopHelper.setProducts(data.products);
+                        shopHelper.setActiveSchoolYear(data.school_year);
+                    }
+                    catch (error) {
+                        reject(error);
+                    }
+                    resolve(1);
+                })
+                .catch(err => reject(err))
+            }) 
+        })
+        .then (() => run() )
+    }
+
+    function run () {
+
+        // Sanity check
+        // console.log(sibling);
+        // console.log(productHelper.products());
+
+        // Release 1.4
+        // Shop
+        shopHelper.setCaster(App.caster);
+        // shopHelper.setParent(s_parent, s_sibling.intels, client);
+        // shopHelper.setChildren(s_sibling.children, s_records);
+        // shopHelper.setOrders(orders.data);
+        
+        // shopHelper.render_Intels();
+        // shopHelper.render_Dir();
+        // shopHelper.render_Children();
+        // shopHelper.render_Records();
+        // shopHelper.render_View();
+
+        // const save = window.localStorage.getItem('ShopOrder');
+        // if (save) {
+        //     if (!shopHelper.setLocalOrder(JSON.parse(save))) {
+        //         window.localStorage.removeItem('ShopOrder');
+        //     }
+        // }
+
+        shopHelper.setModeView(2);
+        shopHelper.render_ModeView();
+
+        shopHelper.setActiveChildView();
+        shopHelper.togglePeriod('GARDERIE');
+        // shopHelper.setActiveCategory('PERISCOLAIRE');
+        // shopHelper.setCategoriesByMonth(new Date().getMonth());
+        // shopHelper.ready();
+
+        return;
+    }
+</script>
+{% endblock %}

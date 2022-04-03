@@ -1,0 +1,1194 @@
+{% load static %}
+
+{% if not status %}
+    {{ message }}
+{% else %}
+
+<html>
+<head>
+    <meta charset="UTF-8" />
+</head>
+    
+<style type="text/css">
+@media print{
+    @page {size: A4 landscape; margin: 0mm; box-sizing: border-box;}
+
+    header nav, footer { display: none; }
+} 
+
+body {
+    margin: 0;
+}
+
+input, textarea {
+  /* background: #eee; */
+  border: 0.01em solid;
+  /* display: block; */
+  /* margin: 0.2em 0; */
+}
+
+/*[disabled] {
+   opacity: 0.3; 
+}*/
+
+ input[type=text] {
+  height: 1.2em;
+  width: 20em;
+}
+
+[type="checkbox"]:checked, [type="checkbox"]:not(:checked){
+    border : 1px solid black;
+    width: 10px;
+    height: 10px;
+    margin-top: 2px;
+}
+[type="checkbox"]:checked{
+  background-color:#1a73e8;
+  box-shadow: black;
+}
+
+
+
+input[type=radio] {
+  border-radius: 100%;
+} 
+
+textarea {
+  font-family: monospace;
+  padding: 0.5em;
+  width: 20em;
+}
+
+/* #ficheincription{page-break-after: always;  } */
+#ficheincription, #fichesanitaire{width: 29.7cm;height: 21cm;page-break-inside: unset;}   
+.left { width: 14.8cm; height: 21cm; float: left; padding: 4mm; box-sizing: border-box; }
+.right { width: 14.8cm; height: 21cm; float: right; padding: 4mm; box-sizing: border-box; }
+.colleft {float: left;}
+.colright {float: right;width: 7.1cm;}
+.clean{clear: both;}
+span.labelinput{margin: 0 15px 0 5px;}
+span.labelinputpai{margin: 0 5px 0 5px;}
+div.title{margin: 15px 0 5px 0;}
+div.subtitle{margin: 2px 0;}
+div{margin: 2px 0 0 0;}
+.justifytxt{text-align: justify;}
+.centertxt{text-align: center;}
+input{border: none; font-size: 10.1px;font-style:normal;text-decoration: none}
+span.cls_002{font-family:"DejaVu Sans Condensed Bold",serif;font-size:13px;color:rgb(3,3,3);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_002{font-family:"DejaVu Sans Condensed Bold",serif;font-size:13px;color:rgb(3,3,3);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_003{font-family:"DejaVu Sans Condensed",serif;font-size:11px;color:rgb(3,3,3);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_003{font-family:"DejaVu Sans Condensed",serif;font-size:11px;color:rgb(3,3,3);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_006{font-family:"DejaVu Sans Condensed Bold",serif;font-size:16px;color:rgb(200,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_006{font-family:"DejaVu Sans Condensed Bold",serif;font-size:16px;color:rgb(200,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_004{font-family:"DejaVu Sans Condensed",serif;font-size:13px;color:rgb(3,3,3);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_004{font-family:"DejaVu Sans Condensed",serif;font-size:13px;color:rgb(3,3,3);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_005{font-family:"DejaVu Sans Condensed",serif;font-size:22px;color:rgb(255,255,255);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_005{font-family:"DejaVu Sans Condensed",serif;font-size:22px;background-color:rgb(200,0,0);font-weight:normal;font-style:normal;text-decoration: none;padding-left: 100;padding-right: 100;}
+span.cls_007{font-family:"DejaVu Sans Condensed Bold",serif;font-size:11px;color:rgb(3,3,3);font-weight:bold;font-style:normal;text-decoration: none}
+p.cls_008{font-family:"DejaVu Sans Condensed Bold",serif;font-size:10px;color:rgb(3,3,3);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_007{font-family:"DejaVu Sans Condensed Bold",serif;font-size:11px;color:rgb(3,3,3);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_008{font-family:"DejaVu Sans Condensed Bold",serif;font-size:10px;color:rgb(3,3,3);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_018{font-family:"DejaVu Sans Condensed Bold",serif;font-size:10px;color:rgb(3,3,3);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_008{font-family:"DejaVu Sans Condensed",serif;font-size:10px;color:rgb(3,3,3);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_009{font-family:"DejaVu Sans Condensed Bold",serif;font-size:17px;color:rgb(3,3,3);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_009{font-family:"DejaVu Sans Condensed Bold",serif;font-size:17px;color:rgb(3,3,3);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_015{font-family:"DejaVu Sans Condensed Bold",serif;font-size:13px;color:rgb(3,3,3);font-weight:bold;font-style:normal;text-decoration: underline}
+div.cls_015{font-family:"DejaVu Sans Condensed Bold",serif;font-size:13px;color:rgb(3,3,3);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_016{font-family:"DejaVu Sans Condensed",serif;font-size:13px;color:rgb(3,3,3);font-weight:normal;font-style:normal;text-decoration: underline}
+div.cls_016{font-family:"DejaVu Sans Condensed",serif;font-size:13px;color:rgb(3,3,3);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_010{font-family:"DejaVu Sans Condensed",serif;font-size:11px;color:rgb(255,255,255);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_010{font-family:"DejaVu Sans Condensed",serif;font-size:11px;color:rgb(255,255,255);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_012{font-family:"DejaVu Sans Condensed Bold",serif;font-size:11px;color:rgb(0,0,200);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_012{font-family:"DejaVu Sans Condensed Bold",serif;font-size:11px;color:rgb(0,0,200);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_011{font-family:"DejaVu Sans Condensed Bold",serif;font-size:11px;color:rgb(200,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_011{font-family:"DejaVu Sans Condensed Bold",serif;font-size:11px;color:rgb(200,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_014{font-family:"DejaVu Sans Condensed",serif;font-size:11px;color:rgb(3,3,3);font-weight:normal;font-style:normal;text-decoration: underline}
+div.cls_014{font-family:"DejaVu Sans Condensed",serif;font-size:11px;color:rgb(3,3,3);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_017{font-family:"DejaVu Sans Condensed Bold",serif;font-size:11px;color:rgb(3,3,3);font-weight:bold;font-style:normal;text-decoration: underline}
+div.cls_017{font-family:"DejaVu Sans Condensed Bold",serif;font-size:11px;color:rgb(3,3,3);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_013{font-family:"DejaVu Sans Condensed",serif;font-size:12px;color:rgb(3,3,3);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_013{font-family:"DejaVu Sans Condensed",serif;font-size:12px;color:rgb(3,3,3);font-weight:normal;font-style:normal;text-decoration: none}
+hr.cls_hr{margin: 5px 0 5px 0;}
+p{display: contents;}
+table {border-collapse: collapse;width:14.6cm;}
+table, th,td{ text-decoration: black;border: 1px solid black;font-family:"DejaVu Sans Condensed",serif;font-size:11px;color:rgb(3,3,3);font-weight:normal;font-style:normal;}
+tr{height: 20px; vertical-align:middle;}
+td{vertical-align:middle;}
+
+
+    
+    </style>
+
+<body>
+
+    <div id="content">
+
+    <div id="ficheincription">
+
+            <!-- LEFT -->
+
+            <div class="left">
+
+                <div>
+                    <div style="float:left">
+                        <img src="/media/img/logoUpem-60x60.png" width="60" height="60" >
+                    </div>
+                    <div style="float:left; margin: 0 0 0 15px;">
+                        <div class="cls_002"><span class="cls_002">Union des Parents d'Elèves de Martinique</span></div>
+                        <div class="cls_003"><span class="cls_003">28, Boulevard Allègre - 97200 F de F</span></div>
+                        <div class="cls_003"><span class="cls_003">Tél. : 0596 60 95 95 - Fax : 0596 71 76 05</span></div>
+                        <div class="cls_003"><span class="cls_003">Site : </span><A HREF="http://www.upem.mq/">www.upem.mq</A> </div>
+                        <div class="cls_003"><span class="cls_003">Courriel : periscolaire.stjo@upem.mq</span></div>
+                    </div>
+                </div>
+                <div class="clean"></div>
+             
+               
+                <div class="cls_002 title">
+                    <span class="cls_002">Accueil périscolaire de :</span>
+                    <span class="record_school"></span>
+                </div>
+                
+                <div class="cls_005 title" style="text-align: center;"><span class="cls_005">FICHE D'INSCRIPTION</span></div>
+
+                <div class="cls_004">
+                    <span class="record_school_year">
+                    </span>
+                </div>
+
+                <div class="title"> <input type="checkbox" class="record_accueil_mati" 
+                    {% if record.accueil_mati %}
+                    checked
+                    {% endif %}
+                    /><span class="cls_004 labelinput">MATIN/SOIR</span>
+                    <input type="checkbox" class="record_accueil_midi" 
+                    {% if record.accueil_midi %}
+                    checked
+                    {% endif %}
+                    /><span class="cls_004 labelinput">MIDI</span>
+                    <input type="checkbox" class="record_accueil_merc" 
+                    {% if record.accueil_merc %}
+                    checked
+                    {% endif %}
+                    /><span class="cls_004 labelinput">MERCREDI</span>
+                    <input type="checkbox" class="record_accueil_vacs" 
+                    {% if record.accueil_vacs %}
+                    checked
+                    {% endif %}
+                    /><span class="cls_004 labelinput">VACANCES</span>
+                </div>
+              
+
+           
+
+               
+                <div class="cls_006 title"><span class="cls_006">VOTRE ENFANT :</span></div>
+
+                <div>
+                    <div class="colleft" style="float: left;">
+                        <div class="cls_002"><span class="cls_002">Nom :</span>
+                            <span class="record_child_last_name cls_004">{{ child.last_name }}</span>
+                        </div>
+        
+                        <div class="cls_002"><span class="cls_002">Né(e) le :</span>
+                            <span class="record_child_dob cls_004">{{ child.dob }}</span>
+                        </div>    
+
+                        <div class="cls_002">
+                            <span class="cls_002">Sexe :</span>
+                            <span class="record_child_gender cls_004">
+                                {% if child.gender == 0 %}
+                                    <b>Inconnu</b>
+                                {% elif child.gender == 1 %}
+                                    Masculin
+                                {% elif child.gender == 2 %}
+                                    Féminin
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="colright" style="float: right;">
+
+                        <div class="cls_002"><span class="cls_002">Prénom :</span>
+                            <span class="record_child_first_name cls_004">{{ child.first_name }}</span>
+                        </div>
+
+                        <div class="cls_002">
+                            <span class="cls_002">A :</span>
+                            <span class="record_child_birthplace cls_004">{{ child.birthplace }}</span>
+                        </div>
+        
+                    
+        
+                        <div class="cls_002">
+                            <span class="cls_002">Classe ou section :</span>
+                            <span class="record_classroom cls_004"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="clean"></div>
+
+                <div class="cls_006 title">
+                    <span class="cls_006">RESPONSABLE LEGAL N°1 :</span>
+                </div>
+
+                <div class="cls_004">
+                    <span class="cls_002">Responsable :</span>
+                    <span class="cls_004">  Père - Mère - Tuteur</span>
+                    <span class="cls_004">(Rayer les mentions inutiles)</span>
+                </div>
+
+                <div>
+                    <div class="colleft" style="float: left;">
+                        <div class="cls_002">
+                            <span class="cls_002">Nom :</span>
+                            <span class="record_resp1_last_name cls_004">{{ parent.last_name }}</span>
+                        </div>
+                    </div>
+
+                    <div class="colright" style="float: right;">
+                        <div class="cls_002">
+                            <span class="cls_002">Prénom :</span>
+                            <span class="record_resp1_first_name cls_004">{{ parent.first_name }}</span>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="clean"></div>
+
+                <div class="cls_002">
+                    <span class="cls_002">Adresse :</span>
+                    <span class="record_resp1_address1 cls_004">{{ parent.addresses.first.address1 }}</span>
+                    <span class="record_resp1_address2 cls_004">{{ parent.addresses.first.address2 }}</span>
+                </div>
+
+                <div class="clean"></div>
+
+                <div>
+                    <div class="colleft" style="float: left;">
+
+                        <div class="cls_002">
+                            <span class="cls_002">Code Postal :</span>
+                            <span class="record_resp1_zip cls_004">{{ parent.addresses.first.zip_code }}</span>
+                        </div>
+
+                        <div class="cls_002">
+                            <span class="cls_002">Tél. (Domicile) :</span>
+                            <span class="record_resp1_phone_home cls_004">{{ parent.phones.phone_home }}</span>
+                        </div>
+                        
+                        <div class="cls_002">
+                            <span class="cls_002">Tél. (Portable) :</span>
+                            <span class="record_resp1_phone_cell cls_004">{{ parent.phones.phone_cell }}</span>
+                        </div>
+
+                    </div>
+                    <div class="colright" style="float: right;">
+                        <div class="cls_002">
+                            <span class="cls_002">Commune :</span>
+                            <span class="record_resp1_city cls_004">{{ parent.addresses.first.city }}</span>
+                        </div>
+                        <div class="cls_002">
+                            <span class="cls_002">Tél. (Pro.) :</span>
+                            <span class="record_resp1_phone_pro cls_004">{{ parent.phones.phone_pro }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clean"></div>
+
+                <div class="cls_002">
+                    <span class="cls_002">Courriel :</span>
+                    <span class="record_resp1_email cls_004">{{ parent.emails.first.email }}</span>
+                </div>
+                <div class="cls_002">
+                    <span class="cls_002">Profession :</span>
+                    <span class="record_resp1_job cls_004">{{ parent.job }}</span>
+                </div>
+
+                <div class="clean"></div>
+                
+                <div class="cls_006 title">
+                    <span class="cls_006">RESPONSABLE LEGAL N°2 :</span>
+                </div>
+ 
+                <div class="cls_004">
+                    <span class="cls_002">Responsable :</span>
+                    <span class="cls_004">  Père - Mère - Tuteur</span>
+                    <span class="cls_004">(Rayer les mentions inutiles)</span>
+                </div>
+
+                <div>
+                    <div class="colleft">
+                           
+                        <div class="cls_002">
+                            <span class="cls_002">Nom :</span>
+                            <span class="record_resp2_last_name cls_004">{{ record.responsibles.first.last_name }}</span>
+                        </div>
+
+                    </div>
+                    <div class="colright">
+                        <div class="cls_002">
+                            <span class="cls_002">Prénom :</span>
+                            <span class="record_resp2_first_name cls_004">{{ record.responsibles.first.first_name }}</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="clean"></div>
+
+                <div class="cls_002">
+                    <span class="cls_002">Adresse :</span>
+                    <span class="record_resp2_address1 cls_004">{{ record.responsibles.first.address_address1 }}</span>
+                    <span class="record_resp2_address2 cls_004">{{ record.responsibles.first.address_address2 }}</span>
+                </div>
+
+                <div class="clean"></div>
+
+               <div>
+                   <div class="colleft">
+                        <div class="cls_002">
+                            <span class="cls_002">Code Postal :</span>
+                            <span class="record_resp2_zip cls_004">{{ record.responsibles.first.address_zip }}</span>
+                        </div>
+                        <div class="cls_002">
+                            <span class="record_resp2_phone_home">Tél. (Domicile) :</span>
+                            <span class="cls_004">{{ record.responsibles.first.phone_home }}</span>
+                        </div>
+                        <div class="cls_002">
+                            <span class="cls_002">Tél. (Portable) :</span>
+                            <span class="record_resp2_phone_cell cls_004">{{ record.responsibles.first.phone_cell }}</span>
+                        </div>
+                      
+                      
+                   </div>
+
+                   <div class="colright">
+                        <div class="cls_002">
+                            <span class="cls_002">Commune :</span>
+                            <span class="record_resp2_city cls_004">{{ record.responsibles.first.address_city }}</span>
+                        </div>
+                        <div class="cls_002">
+                            <span class="cls_002">Tél. (Pro.) :</span>
+                            <span class="record_resp2_phone_pro cls_004">{{ record.responsibles.first.phone_pro }}</span>
+                        </div>
+                   </div>
+
+                   <div class="clean"></div>
+
+                   <div class="cls_002">
+                        <span class="cls_002">Courriel :</span>
+                        <span class="record_resp2_email cls_004">{{ record.responsibles.first.email }}</span>
+                    </div>
+
+                    <div class="cls_002">
+                        <span class="cls_002">Profession :</span>
+                        <span class="record_resp2_job cls_004">{{ parent.job }}</span>
+                    </div> 
+
+                    <div class="clean"></div>
+               </div>
+
+            </div>
+
+            <!-- END LEFT -->
+
+            <!-- RIGHT -->
+            <div class="right">
+                <div  class="cls_006 title">
+                    <span class="cls_006">RENSEIGNEMENTS ADMINISTRATIFS</span>
+                </div>
+
+                <div class="cls_002">
+                    <span class="cls_002">N° d'allocataire :</span>
+                    <span class="intel_CAF cls_004">{{ intel.recipent_number }}</span>
+                </div>
+
+                <div  class="cls_002">
+                    <span class="cls_002">Société d'assurance :</span>
+                    <span class="insurance_society  cls_004">{{ record.insurance_society }}</span>
+                </div>
+    
+                <div  class="cls_002">
+                    <span class="cls_002">N° de police :</span>
+                    <span class="intel_police  cls_004">{{ record.insurance_policy }}</span>
+                </div>
+
+                <div class="cls_006 title"><span class="cls_006">RESPONSABILITE</span></div>
+
+                <div class="cls_004"><span class="cls_004">Personnes chargées de récupérer l'enfant aux heures de sorties (autres que les parents)</span></div>
+                <br>
+
+                <div class="cls_002">
+                    <span class="cls_002">Nom Prénom :</span>
+                    <span class="record_recup1_names  cls_004">{{ record.recuperaters.all.0.names }}</span>
+                </div>
+                <div class="cls_002">
+                    <span class="cls_002">Tél. :</span>
+                    <span class="record_recup1_phones  cls_004">{{ record.recuperaters.all.0.phones }}</span> 
+                </div>
+            
+                <div class="cls_002">
+                    <span class="cls_002">Qualité :</span>
+                    <span class="record_recup1_quality  cls_004">{{ record.recuperaters.all.0.quality }}</span> 
+                </div>
+
+                <br>
+            
+                <div class="cls_002">
+                    <span class="cls_002">Nom Prénom :</span>
+                    <span class="record_recup2_names  cls_004">{{ record.recuperaters.all.1.names }}</span>
+                </div>
+                <div class="cls_002">
+                    <span class="cls_002">Tél. :</span>
+                    <span class="record_recup2_phones  cls_004">{{ record.recuperaters.all.1.phones }}</span>
+                </div>
+            
+                <div class="cls_002">
+                    <span class="cls_002">Qualité :</span>
+                    <span class="record_recup2_quality  cls_004">{{ record.recuperaters.all.1.quality }}</span> 
+                </div>
+
+                <br>
+            
+                <div class="cls_002">
+                    <span class="cls_002">Nom Prénom :</span>
+                    <span class="record_recup3_names cls_004">{{ record.recuperaters.all.2.names }}</span>
+                </div>
+                <div class="cls_002">
+                    <span class="cls_002">Tél. :</span>
+                    <span class="record_recup3_phones cls_004">{{ record.recuperaters.all.2.phones }}</span>
+                </div>
+            
+                <div class="cls_002">
+                    <span class="cls_002">Qualité :</span>
+                    <span class="record_recup3_quality cls_004">{{ record.recuperaters.all.2.quality }}</span> 
+                </div>
+
+                <div class="cls_006 title">
+                    <span class="cls_006">AUTORISATION DE TRANSPORT POUR RAISONS DE SANTE</span>
+                </div>
+                <div class="cls_004">
+                    <span class="cls_004">Je soussigné(e) Madame, Monsieur </span>
+                    <span class="record_resp1_last_name ">{{ parent.last_name }}</span>
+                    <span class="record_resp1_first_name">{{ parent.first_name }}</span>
+                </div>
+
+                <div class="cls_004">
+                    <span class="cls_004">Mère / Père / Tuteur de l'enfant</span>
+                    <span class="record_child_last_name  cls_004">{{ child.last_name }}</span>
+                    <span class="record_child_first_name  cls_004">{{ child.first_name }}</span>
+                </div>
+
+                <div class="cls_004 title">
+                    <input type="checkbox" class="record_health_auth_transp_y" 
+                    {% if record.authorizations.medical_transport %}
+                    checked
+                    {% endif %}
+                    />   <span class="cls_004 labelinput">Autorise </span>
+                    <input type="checkbox" class="record_health_auth_transp_n" 
+                    {% if not record.authorizations.medical_transport %}
+                    checked
+                    {% endif %}
+                    /><span class="cls_004 labelinput justifytxt">N'autorise pas L'UPEEM à remettre mon enfant aux pompiers et/ou au Samu afin d'être transporté d'urgence au centre hospitalier le plus proche en cas de problèmes de santé ou de blessures jugées graves par la directrice de l'accueil périscolaire.</span>
+                </div>
+
+                
+                <div class="cls_006 title"><span class="cls_006">DROIT A L'IMAGE</span></div>
+
+                <div class="cls_004">
+                    <input type="checkbox" class="record_auth_image_y" 
+                    {% if record.authorizations.image %}
+                    checked
+                    {% endif %}
+                    /><span class="cls_004 labelinput">J'autorise </span> 
+                    <input type="checkbox" class="record_auth_image_n" 
+                    {% if not record.authorizations.image %}
+                    checked
+                    {% endif %}
+                    /><span class="cls_004 labelinput justifytxt">Je n'autorise pas L'UPEEM à photographier et/ou à filmer mon enfant au cours des activités périscolaires dans un cadre strictement pédagogique.Les photographies ne porteront pas atteinte à sa dignité, à sa vie privée et à sa réputation.</span>
+                </div>
+    
+            </div>      
+        </div>
+            <!-- END RIGHT -->
+   
+    
+        <div id="fichesanitaire">
+            <!-- LEFT -->
+
+            <div class="left">
+                <div>
+                    <div style="float:left">
+                        <img src="/media/img/logo-ministere-de-la-jeunesse-et-des-sports.jpg" width="60" height="60" >
+                    </div>
+                    <div style="float:left; margin-left:45px;">
+                        <div class="cls_004"><span class="cls_004">MINISTERE DE LA JEUNESSE ET DES SPORTS</span></div>
+                    </div>
+                    <div>
+                        <div class="cls_003"><span class="cls_003" style="float: left; margin-left:85px;">Code de l'Action Sociale et des Familles</span> <span class="cls_008" style="float:right;">N° 10008*02</span></div>
+                    </div>
+                </div>
+                <div class="clean"></div>
+                <hr class="cls_hr" />
+
+                <div class="cls_009 title centertxt">
+                    <span class="cls_009">FICHE SANITAIRE DE LIAISON</span>
+                </div>
+    
+                <div class="title">
+                    <div class="colleft">
+                        <div class="cls_004">
+                            <span class="cls_004">Nom :</span>
+                            <span class="record_child_last_name"> {{ child.last_name }}</span>
+                        </div>
+                        <div class="cls_004">
+                            <span class="cls_004">Né(e) le :</span>
+                            <span class="record_child_dob" >{{ child.dob }}</span>
+                        </div>
+
+                    </div>
+
+                    <div class="colright">
+                        <div class="cls_004">
+                            <span class="cls_004">Prénom : </span>
+                            <span class="record_child_first_name">{{ child.first_name }}</span>
+                        </div>
+            
+                        <div class="cls_004">
+                            <span class="cls_004">Sexe :  </span>
+                            <span class="record_child_gender">
+                                {% if child.gender == 0 %}
+                                    <b>Inconnu</b>
+                                {% elif child.gender == 1 %}
+                                    Masculin
+                                {% elif child.gender == 2 %}
+                                    Féminin
+                                {% endif %}
+                            </span>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="title">
+                    <table>
+                        <tr><th>VACCINS <br> OBLIGATOIRES</th>
+                        <th>OUI</th>
+                        <th>NON</th>
+                        <th>DATES DES DERNIERS <br> RAPPELS</th>
+                        <th>VACCINS <br> RECOMMANDES</th>
+                        <th>DATES</th></tr>
+        
+                        <tr>
+                        <td>Diphtérie</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Hépatite B</td>
+                        <td></td>
+                        </tr>
+                        
+                        <tr>
+                        <td>Tétanos</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Rubéole-Oreillons <br>Rougeole</td>
+                        <td></td>
+                        </tr>
+        
+                        <tr>
+                        <td>Poliomyélite</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Coqueluche</td>
+                        <td></td>
+                        </tr>
+        
+                        <tr>
+                        <td>Ou DT Polio </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Autres (préciser)</td>
+                        <td></td>
+                        </tr>
+        
+                        <tr>
+                        <td>Ou Tetracoq</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        </tr>
+        
+                        <tr>
+                        <td>BCG</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        </tr>
+        
+                    </table>
+                    </div>
+                   
+
+                <div class="clean"></div>
+
+                <div class="cls_003 title"><span class="cls_003">SI L'ENFANT N'A PAS LES VACCINS OBLIGATOIRES, JOINDRE UN CERTIFICAT MÉDICAL DE CONTRE-INDICATION</span></div>
+                <div class="cls_011 title"><span class="cls_011">ATTENTION :</span><span class="cls_003">LE VACCIN ANTI-TETANIQUE NE PRESENTE AUCUNE CONTRE-INDICATION !</span></div>
+                <div class="cls_012 title"><span class="cls_012">2 - RENSEIGNEMENTS MEDICAUX CONCERNANT L'ENFANT</span></div>
+                
+                <div class="cls_003"><span class="cls_003">L'enfant suit-il un traitement médical pendant sa présence au centre de loisirs ?</span></div>
+    
+                <div class="cls_003">
+                    <input type="checkbox" class="record_health_treatment_y" value="" 
+                    {% if record.health.medical_treatment %}
+                    checked
+                    {% endif %}
+                    /><span class="labelinput">OUI</span>
+                    <input type="checkbox" class="record_health_treatment_n" value=""
+                    {% if not record.health.medical_treatment %}
+                    checked
+                    {% endif %}
+                    /><span class="labelinput">NON</span>
+                </div>
+
+                <div class="cls_003"><span class="cls_003">Si oui, joindre une </span><span class="cls_007">ordonnance</span><span class="cls_003"> récente et les </span><span class="cls_007">médicaments</span><span class="cls_003"> correspondants.</span></div>
+                <div class="cls_003"><span class="cls_007">(Boites de médicaments dans leur emballage d'origine marquées au nom de l'enfant avec la notice ) Aucun médicament ne pourra être pris sans ordonnance.</span></div>
+                <div class="cls_014 title"><span class="cls_014">a titre indicatif</span><span class="cls_003">, L'ENFANT A-T'IL DÉJÀ EU LES MALADIES SUIVANTES :</span></div>
+              
+                <table>
+                    <tr>
+                    <th>RUBÉOLE</th>
+                    <th>VARICELLE</th>
+                    <th>ANGINE</th>
+                    <th>RHUMATISME <br>ARTICULAIRE</th>
+                    <th>SCARLATINE</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" value="" class="record_health_rubeole_y" 
+                            {% if record.diseases.rubeole %}
+                            checked
+                            {% endif %}
+                            />
+                            oui
+                            <input type="checkbox" value="" class="record_health_rubeole_n" 
+                            {% if not record.diseases.rubeole %}
+                            checked
+                            {% endif %}
+                            />
+                            non
+                        </td>
+                        <td>
+                            <input type="checkbox" value="" class="record_health_varicelle_y"
+                            {% if record.diseases.varicelle %}
+                            checked
+                            {% endif %}
+                            />
+                            <span>oui</span>
+                            <input type="checkbox" value="" class="record_health_varicelle_n"
+                            {% if not record.diseases.varicelle %}
+                            checked
+                            {% endif %}
+                            />
+                            <span>non</span>
+                        </td>
+                        <td>
+                            <input type="checkbox" value="" class="record_health_angine_y"
+                            {% if record.diseases.angine %}
+                            checked
+                            {% endif %}
+                            />
+                            <span>oui</span>
+                            <input type="checkbox" value="" class="record_health_angine_n"
+                            {% if not record.diseases.angine %}
+                            checked
+                            {% endif %}
+                            />
+                            <span>non</span>
+                        </td>
+                        <td>
+                            <input type="checkbox" value="" class="record_health_rhumatisme_y"
+                            {% if record.diseases.rhumatisme %}
+                            checked
+                            {% endif %}/>
+                            <span>oui</span>
+                            <input type="checkbox" value="" class="record_health_rhumatisme_n"
+                            {% if not record.diseases.rhumatisme %}
+                            checked
+                            {% endif %}
+                            />
+                            <span>non</span>
+                        </td>
+                        <td>
+                            <input type="checkbox" value="" class="record_health_scarlatine_y"
+                            {% if record.diseases.scarlatine %}
+                            checked
+                            {% endif %}
+                            />
+                            <span>oui</span>
+                            <input type="checkbox" value="" class="record_health_scarlatine_n"
+                            {% if not record.diseases.scarlatine %}
+                            checked
+                            {% endif %}
+                            />
+                            <span>non</span>
+                        </td>
+                    </tr>
+                    <tr>
+                    <th>COQUELUCHE</th>
+                    <th>OTITE</th>
+                    <th>ROUGEOLE</th>
+                    <th>OREILLONS</th>
+                    <th></th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" value="" class="record_health_coqueluche_y"
+                            {% if record.diseases.coqueluche %}
+                            checked
+                            {% endif %}
+                            />
+                            <span>oui</span>
+                            <input type="checkbox" value="" class="record_health_coqueluche_n"
+                            {% if not record.diseases.coqueluche %}
+                            checked
+                            {% endif %}
+                            />
+                            <span>non</span>
+                        </td>
+                        <td>
+                            <input type="checkbox" value="record_health_otite_y" class=""
+                            {% if record.diseases.otite %}
+                            checked
+                            {% endif %}
+                            />
+                            <span>oui</span>
+                            <input type="checkbox" value="" class="record_health_otite_n"
+                            {% if not record.diseases.otite %}
+                            checked
+                            {% endif %}
+                            />
+                            <span>non</span>
+                        </td>
+                        <td>
+                            <input type="checkbox" value="" class="record_health_rougeole_y"
+                            {% if record.diseases.rougeole %}
+                            checked
+                            {% endif %}
+                            />
+                            <span>oui</span>
+                            <input type="checkbox" value="" class="record_health_rougeole_n"
+                            {% if not record.diseases.rougeole %}
+                            checked
+                            {% endif %}
+                            />
+                            <span>non</span>
+                        </td>
+                        <td>
+                            <input type="checkbox" value="" class="record_health_oreillons_y"
+                            {% if record.diseases.oreillons %}
+                            checked
+                            {% endif %}                
+                            />
+                            <span>oui</span>
+                            <input type="checkbox" value="" class="record_health_oreillons_n"
+                            {% if not record.diseases.oreillons %}
+                            checked
+                            {% endif %}
+                            />
+                            <span>non</span>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tbody></tbody>
+                    </table>
+
+            </div>
+
+            <!-- LEFT -->
+
+            <!-- RIGHT -->
+             <div class="right">
+                <div class="cls_007">
+                    <div style="float: left; width: 5cm;">
+                        <span class="cls_007">ALLERGIES :</span>
+                        <span class="cls_004 labelinput"> ASTHME</span> 
+                    </div>
+                    <div style="float: left;">
+                        <input type="checkbox" class="record_health_asthme_y"
+                        {% if record.health.asthme %}
+                        checked
+                        {% endif %}
+                        />
+                        <span class="cls_004 labelinput">OUI</span>  
+                        <input type="checkbox" class="record_health_asthme_n"
+                        {% if not record.health.asthme %}
+                        checked
+                        {% endif %}
+                        />
+                        <span class="cls_004 labelinput">NON</span>
+                    </div>
+                    <div class="clean"></div>   
+                </div>
+                
+                <div class="cls_004 subtitle">
+                    <div style="float: left; width: 5cm;">
+                    <span class="cls_004"  style="width: 5cm;">MEDICAMENTEUSES</span> 
+                    </div>
+                    <div style="float: left;">
+                    <input type="checkbox" class="record_health_drug_y"
+                    {% if record.health.allergy_drug %}
+                    checked
+                    {% endif %}
+                    /> 
+                    <span class="cls_004 labelinput">OUI</span>   
+                    <input type="checkbox" class="record_health_drug_n"
+                    {% if not record.health.allergy_drug %}
+                    checked
+                    {% endif %}
+                    /> 
+                    <span class="cls_004 labelinput">NON</span>
+                    </div>
+                    <div class="clean"></div>
+                </div>
+              
+                <div class="cls_004 subtitle">
+                    <div style="float: left; width: 5cm;">
+                    <span class="cls_004"  style="width: 5cm;">ALIMENTAIRES</span> 
+                    </div> 
+                    <div style="float: left;">
+                    <input type="checkbox" class="record_health_food_y"
+                    {% if record.health.allergy_food %}
+                    checked
+                    {% endif %}/>  
+                    <span class="cls_004 labelinput">OUI</span>
+                    <input type="checkbox" class="record_health_food_n"
+                    {% if not record.health.allergy_food %}
+                    checked
+                    {% endif %}
+                    />
+                    <span class="cls_004 labelinput">NON</span>
+                    </div>
+                    <div class="clean"></div>
+                </div>
+               
+                <div class="cls_007 title">
+                    <span class="cls_007">PRECISEZ LA CAUSE DE L'ALLERGIE ET LA CONDUITE A TENIR :</span>
+                </div>
+    
+                <div class="cls_007">
+                    <span class="record_health_drug_details">Médicamenteuses: {{ record.health.allergy_drug_details }}</span><br>
+                    <span class="record_health_food_details">Alimentaires: {{ record.health.allergy_food_details }}</span>
+                </div>
+    
+                <div class="cls_015 title">
+                    <span class="cls_015">PAI </span>
+                    <span class="cls_016">Projet d'Accueil Individualisé</span>
+                    <input type="checkbox" class="record_health_pai_y" 
+                    {% if record.health.pai == 2 %}
+                    checked
+                    {% endif %}
+                    /> 
+                    <span class="cls_004 labelinputpai">OUI</span>
+                    <input type="checkbox" class="record_health_pai_n"
+                    {% if record.health.pai == 1 %}
+                    checked
+                    {% endif %}
+                    />
+                    <span class="cls_004 labelinputpai">NON</span>
+                    <input type="checkbox" class="record_health_pai_ongoing"
+                    {% if record.health.pai == 3 %}
+                    checked
+                    {% endif %}
+                    />
+                    <span class="cls_004 labelinputpai">En cours d'élaboration</span>
+                </div>
+    
+    
+                <div class="cls_004">
+                    <span class="cls_004">(Joindre le protocole et toutes informations utiles)</span>
+                </div>
+                <div class="cls_004 title">
+                    <span class="cls_004">Indiquez les spécificités et précautions à prendre :</span>
+                </div>
+                <div class="cls_004">
+                    <span class="record_health_pai_details">{{ record.health.pai_details }}</span>
+                </div>
+    
+                <div class="cls_012 title"><span class="cls_012">3 - INFORMATIONS COMPLEMENTAIRES</span></div>
+    
+                <div class="cls_004">
+                    <div style="float: left; width: 6cm;">
+                        <span class="cls_004">Votre enfant porte-t'il des lentilles :</span>
+                    </div>
+                    <div style="float: left;">
+                    <input type="checkbox" class="record_health_lentilles_y"
+                    {% if record.health.lentilles %}
+                    checked
+                    {% endif %}
+                    />
+                    <span class="cls_004 labelinput">OUI</span>
+                    <input type="checkbox" class="record_health_lentilles_n"
+                    {% if not record.health.lentilles %}
+                    checked
+                    {% endif %}
+                    />
+                    <span class="cls_004 labelinput">NON</span>
+                    </div>
+                    <div class="clean"></div>
+                </div>
+    
+                <div class="cls_004">
+                    <div style="float: left; width: 6cm;">
+                        <span class="cls_004">des lunettes :</span>
+                    </div>
+                    <div style="float: left;">
+                    <input type="checkbox" class="record_health_glass_y"
+                    {% if record.health.lunettes %}
+                    checked
+                    {% endif %}
+                    />
+                    <span class="cls_004 labelinput">OUI</span>
+                    <input type="checkbox" class="record_health_glass_n"
+                    {% if not record.health.lunettes %}
+                    checked
+                    {% endif %}
+                    />
+                    <span class="cls_004 labelinput">NON</span>
+                    </div>
+                    <div class="clean"></div>
+                </div>
+    
+    
+                <div class="cls_004">
+                    <div style="float: left; width: 6cm;">
+                    <span class="cls_004">des prothèses auditives :</span>
+                    </div>
+                    <div style="float: left;">
+                    <input type="checkbox" class="record_health_audio_y"
+                    {% if record.health.protheses_auditives %}
+                    checked
+                    {% endif %}
+                    />
+                    <span class="cls_004 labelinput">OUI</span>
+                    <input type="checkbox" class="record_health_audio_n"
+                    {% if not record.health.protheses_auditives %}
+                    checked
+                    {% endif %}
+                    />
+                    <span class="cls_004 labelinput">NON</span>
+                    </div>
+                    <div class="clean"></div>
+                </div>
+    
+                <div class="cls_004">
+                    <div style="float: left; width: 6cm;">
+                    <span class="cls_004">des prothèses / appareils dentaires :</span>
+                    </div>
+                    <div style="float: left;">
+                    <input type="checkbox" class="record_health_tooth_y"
+                    {% if record.health.protheses_dentaire %}
+                    checked
+                    {% endif %}
+                    />
+                    <span class="cls_004 labelinput">OUI</span>
+                    <input type="checkbox" class="record_health_tooth_n"
+                    {% if not record.health.protheses_dentaire %}
+                    checked
+                    {% endif %}
+                    />
+                    <span class="cls_004 labelinput">NON</span>
+                    </div>
+                    <div class="clean"></div>
+                </div>
+    
+                <div class="cls_004"><span class="cls_004">Autres recommandations :</span>
+                    <span class="record_health_others">{{ record.health.autres_recommandations }}</span>
+                </div>
+
+                <div class="cls_012 title"><span class="cls_012">4 - AUTORISATIONS</span></div>
+    
+                <div class="cls_003">
+                    <div style="float: left; width: 11cm;">
+                    <span class="cls_003">J'autorise mon enfant à participer aux activités physiques et sportives</span>
+                    </div>
+                    <div style="float: left;">
+                    <input type="checkbox" class="record_auth_sport_y"
+                    {% if record.authorizations.sport %}
+                    checked
+                    {% endif %}
+                    />
+                    <span class="cls_003">OUI</span>
+                    <input type="checkbox" class="record_auth_sport_n"
+                    {% if not record.authorizations.sport %}
+                    checked
+                    {% endif %}
+                    />
+                    <span class="cls_003">NON</span>
+                    </div>
+                    <div class="clean"></div>
+                </div>
+    
+                <div class="cls_003">
+                    <div style="float: left; width: 11cm;">
+                    <span class="cls_003">J'autorise mon enfant à participer aux baignades surveillées</span>
+                    </div>
+                    <div style="float: left;">
+                    <input type="checkbox" class="record_auth_bath_y"
+                    {% if record.authorizations.bath %}
+                    checked
+                    {% endif %}
+                    />
+                    <span class="cls_003">OUI</span>
+                    <input type="checkbox" class="record_auth_bath_n"
+                    {% if not record.authorizations.bath %}
+                    checked
+                    {% endif %}
+                    />
+                    <span class="cls_003">NON</span>
+                    </div>
+                    <div class="clean"></div>
+                </div>
+    
+                <div class="cls_003">
+                    <div style="float: left; width: 11cm;">
+                    <span class="cls_003">Autorisation de transport en véhicule de service et car de location</span>
+                    </div>
+                    <div style="float: left;">
+                    <input type="checkbox" class="record_auth_transpbus_y"
+                    {% if record.authorizations.transport %}
+                    checked
+                    {% endif %}
+                    />
+                    <span class="cls_003">OUI</span>
+                    <input type="checkbox" class="record_auth_transpbus_n"
+                    {% if not record.authorizations.transport %}
+                    checked
+                    {% endif %}/>
+                    <span class="cls_003">NON</span>
+                    </div>
+                    <div class="clean"></div>
+                </div>
+                
+                <div class="cls_012 title"><span class="cls_012">5 - RESPONSABLE DE L'ENFANT</span></div>
+                
+                <div class="cls_008 colleft"><span class="cls_018">Nom :</span>
+                    <span class="record_resp1_last_name">{{ parent.last_name }}</span>
+                </div>
+                <div class="cls_008 colright"><span class="cls_018">Prénom :</span>
+                    <span class="record_resp1_first_name">{{ parent.first_name }}</span>
+                </div>
+                <div class="clean"></div>
+                <div class="cls_008 subtitle"><span class="cls_018">Adresse :</span>
+                    <span class="record_resp1_address1">{{ parent.addresses.first.address1 }}</span>
+                </div>
+                <div class="cls_008 colleft subtitle"><span class="cls_018">Code Postal :</span>
+                    <span class="record_resp1_zip">{{ parent.addresses.first.zip_code }}</span>
+                </div>
+    
+                <div class="cls_008 colright subtitle"><span class="cls_018">Commune :</span>
+                    <span class="record_resp1_city">{{ parent.addresses.first.city }}</span>
+                </div>
+                <div class="clean"></div>
+    
+                <div class="cls_008 colleft subtitle"><span class="cls_018">Tél. (Domicile) :</span>
+                    <span class="record_resp1_phone_home">{{ parent.phones.phone_home }}</span>
+                </div>
+                <div class="cls_008 colright subtitle"><span class="cls_018">Tél. (Pro.</span>
+                    <span class="record_resp1_phone_pro">{{ parent.phones.phone_pro }}</span>
+                </div>
+                <div class="clean"></div>
+    
+                <div class="cls_008 subtitle"><span class="cls_018">Tél. (Portable) :</span>
+                    <span class="record_resp1_phone_cell">{{ parent.phones.phone_cell }}</span>
+                </div>
+    
+                <div class="cls_008 subtitle"><span class="cls_018">Médecin traitant :</span>
+                    <span class="record_health_doctor_names">{{ record.health.doctor_names }}</span>
+                    <span class="record_health_doctors_phones">{{ record.health.doctor_phones }}</span>
+                </div>
+    
+                <div class="cls_008 title">
+                    <p class="cls_008 justifytxt">
+                        Je soussigné(e) 
+                        <span class="record_resp1_last_name"></span> 
+                        <span class="record_resp1_first_name"></span> 
+                        responsable légal de l'enfant , déclare exacts les renseignements portés sur cette fiche et autorise l'équipe d'animation à prendre, le cas échéant, toutes mesures (traitement médical, hospitalisation,intervention chirurgicale) rendues nécessaires par l'état de l'enfant. Ceci suivant les prescriptions d'un médecin et/ou un service d'urgence <span class="cls_017">seuls habilités à définir</span> l'hopital de secteur
+                    </p>
+                </div>
+                <div class="cls_013 colleft"><span class="cls_013">Date :</span></div>
+                <div class="cls_013 colright"><span class="cls_013">Signature :</span></div>
+                <div class="clean"></div>
+
+            </div>
+
+             <!-- END RIGHT -->
+            
+        </div>
+    </div>
+</body>
+
+<script>
+    const accueil_mati = {% if record.accueil_mati %} true {% else %} false {% endif %};
+    const accueil_midi = {% if record.accueil_midi %} true {% else %} false {% endif %};
+    const accueil_merc = {% if record.accueil_merc %} true {% else %} false {% endif %};
+    const accueil_vacs = {% if record.accueil_vacs %} true {% else %} false {% endif %};
+
+    if ((accueil_mati || accueil_midi) && (accueil_merc || accueil_vacs)) {
+        const body = document.querySelector('body');
+        const content = document.getElementById('content');
+
+        const clone = content.cloneNode(true);
+        clone.style = 'position: relative; top: 1202px;';
+
+        body.appendChild(clone);
+    }
+
+    const SCHOOL = {
+        '0': '<b>INCONNU</b>',
+        'PRES': 'Presqu\'ile',
+        'EM': 'Saint-Joseph A - Edouard MARCEAU',
+        'BDP': 'Bois du Parc - Victor SCHOELCHER',
+        'CHAP': 'Chapelle - Lise DESIR-CARTESSE',
+        'DUR': 'Durand - LUC-CAYOL-DURAND',
+        'GOND': 'Gondeau - Ambroise PALIX',
+        'MDO': 'Morne des Olives',
+        'HM': 'Saint-Joseph B - Henri MAURICE',
+        'JM': 'Jeanne Merton',
+        'AUTRES': 'Autres',
+    };
+    
+    const CLASSROOM = [
+        '<b>INCONNU</b>',
+        'STP',
+        'SP',
+        'SM',
+        'SG',
+        'CP',
+        'CE1',
+        'CE2',
+        'CM1',
+        'CM2',
+        '6ème',
+    ];
+
+    document.querySelector('.record_school').innerHTML = SCHOOL['{{ record.school }}'];
+    document.querySelector('.record_classroom').innerHTML = CLASSROOM[{{ record.classroom }}];
+</script>
+</html>
+{% endif %}

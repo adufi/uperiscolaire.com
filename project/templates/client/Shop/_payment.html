@@ -1,0 +1,193 @@
+<div class="payment methods ui modal">
+    <div class="header free">
+        Etes-vous sûr de vouloir confirmer cet achat de 
+        <a class="ui green label"><span class="value"></span> €</a> ?
+    </div>
+    
+    <div class="header details">
+        <div class="credit">
+            <label>
+                <b>Avoir: </b>
+                <span class="value"></span>
+                €
+            </label>
+        </div>
+        <div class="amount">
+            <label>
+                <b>Montant: </b>
+                <a class="ui green label"><span class="value"></span> €</a>
+            </label>
+        </div>
+    </div>
+    
+    <div class="scrolling content">
+        
+        <div class="ui negative message hide">
+            <i class="close icon"></i>
+            <div class="header">
+                Une erreur est survenue.
+            </div>
+            <p></p>
+        </div>
+
+        <div class="ui basic segment text-center description">
+            <p>La commande sera placé en attente et valide pour un délai de 30 minutes.</p>
+            <p>Au dela de ce délai la commande sera annulé.</p>
+        </div>
+        
+        <div class="ui center aligned segment placeholder methods">
+            <div class="ui left action online">
+                <h3 class="header">VADS</h3>
+                
+                <p>
+                    <b>Confirmer,</b> le paiement est placé EN ATTENTE pendant <b>30 minutes</b> et un lien de paiement direct sera généré.
+                    <br>
+                    <b>Payer,</b> un lien de paiement direct sera généré.
+                </p>
+                <p>
+                    <button class="ui button red cancel">Retour</button>
+                    <button class="ui button green confirm">Confirmer</button>
+                    <button class="ui button green pay">Payer</button>
+                </p>
+                <p>
+                    <i class="icon cc visa"></i>
+                    <i class="icon cc mastercard"></i>
+                </p>
+            </div>
+            <div class="ui horizontal divider">
+                Ou
+            </div>
+            <div class="ui">
+                <h3 class="header">Espèces/Chèques</h3>
+                
+                <div class="ui form">
+                    <div class="field">
+                        <label>Entrer un montant en espèce</label>
+                        <input type="number" class="cash amount" onchange="">
+                    </div>
+                    
+                    <div class="field">
+                        <label>Entrer un montant en chèque</label>
+                        <input class="check amount" type="number" onchange="">
+                    </div>
+                    
+                    <div class="field">
+                        <label>Entrer la/les référence(s)</label>
+                        <input class="check ref" type="text" placeholder="CA 000001,000002,000003" onchange="payment_direct_onchange(this)">
+                        <div class="ui bulleted list">
+                            <div class="item">LCL: LCL</div>
+                            <div class="item">BRED: BRED</div>
+                            <div class="item">Crédit Mutuel: CM</div>
+                            <div class="item">Crédit agricole: CA</div>
+                            <div class="item">Caisse d'épargne: CE</div>
+                            <div class="item">La banque postal: BPOST</div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="ui styled fluid accordion d-none">
+            
+            <div class="title">
+                <i class="dropdown icon"></i>
+                VADS 2-Temps
+            </div>
+            <div class="content">
+                <p>
+                    <b>Réserver,</b> ...
+                    <b>Payer,</b> le paiement est placé en attente pendant 24 heures.
+                </p>
+                <p>
+                    <button class="ui button red">Retour</button>
+                    <button class="ui button olive">Réserver</button>
+                    <button class="ui button green">Payer</button>
+                </p>
+            </div>
+            
+            <div class="title">
+                <i class="dropdown icon"></i>
+                Espèces
+            </div>
+            <div class="content">
+                <div class="ui form">
+                    <div class="field">
+                        <label>Entrer un montant en espèce</label>
+                        <input type="number" class="cash amount" onchange="payment_direct_onchange(this)">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="title">
+                <i class="dropdown icon"></i>
+                Chèque
+            </div>
+            <div class="content">
+                <div class="ui form">
+                    <div class="field">
+                        <label>Entrer un montant en chèque</label>
+                        <div class="ui left icon input">
+                            <input class="check amount" type="number" onchange="payment_direct_onchange(this)">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Entrer la/les référence(s)</label>
+                        <input class="check ref" type="text" placeholder="CA 000001,000002,000003" onchange="payment_direct_onchange(this)">
+                        <div class="ui bulleted list">
+                            <div class="item">LCL: LCL</div>
+                            <div class="item">BRED: BRED</div>
+                            <div class="item">Crédit Mutuel: CM</div>
+                            <div class="item">Crédit agricole: CA</div>
+                            <div class="item">Caisse d'épargne: CE</div>
+                            <div class="item">La banque postal: BPOST</div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="title">
+                <i class="dropdown icon"></i>
+                VADS Directe
+            </div>
+            <div class="content">
+                <p>
+                    Les paiements nécessite un temps de traitement,
+                    <br>
+                    ils <b>seront pris en compte</b> mais <b>pas visible immédiatement</b>.
+                </p>
+                <p>
+                    <div class="ui buttons">
+                        <button class="ui button cancel">Retour</button>
+                        <div class="or" data-text="ou"></div>
+                        <a id="vads_link" class="ui positive butto" target="_blank">Payer</a>
+                    </div>
+                </p>
+                <p>
+                    <i class="icon cc visa"></i>
+                    <i class="icon cc mastercard"></i>
+                </p>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    <div class="actions">
+        <div class="ui red button cancel">
+            Annuler
+        </div>
+        <button class="ui button olive reserve">Réserver</button>
+
+        <div class="ui green right labeled icon button confirm">
+            Confirmer
+            <i class="checkmark icon"></i>
+        </div>
+        <div class="ui green right labeled icon button pay">
+            Payer
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div>
+<script src="/static/scripts/Shop/payment.js"></script>

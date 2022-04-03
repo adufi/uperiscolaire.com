@@ -1,0 +1,238 @@
+<html>
+<head>
+    <title>UPEEM - Imprimer tickets</title>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/static/vendor/bs4/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/vendor/semantic/semantic.min.css" />
+
+    <link rel="stylesheet" href="/static/styles/Common.css" />
+    <link rel="stylesheet" href="/static/styles/Orders.css" />
+
+    <link rel="icon" type="image/png" href="/media/img/logoUpem561px-300x300.png">
+</head>
+
+<body>
+    <div class="Order Order-Print">
+        <div class="content js-modal-children">
+            <div class="header row">
+
+                <div class="content js-modal-titles col-sm-6">
+                    <span class="display-3">UPEEM</span>
+                    <br/>
+
+                    <b><span class="h3 js-modal-name">Paiement PERI/ALSH</span></b>
+                    <br/>
+
+                    <p class="js-modal-last-status">
+                        <b>Status: <span class="h4"></span></b>
+                    </p>
+                    <br/>
+                </div>
+
+                <div class="content js-modal-intels col-sm-6">
+                    <h4 class="ui sub header">Informations</h4>
+                    <div class="ui small feed row">
+                        <p class="col-12 col-sm-6"><b>N° reçu: Site_<span class="js-modal-id"></span></b></p>
+                        <p class="col-12 col-sm-6"><b>Payeur:</b>       <span class="js-modal-payer">John Doe</span></p>
+                        <p class="col-12 col-sm-6"><b>Emetteur:</b>     <span class="js-modal-caster">Admin</span></p>
+                        <p class="col-12 col-sm-6"><b>Date:</b>         <span class="js-modal-date">01/01/2020 15h44</span></p>
+                        <p class="col-12 col-sm-6"><b>Type:</b>         <span class="js-modal-type">Antenne</span></p>
+                        <p class="col-12 col-sm-6"><b>Référence:</b>    <span class="js-modal-ref">007</span></p>
+                        <p class="col-12 col-sm-6"><b>Quotients:</b>    <span class="js-modal-quotients"></span></p>
+                        <p class="col-12 col-sm-6"><b>Commentaire:</b>  <span class="js-modal-comment">Aucun</span></p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="content row">
+                <div class="content js-modal-methods-status col-sm-6">
+
+                    <div class="content js-modal-methods">
+                        <h4 class="ui sub header">Paiements - <span class="h4"><b>TOTAL: <span class="js-modal-amount"></span> €</span></b></h4>
+                        <table class="ui celled table text-center">
+                            <thead>
+                                <tr class="ui small feed">
+                                    <th>Type</th>
+                                    <th>Montant</th>
+                                    <th>Référence</th>
+                                </tr>
+                            </thead>
+
+                            <tbody></tbody>
+                        </table>
+                        <br/>
+                    </div>
+                    
+                    <div class="content js-modal-status">
+                        <h4 class="ui sub header">Status</h4>
+                        <table class="ui celled table text-center">
+                            <thead>
+                                <tr class="ui small feed">
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="content js-modal-lexique col-sm-6">
+                    <h4 class="ui sub header">Descriptif prestations</h4>
+                    
+                    <table class="ui celled table">
+                        <thead>
+                            <tr class="ui small feed">
+                                <th>Code</th>
+                                <th>Description</th>
+                                <th>Qté</th>
+                                <th>P.U.</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr class="ui small feed x-peri-1">
+                                <td class="x-code">PERI-1</td>
+                                <td class="x-desc">Périscolaire Tarif F1</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                            <tr class="ui small feed x-peri-2">
+                                <td class="x-code">PERI-2</td>
+                                <td class="x-desc">Périscolaire Tarif F2</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                            <tr class="ui small feed x-peri-3">
+                                <td class="x-code">PERI-3</td>
+                                <td class="x-desc">Périscolaire Tarif F3</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                            <tr class="ui small feed x-peri-4">
+                                <td class="x-code">PERI-4</td>
+                                <td class="x-desc">Périscolaire Tarif F4</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                            <tr class="ui small feed x-xtra-m-ne">
+                                <td class="x-code">XTRA-M-NE</td>
+                                <td class="x-desc">Extrascolaire Moins de 6ans Tarif NE</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                            <tr class="ui small feed x-xtra-m-q2">
+                                <td class="x-code">XTRA-M-Q2</td>
+                                <td class="x-desc">Extrascolaire Moins de 6ans Tarif Q2</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                            <tr class="ui small feed x-xtra-m-q1">
+                                <td class="x-code">XTRA-M-Q1</td>
+                                <td class="x-desc">Extrascolaire Moins de 6ans Tarif Q1</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                            <tr class="ui small feed x-xtra-p-ne">
+                                <td class="x-code">XTRA-P-NE</td>
+                                <td class="x-desc">Extrascolaire Plus de 6ans Tarif NE</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                            <tr class="ui small feed x-xtra-p-q2">
+                                <td class="x-code">XTRA-P-Q2</td>
+                                <td class="x-desc">Extrascolaire Plus de 6ans Tarif Q2</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                            <tr class="ui small feed x-xtra-p-q1">
+                                <td class="x-code">XTRA-P-Q1</td>
+                                <td class="x-desc">Extrascolaire Plus de 6ans Tarif Q1</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <br/>
+        </div>
+    </div>
+
+    <script src="/static/vendor/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/static/vendor/semantic/semantic.min.js"></script>
+
+    <script src="/static/scripts/App.js"></script>
+
+    <script src="/static/scripts/Product.js"></script>
+    <script src="/static/scripts/Order.js"></script>
+    {{ products | json_script:'products_json' }}
+</body>
+</html>
+
+<!-- App -->
+<script>
+    var productHelper = new Product();
+
+    var op_Order = new OrderInterface();
+    var op_OrderPrint = new UI_OrderPrint();
+
+    window.addEventListener('load', () => {
+        App.init();
+        // getOrder();
+
+        // const _products = '{{ products | safe }}';
+        const _products = JSON.parse(document.getElementById('products_json').textContent);
+
+        // Prepare products
+        productHelper.init(_products);
+
+        // Find ID in URL
+        const paths = window.location.pathname.split('/order/print/');
+        const id = parseInt(paths[1]);
+        if (id) {
+            fromID(id);
+        }
+    });
+    
+    function fromID (id) {
+        op_Order.fromID(id)
+        .then(() => {
+            op_OrderPrint.render(op_Order);
+        })
+        .catch((err) => { 
+            alert('Impossible de récupérer le reçu.'); 
+            console.error(err);
+        }); 
+    }
+    
+    function _date (date) {
+        const first = date.split('T')[0];
+        const sec = first.split('-');
+        return `${sec[2]}/${sec[1]}/${sec[0]}`;
+    }
+
+    function _datetime (date) {
+        const first = date.split('T');
+        const sec = first[0].split('-');
+        const third = first[1].split(':');
+        return `${sec[2]}/${sec[1]}/${sec[0]} ${third[0]}:${third[1]}`;
+    }
+</script>

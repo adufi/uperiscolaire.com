@@ -1,0 +1,561 @@
+
+{% extends 'intern/base.html' %}
+
+{% block title %}
+Utilisateurs
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="/static/styles/User.css" />
+<link rel="stylesheet" href="/static/vendor/simplePagination.css" />
+{% endblock %}
+
+{% block main %}
+<div id="Users">
+    
+    <div class="wrapper">
+        <div class="wrapper-title">
+            <p class="title">Utilisateurs</p>
+        </div>
+        <div class="wrapper-content">
+            <div id="Alert" class="col-sm-12">
+                <div class="Alert-container">
+                    <div class="alert alert-primary" role="alert">
+                        <span class="alert-message"></span>
+                        <a class="alert-link"></a>
+                    </div>
+                    <div class="alert alert-secondary" role="alert">
+                        <span class="alert-message"></span>
+                        <a class="alert-link"></a>
+                    </div>
+                    <div class="alert alert-success" role="alert">
+                        <span class="alert-message"></span>
+                        <a class="alert-link"></a>
+                    </div>
+                    <div class="alert alert-danger" role="alert">
+                        <span class="alert-message"></span>
+                        <a class="alert-link"></a>
+                    </div>
+                    <div class="alert alert-warning" role="alert">
+                        <span class="alert-message"></span>
+                        <a class="alert-link"></a>
+                    </div>
+                    <div class="alert alert-info" role="alert">
+                        <span class="alert-message"></span>
+                        <a class="alert-link"></a>
+                    </div>
+                    <div class="alert alert-light" role="alert">
+                        <span class="alert-message"></span>
+                        <a class="alert-link"></a>
+                    </div>
+                    <div class="alert alert-dark" role="alert">
+                        <span class="alert-message"></span>
+                        <a class="alert-link"></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="Controls _Shop">
+                <div class="Controls-texts col-6"></div>
+    
+                <div class="Controls-buttons col-6">
+                    <!-- <button class="controls-cancel btn btn-danger" onclick="controlsCancel()">Annuler</button> -->
+            
+                    <button class="controls-continue btn btn-success" onclick="controlsContinue()">Continuer</button>
+            
+                </div>
+            </div>
+
+            <div id="SearchList">
+
+                <div id="Search">
+                    <input class="form-control" type="text" placeholder="Recherche" aria-label="Search"
+                        oninput="search(this.value)">
+                </div>
+
+                <div id="Filters">
+                    <fieldset class="col-sm-12">
+                        <legend>Quotients</legend>
+            
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <label for="filters_quotient_1"><b>Quotient 1</b></label>
+
+                                <select id="filters_quotient_1" name="filters_quotient" onchange="filters_onChange(this)">
+                                    <option value="-1">ANY</option>
+                                    <option value="0">UNSET</option>
+                                    <option value="1">NE</option>
+                                    <option value="2">Q2</option>
+                                    <option value="3">Q1</option>
+                                  </select>
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label for="filters_quotient_2"><b>Quotient 2</b></label>
+
+                                <select id="filters_quotient_2" name="filters_quotient" onchange="filters_onChange(this)">
+                                    <option value="-1">ANY</option>
+                                    <option value="0">UNSET</option>
+                                    <option value="1">NE</option>
+                                    <option value="2">Q2</option>
+                                    <option value="3">Q1</option>
+                                  </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="col-sm-12">
+                        <legend>Ecole</legend>
+
+                        <div class="form-row">
+
+                            <div class="form-group col-sm-12">     
+                                <label for="filters_school_Tout"><b>Tout</b></label>
+                                <input id="filters_school_Tout" name="filters_school" type="radio" onchange="filters_onChange(this)" />
+
+                                <label for="filters_school_PRES"><b>PRES</b></label>
+                                <input id="filters_school_PRES" name="filters_school" type="radio" onchange="filters_onChange(this)" />
+
+                                <label for="filters_school_EM"><b>EM</b></label>
+                                <input id="filters_school_EM" name="filters_school" type="radio" onchange="filters_onChange(this)" />
+
+                                <label for="filters_school_BDP"><b>BDP</b></label>
+                                <input id="filters_school_BDP" name="filters_school" type="radio" onchange="filters_onChange(this)" />
+
+                                <label for="filters_school_CHAP"><b>CHAP</b></label>
+                                <input id="filters_school_CHAP" name="filters_school" type="radio" onchange="filters_onChange(this)" />
+
+                                <label for="filters_school_DUR"><b>DUR</b></label>
+                                <input id="filters_school_DUR" name="filters_school" type="radio" onchange="filters_onChange(this)" />
+
+                                <label for="filters_school_GOND"><b>GOND</b></label>
+                                <input id="filters_school_GOND" name="filters_school" type="radio" onchange="filters_onChange(this)" />
+
+                                <label for="filters_school_MDO"><b>MDO</b></label>
+                                <input id="filters_school_MDO" name="filters_school" type="radio" onchange="filters_onChange(this)" />
+
+                                <label for="filters_school_HM"><b>HM</b></label>
+                                <input id="filters_school_HM" name="filters_school" type="radio" onchange="filters_onChange(this)" />
+
+                                <label for="filters_school_JM"><b>JM</b></label>
+                                <input id="filters_school_JM" name="filters_school" type="radio" onchange="filters_onChange(this)" />
+
+                                <label for="filters_school_AUTRES"><b>AUTRES</b></label>
+                                <input id="filters_school_AUTRES" name="filters_school" type="radio" onchange="filters_onChange(this)" />
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="col-sm-12">
+                        <button onclick="filters_onClick()">Filtrer</button>
+                    </fieldset>
+                </div>
+    
+                <div id="List-selected">
+                    <p>Sélectionné(s)</p>
+    
+                    <ul class="list-group">
+                    </ul>
+                </div>
+    
+                <div id="List-items">
+                    <p><span></span> Elément(s)</p>
+    
+                    <ul class="list-group-pagination"></ul>
+                    <ul class="list-group"></ul>
+                    <ul class="list-group-pagination"></ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body_extensions %}
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/scripts/User.js"></script>
+<script src="/static/scripts/messages.js"></script>
+<script src="/static/vendor/simplePagination.js"></script>
+<script>
+    var user = 0;
+
+    const params = {
+        names: '',
+        roles: [],
+        school: 'All',
+        quotient_1: -1,
+        quotient_2: -1,
+        currentPage: 1,
+    };
+
+    const userHelper = new User();
+
+    const USERINPUTS = {
+        'user_first_name':   document.getElementById('user_first_name'),
+        'user_last_name':    document.getElementById('user_last_name'),
+        'user_dob':          document.getElementById('user_dob'),
+        'user_phone':        document.getElementById('user_phone'),
+        'user_email':        document.getElementById('user_email'),
+        'user_address1':     document.getElementById('user_address1'),
+        'user_address2':     document.getElementById('user_address2'),
+        'user_city':         document.getElementById('user_city'),
+        'user_zip_code':     document.getElementById('user_zip_code'),
+
+        label: function (key) { return document.querySelector(`label[for="${key}"]`); },
+        // input: function (key) { return document.getElementById(this[key]); },
+        hide: function (key) { this[key].parentElement.style = 'display:none'; },
+    };
+
+
+    window.onload = function (e) {
+        App.exec(getUsers, {loginRequired: true});
+        return;
+        App.init();
+        Alert.init();
+
+        getUsers(
+            params.currentPage,
+            params.roles,
+            params.names
+        );
+        return;
+    }
+
+
+    function getUsers (page=1, roles=[], names='') {
+        let url = `/api/userquery/?page=${params.currentPage}`;
+        if (params.roles.length) {
+            url += `&roles=${params.roles.join(',')}`;
+        }
+        if (params.names) {
+            url += `&names=${params.names}`;
+        }
+        else {
+            if (params.school !== 'All') {
+                url += `&school=${params.school}`;
+            }
+            if (params.quotient_1 !== -1) {
+                url += `&quotient_1=${params.quotient_1}`;
+            }
+            if (params.quotient_2 !== -1) {
+                url += `&quotient_2=${params.quotient_2}`;
+            }
+        }
+
+        console.log(url);
+        App.get(url, true)
+            .then(data => getUsers_onSuccess(data))
+            .catch((err) => getUsers_onFailure(err));
+    }
+
+
+    function getUsers_onSuccess (data) {
+        console.log(data);
+
+        if (!data.users || !data.users.data) {
+            console.log('No data found');
+            Alert.alertDanger('Echec lors de la récupération des données');
+        }
+        else {
+            $('#List-items .list-group-pagination').pagination({
+                items: data.users.count,
+                itemsOnPage: 25,
+                currentPage: params.currentPage,
+                cssStyle: 'light-theme',
+                prevText: 'Précédent',
+                onPageClick: function (pageNumber, event) {
+                    params.currentPage = pageNumber;
+                    getUsers(
+                        params.currentPage,
+                        params.roles,
+                        params.names
+                    );
+                }
+            });
+
+            render (data.users.data);
+        }
+    }
+    
+    
+    function getUsers_onFailure (err) {
+        console.log(err);
+        Alert.alertDanger('Echec lors de la récupération des données');
+    }
+
+
+    function render (users) {
+        const content = document.querySelector('#List-items .List-group');
+            content.innerHTML = '';
+
+        for (const user of users) {
+            const li = document.createElement('li');
+            li.className = 'list-group-item';
+            li.onclick = (e) => { list_onClick(e.target); };
+            li.ondblclick = (e) => { list_onDblClick(e.target); };
+                
+            li.setAttribute('data-user', user.id);
+            
+            const names = (user.first_name && user.last_name) ? 
+            `${user.first_name.capitalize()} ${user.last_name.toUpperCase()}` : 
+            '<i>Aucun noms</i>';
+            
+            const email = `<span class="text-info">${user.email}</span>`;
+
+            let role = '';
+            if (user.roles) {
+                for (const _ of user.roles) {
+                    if (_.slug === 'child') {
+                        role += '<span class="mx-1 text-success">CHILD</span>';
+                    }
+                    if (_.slug === 'parent') {
+                        role += '<span class="mx-1 text-primary">PARENT</span>';
+                    }
+                    if (_.slug === 'admin') {
+                        role += '<span class="mx-1 text-danger">ADMIN</span>';
+                    }
+                }
+            }
+
+            const completed = (user.date_completed) ? 
+                '<span class="font-weight-bold text-success">complété</span>' :
+                '<span class="font-weight-bold text-danger">non complété</span>';
+
+            const confirmed = (user.date_confirmed) ? 
+                '<span class="font-weight-bold text-success">confirmé</span>' :
+                '<span class="font-weight-bold text-danger">non confirmé</span>';
+            
+            li.innerHTML = `#${user.id} - ${names}`;
+            li.innerHTML += (email) ? ` - ${email}` : '';
+            li.innerHTML += (role) ? ` - ${role}` : '';
+            li.innerHTML += `&bull; ${completed} &bull; ${confirmed}`;
+
+            content.appendChild(li);
+        }
+    }
+
+
+    /**
+     * Set active LIST item
+     * Create SELECTED item
+     */
+    function updateSelected (id) {
+        user = id;
+
+        // Set item to active
+        const x = document.querySelector(`#SearchList #List-items .list-group-item[data-user="${id}"]`);
+            x.classList.add('active');
+
+        // Create SELECTED element
+        let li = document.createElement('li')
+            li.className = 'list-group-item';
+            li.innerHTML = x.innerHTML;
+            li.addEventListener('click', selected_onClick);
+
+        // Append element
+        document
+            .querySelector('#SearchList #List-selected .list-group')
+            .appendChild(li);
+    }
+
+
+    /**
+     * Reset LIST item
+     * Reset SELECTED item
+     */
+    function resetSelected () {
+        // Reset child id
+        child = 0;
+
+        // Reset selected HTML
+        document.querySelector('#SearchList #List-selected .list-group').innerHTML = '';
+
+        // Reset active item if exist
+        const x = document.querySelector('#SearchList #List-items .list-group .list-group-item.active');
+        if (x)
+            x.classList.remove('active');
+    }
+
+
+    function selected_onClick (e) {
+        resetSelected();
+    }
+
+
+    function search (value) {
+        if (value.length === 0) {
+            search_reset();
+        }
+        else if (value.length > 2) {
+            search_update(value);
+            // console.log(value);
+        }
+    }
+
+
+    /**
+     * Reset children list
+     * Remove 'hide' class on children list items
+     */
+    function search_reset () {
+        document.querySelectorAll('#SearchList #List-items .list-group .list-group-item.hide').forEach((item) => {
+            item.classList.remove('hide');
+        });
+
+        params.names = '';
+        params.currentPage = 1;
+
+        getUsers(
+            1,
+            params.roles,
+            params.names
+        );   
+    }
+
+
+    /**
+     * Update/Sort children list by search value
+     * @param {*} value 
+     */
+    function search_update (value) {
+        var filter = value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        params.names = filter.replace(/ /g, ',');
+        getUsers(
+            1,
+            params.roles,
+            params.names
+        );
+
+        // document.querySelectorAll('#SearchList #List-items .list-group .list-group-item').forEach((item) => {
+        //     var _item = item.innerHTML.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+        //     // console.log(_item);
+        //     if (!_item.includes(filter))
+        //         item.classList.add('hide');
+        //     else
+        //         item.classList.remove('hide');
+        // });
+    }
+    
+
+    function list_onClick (e) {
+        const id = e.getAttribute('data-user');
+
+        if (e.classList.contains('active'))
+            resetSelected();
+
+        else {
+            resetSelected();
+            updateSelected(id);
+        }
+    }
+
+
+    function list_onDblClick (e) {
+        list_onClick (e);
+
+        controlsContinue();
+    }
+
+
+    /**
+     * Remove items in local storage
+     * Triggered by cancel button of controls
+     */
+    function controlsCancel() {
+
+        // window.location.href = '/intern/home';
+    } 
+
+
+    /**
+     * Save child ID in local storage
+     * Triggered by continue button of controls
+     */
+    function controlsContinue ()  {
+        if (!parseInt(user)) {
+            Alert.alertDanger('Veuillez sélectionner un parent.');
+            return false;
+        }
+
+        window.open(
+        `/mngt/user/${user}/`,
+        '_blank'
+        );
+    }
+
+
+    function filters_onChange (e) {
+        params.names = '';
+        document.querySelector('#Search input').value = '';
+
+        const SCHOOLS = {
+            'filters_school_Tout':      'All', 
+            'filters_school_PRES':      'PRES', 
+            'filters_school_EM':        'EM',   
+            'filters_school_BDP':       'BDP',  
+            'filters_school_CHAP':      'CHAP', 
+            'filters_school_DUR':       'DUR',  
+            'filters_school_GOND':      'GOND', 
+            'filters_school_MDO':       'MDO',  
+            'filters_school_HM':        'HM',   
+            'filters_school_JM':        'JM',   
+            'filters_school_AUTRES':    'AUTRES',   
+        };
+
+        switch (e.name) {
+            case 'filters_quotient':
+                if (e.id === 'filters_quotient_1') {
+                    params.quotient_1 = e.value;
+                }
+                else if (e.id === 'filters_quotient_2') {
+                    params.quotient_2 = e.value;
+                }
+                break;
+
+            case 'filters_school':
+                if (e.checked) {
+                    params.school = SCHOOLS[e.id];
+                }
+                break;
+        }
+    }
+
+
+    function filters_onClick () {
+        if (params.school !== 'All' ||
+            params.quotient_1 !== -1 ||
+            params.quotient_2 !== -2) {
+                getUsers();
+        }
+    }
+</script>
+{% endblock %}

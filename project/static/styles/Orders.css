@@ -1,0 +1,152 @@
+/********************************************************************
+ORDER
+********************************************************************/
+.Order {}
+
+.Order table td { border: 0; }
+
+
+.Order.Order-Print .js-modal-last-status { margin: 1rem 0; }
+/* .Order.Order-Print .js-modal-last-status * { vertical-align: middle; } */
+
+.Order.Order-Print .product-tile.order-modal { height: auto; }
+
+.Order.Order-Print .js-modal-lexique table tbody tr { display: none; }
+.Order.Order-Print .js-modal-lexique table tbody tr.show { display: table-row; }
+
+
+
+/********************************************************************
+FETCHER
+********************************************************************/
+
+/********************************************************************
+ORDERS
+********************************************************************/
+#Orders {}
+
+#Orders .Orders-wrapper {
+    border: 1px solid gray;
+    border-radius: 10px;
+
+    background: white;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#Orders .Orders-item {
+    cursor: pointer;
+    padding: .5rem;
+    border-bottom: 1px solid;
+}
+#Orders .Orders-item:last-child { border: 0px; }
+
+
+
+/********************************************************************
+ORDER
+********************************************************************/
+#Order {}
+
+#Order .Order-content {}
+#Order .t-row {
+    display: flex;
+}
+
+#Order .t-block {
+    display: block;
+}
+
+#Order .t-inline {
+    display: inline;
+}
+
+#Order .t-inline-block {
+    width: 50%;
+    float: left;
+    display: inline-block;
+}
+
+#Order .t-bold {
+    font-weight: bold;
+}
+
+#Order .t-fieldset {
+    border: 1px solid black;
+}
+
+#Order .t-legend {
+    width: auto;
+    margin: 0 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#Order .t-intels { width: 100%; }
+
+#Order .t-method {
+    margin: 5 10px;
+    padding: 2 10px;
+    text-align: center;
+}
+#Order .t-method:first-child { margin-left: 0; }
+
+#Order .t-children { flex-flow: column; }
+
+#Order .t-products {
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+#Order .t-product {
+    width: 100px;
+    height: 60px;
+    margin: .25rem;
+    padding: .0rem;
+
+    border: 1px solid hsla(0, 0%, 85%, 1);
+    box-shadow: 0 0 1px black;
+
+    font-size: 14px;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+
+
+/********************************************************************
+COLLECTIONS
+********************************************************************/
+.Collections {}
+
+.Collections .modal-dialog {
+    max-width: 100vw;
+}
+
+.Collections table.Collections-table {
+    width: 100%;
+}
+
+.Collections-table thead {}
+
+.Collections-table thead tr {
+    height: 50px;
+    color: hsla(0, 100%, 15%, 1);
+    background: hsla(0, 59%, 47%, 1);
+    text-align: center;
+}
+
+.Collections-table thead tr th {
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+}
+.Collections-table thead tr th:last-child { border-right: none; }
+
+
+
+.Collections-table tbody {}

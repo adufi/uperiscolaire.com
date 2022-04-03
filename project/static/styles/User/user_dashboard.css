@@ -1,0 +1,188 @@
+#UserDashboard .profil {
+  /*
+  Special cases (parent/child/admin)
+  */
+}
+
+#UserDashboard #main-form {
+  position: relative;
+}
+
+#UserDashboard #main-form .messages {
+  top: 4rem;
+  position: sticky;
+}
+
+#UserDashboard .profil .ui.card {
+  width: 100%;
+  box-shadow: none;
+}
+#UserDashboard .profil .js-date-created {
+  color: grey;
+  font-style: italic;
+}
+#UserDashboard .profil.parent .child {
+  display: none;
+}
+#UserDashboard .profil.child .parent {
+  display: none;
+}
+#UserDashboard .profil:not(.admin) .admin input, #UserDashboard .profil:not(.admin) .admin * {
+  pointer-events: none;
+}
+#UserDashboard .family .cards .card {
+  width: 265px;
+}
+#UserDashboard .family .cards .card.add .header {
+  text-align: center;
+}
+#UserDashboard .left-side-tabs {
+  margin-top: 3rem;
+}
+#UserDashboard .left-side-tabs .links {
+  display: flex;
+  flex-flow: column nowrap;
+  border-radius: 5px;
+  background-color: white;
+}
+#UserDashboard .left-side-tabs .links .link-item {
+  color: rgba(0, 0, 0, 0.7);
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+}
+#UserDashboard .left-side-tabs .links .link-item:last-child {
+  border-bottom: none;
+}
+#UserDashboard .left-side-tabs .links .link-item.active {
+  color: white;
+  border-bottom: none;
+  background-color: #009c37;
+}
+#UserDashboard .left-side-tabs .links .link-item.active:first-child {
+  border-radius: 5px 5px 0 0;
+}
+#UserDashboard .left-side-tabs .links .link-item.active:last-child {
+  border-radius: 0 0 5px 5px;
+}
+#UserDashboard .right-side-tabs {
+  margin-top: 3rem;
+}
+#UserDashboard .ui.header {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+#UserDashboard .ui.header > .icon {
+  transform: scale(0.7);
+  margin-right: 0;
+}
+#UserDashboard .ui.header > .icon.phone {
+  transform: scale(0.7) rotateZ(90deg);
+}
+#UserDashboard .ui.header .link {
+  color: #4183c4;
+  margin: 0 0.5rem;
+  font-size: 1rem;
+}
+#UserDashboard .ui.header .link:hover {
+  color: #1e70bf !important;
+}
+
+.form.custom select,
+.form.custom input[type=tel],
+.form.custom input[type=date],
+.form.custom input[type=text],
+.form.custom input[type=email],
+.form.custom input[type=number],
+.form.custom input[type=password] {
+  width: 100%;
+  margin: 5px 0;
+  border: none;
+  box-shadow: none;
+  border-bottom: 2px solid #cccccc;
+  border-radius: 0;
+  color: #404040;
+  background-color: transparent;
+}
+.form.custom select:focus,
+.form.custom input[type=date]:focus,
+.form.custom input[type=text]:focus,
+.form.custom input[type=email]:focus,
+.form.custom input[type=phone]:focus,
+.form.custom input[type=number]:focus,
+.form.custom input[type=password]:focus {
+  outline: none;
+  border-bottom-color: gray;
+}
+.form.custom input.error,
+.form.custom select.error {
+  border-bottom-color: #b14853;
+}
+.form.custom .form-group {
+  padding: 0 1rem;
+}
+.form.custom .form-group label {
+  font-size: 14px;
+}
+.form.custom .field.error input,
+.form.custom .field.error select {
+  border-bottom-color: #b14853;
+}
+.form.custom input[name="user[job]"],
+.form.custom input[name="user[address_1]"],
+.form.custom input[name="user[address_2]"],
+.form.custom input[name="user[address_zip]"],
+.form.custom input[name="user[first_name]"] {
+  text-transform: capitalize;
+}
+.form.custom input[name="user[last_name]"] {
+  text-transform: uppercase;
+}
+
+.quotients.modal .messages {
+  margin-bottom: 2rem;
+}
+.quotients.modal:not(.admin) .field {
+  pointer-events: none;
+}
+
+.accounting.modal .history.no-item {
+  display: none;
+}
+.accounting.modal .form .history.item .title {
+  font-size: 1.28571429em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: calc(2rem - .14285714em) 0 1rem;
+  padding-bottom: 0.21428571rem;
+  border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+}
+.accounting.modal .form .history.item .title .js-client-id {
+  margin-right: 5px;
+  font-weight: bold;
+}
+.accounting.modal .form .history.item .title .js-client-date {
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 14px;
+  font-weight: 300;
+  margin-left: 5px;
+}
+.accounting.modal .form .history.item .js-client-value,
+.accounting.modal .form .history.item .js-client-mod,
+.accounting.modal .form .history.item .js-client-currency {
+  font-size: 1.28571429em;
+}
+.accounting.modal.no-item .history.no-item {
+  color: gray;
+  display: inherit;
+  text-align: center;
+}
+.accounting.modal.no-item .form {
+  display: none;
+}
+.accounting.modal:not(.admin) .field {
+  pointer-events: none;
+}
+
+/*# sourceMappingURL=user_dashboard.css.map */

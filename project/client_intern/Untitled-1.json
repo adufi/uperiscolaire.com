@@ -1,0 +1,86 @@
+{
+            "name": "Test Payment",
+            "comment": "...",
+
+            "reference": "007",
+            "type": 2,
+
+            "payer": 81,
+            "caster": 81,
+
+            "methods": [
+                {
+                    "amount": 130.0,
+                    "method": 1,
+                    "reference": ""
+                },
+                {
+                    "amount": 132.0,
+                    "method": 2,
+                    "reference": "000007"
+                }
+            ],
+
+            "peri": [
+                {
+                    "product": 1,
+                    "children": [
+                        82,
+                        83,
+                        84
+                    ]
+                },
+                {
+                    "product": 2,
+                    "children": [
+                        82,
+                        83,
+                        84
+                    ]
+                },
+                {
+                    "product": 3,
+                    "children": [
+                        82,
+                        83
+                    ]
+                }
+            ],
+            "alsh": [
+                {
+                    "child": 82,
+                    "products": [
+                        self.noel1.id,
+                        self.noel2.id,
+                        self.noel3.id,
+                        self.noel4.id,
+                        self.noel5.id
+                    ]
+                },
+                {
+                    "child": 83,
+                    "products": [
+                        self.tous1.id,
+                        self.tous2.id,
+                        self.tous3.id,
+                        self.tous4.id,
+                        self.tous5.id,
+                        self.aout1.id,
+                        self.aout2.id,
+                        self.aout3.id,
+                        self.aout4.id,
+                        self.aout5.id,
+                    ]
+                },
+                {
+                    "child": 84,
+                    "products": [
+                        self.noel1.id,
+                        self.noel2.id,
+                        self.noel3.id,
+                        self.noel4.id,
+                        self.noel5.id
+                    ]
+                }
+            ]
+        }

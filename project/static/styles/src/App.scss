@@ -1,0 +1,17 @@
+#App {
+
+}
+
+.wrapper {
+
+    // MESSAGES
+    &.error .messages .message.error { display: block; }
+    &.success .messages .message.success { display: block; }
+    &.warning .messages .message.warning { display: block; }
+
+    .messages {
+        .message {
+            display: none;
+        }
+    }
+}

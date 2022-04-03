@@ -1,0 +1,79 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+</head>
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    td, th {
+        border: 1px solid;
+    }
+</style>
+<body>
+{% if orders %}
+<table style="width:100%">
+    <thead>
+        <tr>
+            <th>ID                  </th>
+            <th>NAME                </th>
+            <th>COMMENT             </th>
+            <th>TYPE                </th>
+            <th>REF                 </th>
+            <th>DATE                </th>
+            <th>CASTER (SLUG)       </th>
+            <th>PAYER (SLUG)        </th>
+            <th>AMOUNT (CASH)       </th>
+            <th>AMOUNT (CHECK)      </th>
+            <th>REF (CHECK)         </th>
+            <th>ID (TICKET)         </th>
+            <th>PAYEE (SLUG)        </th>
+            <th>PRICE               </th>
+            <th>PRODUCT (SLUG)      </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for order in orders %}
+            {% for ticket in order.tickets %}
+                <tr>
+                    <td>                {{ order.id }}              </td>
+                    <td>                {{ order.name }}            </td>
+                    <td>                {{ order.comment }}         </td>
+                    <td>                {{ order.type }}            </td>
+                    <td>                {{ order.reference }}       </td>
+                    <td>                {{ order.date }}            </td>
+                    <td class="name">   {{ order.caster}}           </td>
+                    <td class="name">   {{ order.payer}}            </td>
+                    <td>                {{ order.amount_cash}}      </td>
+                    <td>                {{ order.amount_check}}     </td>
+                    <td>                {{ order.reference_check}}  </td>
+                    <td>                {{ ticket.id }}             </td>
+                    <td class="name">   {{ ticket.payee }}          </td>
+                    <td>                {{ ticket.price }}          </td>
+                    <td>                {{ ticket.product }}        </td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+<script>
+    function format (str) {
+        let new_str = str.toLowerCase();
+        new_str = new_str.replace(/ /g, '');
+        new_str = new_str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        return new_str;
+    }
+
+    window.onload = function(e) {
+        document.querySelectorAll('.name').forEach((element) => {
+            element.innerHTML = format(element.innerHTML);
+        });
+    };
+</script>
+</body>
+</html>

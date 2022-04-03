@@ -1,0 +1,312 @@
+{% extends 'client/base.html' %}
+
+{% block title %}
+Accueil
+{% endblock %}
+
+{% block styles %}
+{% endblock %}
+
+{% block main %}
+<div id="Home" class="container">
+
+    <div class="ui warning message col-12">
+        <!-- <i class="close icon"></i> -->
+        <div class="header">
+            Les inscriptions pour la période 2021 - 2022 ne seront pas assurées par l'UPEEM. Veuillez vous rapprocher de la mairie.
+        </div>
+        <ul class="list"></ul>
+    </div>
+    
+    <div id="MessagesWrapper" class="wrapper">
+        <div id="main-messages" class="messages">
+            <div class="ui success message">
+                <!-- <i class="close icon"></i> -->
+                <div class="header">
+                    Notification(s)
+                </div>
+                <ul class="list"></ul>
+            </div>
+    
+            <div class="ui error message">
+                <!-- <i class="close icon"></i> -->
+                <div class="header">
+                    Une ou plusieurs erreurs sont présentes
+                </div>
+                <ul class="list"></ul>
+            </div>
+            
+            <div class="ui warning message">
+                <!-- <i class="close icon"></i> -->
+                <div class="header">
+                    Attention!
+                </div>
+                <ul class="list"></ul>
+            </div>
+        </div>  
+    </div>
+
+    <div id="Alert" class="col-sm-12">
+        <div class="Alert-container">
+            <div class="alert alert-primary" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-secondary" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-success" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-danger" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-warning" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-info" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-light" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-dark" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <div class="wrapper-title d-none">
+            <p class="title">COMMUNIQUE</p>
+        </div>
+        <div class="wrapper-content d-none" style="margin-bottom: 2rem;">
+            <div class="card"
+                style="max-width: 700px;
+                margin:auto;
+                border:1px solid green;
+                font-size:18px;">
+                <div class="card-body">
+                    <b>Parents,</b>
+                    <br/>
+                    <br/>
+
+                    Nous vous informons de la <b>réouverture des inscriptions</b> qui se dérouleront au <b>Centre Culturel MARCÉ</b> du <b>mardi 25 au vendredi 28 août 2020</b> de <b>08h30 à 12h30</b> et de <b>13h45 à 16h</b> pour toutes les écoles.
+                    <br/>
+                    <br/>
+
+                    La <b>procédure</b> d’inscription s’effectue en <b>2 étapes</b> :
+
+                    <ol>
+                        <li>
+                            <b>Pré-inscription</b> en ligne à cette adresse dès le samedi 15 août 2020.
+                        </li>
+                        
+                        <li>
+                            <b>Finalisation</b> de l’inscription sur place muni des pièces suivantes :
+                            <ul class="ml-1">
+                                <li>
+                                    • La <b>fiche d’inscription</b> et la <b>fiche sanitaire</b> dûment renseignées et imprimées
+                                </li>
+                                <li>
+                                    • 1 <b>photo d’identité récente</b> de votre enfant (2 si inscription en ALSH)
+                                </li>
+                                <li>• <b>L’attestation d’assurance extrascolaire 2020-2021 (type 24/24 plus)</b></li>
+                                <li>• <b>La copie des pages de vaccinations</b></li>
+                                <li>• La copie du Projet d’Accueil Individualisé (si votre enfant en bénéficie)</li>
+                                <li>• Le montant des prestations souhaitées en espèces ou par chèque</ul>
+                            </ul>
+                        </li>
+                    </ol>
+                    <br/>
+                    <br/>
+
+                    <b>AUCUN DOSSIER INCOMPLET NE SERA ACCEPTÉ</b>
+                    <br/>
+                    <br/>
+
+                    Nous comptons sur votre entière collaboration afin de respecter les mesures sanitaires mises en place :
+                    <ul class="ml-4">
+                        <li>• Port du masque obligatoire</li>
+                        <li>• Désinfection des mains à l’entrée</li>
+                        <li>• Stylo personnel et individuel</li>
+                        <li>• Distanciation physique</li>
+                    </ul>
+                    <br/>
+                    <br/>
+
+                    <b class="float-right">La direction UPEEM</b>
+                    <br/>
+                    <br/>
+                    <br/>
+                    
+                    <a href="/media/COMMUNIQUE_REOUVERTURE_INSCRIPTIONS_2020-2021.pdf" target="_blank" class="card-link float-right">En savoir plus</a>
+                </div>
+            </div>
+            
+            <div class="card d-none"
+                style="max-width: 700px;
+                margin:auto;
+                border:1px solid red;
+                font-size:18px;">
+                <div class="card-body">
+                    <b>Parents,</b>
+                    <br/>
+                    <br/>
+        
+                    Nous vous informons de la fermeture de notre antenne de SAINT-JOSEPH, à compter du vendredi 21 août 2020 et ce jusqu’à nouvel ordre.
+                    <br/>
+                    <br/>
+        
+                    Bien que nous suivions strictement le protocole sanitaire en vigueur, par mesure de précaution, à notre demande une entreprise spécialisée nous aidera à garantir l’intégrité sanitaire de nos locaux , suite à l’exposition dans le cadre de ses fonctions, de l’un de nos salariés à une personne testée positive ce jour au coronavirus.
+                    <br/>
+                    <br/>
+        
+                    Un nouveau calendrier et de nouvelles modalités d’inscriptions vous seront communiqués incessamment.
+                    Nous attirons plus que jamais votre attention, sur le nécessaire respect par tous des gestes barrières, de la distanciation physique et du port obligatoire du masque dans les lieux clos.
+                    <br/>
+                    <br/>
+        
+                    Soyez convaincus que nous mettons tout en œuvre pour assurer dans la plus grande sécurité de nos personnels et de vous-mêmes, les préparatifs de la rentrée.
+                    <br/>
+                    <br/>
+                    
+                    <b class="float-right">La direction UPEEM</b>
+                    <br/>
+                    <br/>
+                    <br/>
+                    
+                    <a href="/media/COMMUNIQUE_UPEM_FERMETURE_ANTENNE DE ST JOSEPH.pdf" target="_blank" class="card-link float-right">En savoir plus</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrapper-title">
+            <p class="title">Informations</p>
+        </div>
+
+        <div class="wrapper-content">
+            <div class="card schoolcard">
+                <div class="card-body">
+                    {% if content %}
+                        {{ content.content.html|safe }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="wrapper">
+        <div class="wrapper-title">
+            <p class="title">Mon Compte</p>
+        </div>
+        <div class="wrapper-content">
+            <a class="wrapper-btn nav-link-profile">
+                <h5 class="wrapper-btn__title">Mon profil</h5>
+                <ul class="wrapper-btn__list">
+                    <li class="wrapper-btn__item">Item 1</li>
+                    <li class="wrapper-btn__item">Item 2</li>
+                    <li class="wrapper-btn__item">Item 3</li>
+                </ul>
+            </a>
+
+            <a class="wrapper-btn nav-link-family">
+                <h5 class="wrapper-btn__title">Ma famille</h5>
+            </a>
+        </div>
+    </div> -->
+
+    <!-- <div class="wrapper">
+        <div class="wrapper-title">
+            <p class="title">Achats</p>
+        </div>
+        <div class="wrapper-content">
+            <a class="wrapper-btn" href="/intern/shop">
+                <h5 class="wrapper-btn__title">Acheter prestations</h5>
+                <ul class="wrapper-btn__list">
+                    <li class="wrapper-btn__item">Périscolaire</li>
+                    <li class="wrapper-btn__item">ALSH</li>
+                </ul>
+            </a>
+        </div>
+    </div> -->
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/scripts/messages.js"></script>
+
+<script>
+
+    window.onload = function () {
+        default_container = 'MessagesWrapper';
+
+        App.exec(undefined, {logginRequired: false});
+    }
+
+    function apiChaining () {
+        run();
+    }
+
+
+    function run () {}
+
+    // window.onload = function (e) {
+    //     if (App.init()) {
+
+    //         user.readUser(
+    //             App.caster.id,
+    //             readUser_onSuccess,
+    //             readUser_onFailure,
+    //         );
+    //     }
+    //     else {
+    //         Alert.alertDanger('Une erreur est survenue lors du lancement de l\'application.');
+    //     }
+    // }
+
+
+    function readUser_onFailure (err) {
+        const message = Errors.process(err);
+
+        Alert.alertDanger(message);
+    }
+    
+
+    function readUser_onSuccess (data) {
+        const response = App.getUserStatus(App.caster);
+        if (response.status === 'Failure') {
+            Alert.alertDanger(
+                response.message,
+                response.link,
+                response.href
+            );
+        }
+        else {
+            Alert.alertSuccess(
+                response.message,
+                response.link,
+                response.href
+            );
+        }
+        return;
+        if (!user.date_completed) {
+            statusDanger(`Compte non complété. <a href="/user/${caster.id}/">Merci de suivre ce lien.</a>`);
+        }
+        else if (!user.date_confirmed) {
+            // statusDanger(`Compte non confirmé. Merci de vérifier votre boîte mail. Dans le cas échéant, <a href="/new-verification-link/${caster.id}/">merci de suivre ce lien.</a>`);
+            statusDanger(`Compte non confirmé. <a href="/new-verification-link/${caster.id}/">Merci de cliquer sur ce lien</a> afin de recevoir le mail.`);
+        }
+        else {
+            statusSuccess(`Inscription 2020-2021 ouverte. <a href="/family/${caster.id}/">Merci de suivre ce lien.</a>`)
+        }
+    } 
+</script>
+{% endblock %}

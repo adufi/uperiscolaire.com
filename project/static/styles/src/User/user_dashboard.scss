@@ -1,0 +1,253 @@
+#UserDashboard {
+
+    .profil {
+        .ui.card {
+            width: 100%;
+            box-shadow: none;
+            // background: none;
+            // display: none;
+        }
+
+        .js-date-created {
+            color: grey;
+            font-style: italic;
+        }
+
+        /*
+        Special cases (parent/child/admin)
+        */
+        &.parent {
+            .child { display: none; }
+        }
+
+        &.child {
+            .parent { display: none; }
+        }
+
+        &:not(.admin) {
+            .admin input, .admin * {
+                pointer-events: none;
+            }
+        }
+    }
+
+    .family {
+
+        .cards {
+            .card {
+                width: 265px;
+
+                &.add {
+                    .header { text-align: center; }
+                }
+            }
+        }
+    }
+
+    // Old
+    .left-side-tabs {
+        margin-top: 3rem;
+
+        .links {
+            display: flex;
+            flex-flow: column nowrap;
+            
+            border-radius: 5px;
+            background-color: white;
+
+            .link-item {
+                color: rgb(0 0 0 / 0.7);
+                padding: 1rem 2rem;
+                border-bottom: 1px solid rgba($color: #808080, $alpha: 0.3);
+
+                &:last-child { border-bottom: none; }
+
+                &.active {
+                    color: white;
+                    border-bottom: none;
+                    background-color: #009c37;
+
+                    &:first-child { border-radius: 5px 5px 0 0; }
+                    &:last-child { border-radius: 0 0 5px 5px; }
+                }
+            }
+        }
+    }
+
+    .right-side-tabs {
+        margin-top: 3rem;
+
+        .right-title {
+            // .icon { transform: scale(0.75); }
+        }
+    }
+
+    // Header
+    .ui.header {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        
+        & > .icon {
+            transform: scale(0.7);
+            margin-right: 0;
+            
+            &.phone { transform: scale(0.7) rotateZ(90deg); }
+        }
+
+        .link {
+            color: #4183c4;
+            margin: 0 0.5rem;
+            font-size: 1rem;
+
+            &:hover {
+                color: #1e70bf !important;
+            }
+        }
+    } 
+
+    
+}
+
+// My Custom form styles
+.form.custom {
+    fieldset {}
+
+    fieldset legend {}
+
+    select,
+    input[type="tel"],
+    input[type="date"],
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="password"] {
+        width: 100%;
+        margin: 5px 0;
+        
+        border: none;
+        box-shadow: none;
+        border-bottom: 2px solid hsla(0, 0%, 80%, 1);
+        border-radius: 0;
+
+        color: hsla(0, 0%, 25%, 1);
+        background-color: transparent;
+    }
+
+    select:focus,
+    input[type="date"]:focus,
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="phone"]:focus,
+    input[type="number"]:focus,
+    input[type="password"]:focus {
+        outline: none;
+        border-bottom-color: hsla(0, 0%, 50%, 1);
+    }
+
+    input.error,
+    select.error {
+        border-bottom-color: #b14853;
+    }
+    
+    .form-group {
+        padding: 0 1rem;
+    }
+    
+    .form-group label {
+        font-size: 14px;
+    }
+    
+    // On error
+    .field.error input,
+    .field.error select {
+        border-bottom-color: #b14853;
+    }
+
+    // Inputs formatting
+    input[name="user[job]"],
+    input[name="user[address_1]"],
+    input[name="user[address_2]"],
+    input[name="user[address_zip]"],
+    input[name="user[first_name]"] {
+        text-transform: capitalize;
+    }
+    input[name="user[last_name]"] {
+        text-transform: uppercase;
+    }
+}
+
+
+.quotients.modal {
+    .messages {
+        margin-bottom: 2rem;
+    }
+
+    &:not(.admin) {
+        .field {
+            pointer-events: none;
+        }
+    }
+}
+
+// Quotient modal
+.accounting.modal {
+    .history.no-item {
+        display: none;
+    }
+
+    .form {
+        .history.item {
+            .title {
+                font-size: 1.28571429em;
+                
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: space-between;
+                
+                margin: calc(2rem - .14285714em) 0 1rem;
+                padding-bottom: .21428571rem;   
+                border-bottom: 1px solid rgba(34,36,38,.15);    
+        
+                .js-client-id {
+                    margin-right: 5px;
+                    font-weight: bold;
+                }
+        
+                .js-client-date {
+                    color: rgba(0,0,0,.4);
+                    font-size: 14px;
+                    font-weight: 300;
+                    
+                    margin-left: 5px;
+                }
+    
+            }
+    
+            
+            
+            .js-client-value,
+            .js-client-mod,
+            .js-client-currency {
+                font-size: 1.28571429em;
+            }
+        }
+    }
+
+    // Special case
+    &.no-item {
+        .history.no-item {
+            color: gray;
+            display: inherit;
+            text-align: center;
+        }
+
+        .form { display: none; }
+    }
+
+    &:not(.admin) {
+        .field {
+            pointer-events: none;
+        }
+    }
+}

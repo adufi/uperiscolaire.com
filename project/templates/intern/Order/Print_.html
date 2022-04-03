@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    
+    <title>Imprimer Ticket</title>
+
+    <link rel="stylesheet" href="/static/styles/Common.css" />
+    <link rel="stylesheet" href="/static/styles/Order.css" />
+</head>
+<body>
+    
+    <div id="Order" class="Order Order-Print">
+        <div class="container">
+            <div class="t-row">
+                <fieldset class="t-fieldset t-intels">
+                    <legend class="t-legend">Reçu de paiement ALSH</legend>
+
+                    <span class="t-inline-block"><b>ID: </b>
+                        {% if order.reference %}
+                            {{ order.reference }}
+                        {% else %}
+                            Site_{{ order.id }}
+                        {% endif %}
+                    </span>
+
+                    <span class="t-inline-block"><b>Date: </b>
+                        <span id="post_process_date"></span>
+                    </span>
+                    <span class="t-inline-block"><b>Emetteur: </b>
+                        {% if order.caster.first_name %}
+                            {{ order.caster.first_name }} {{ order.caster.last_name }}
+                        {% else %}
+                            <i>Aucune information trouvée</i>
+                        {% endif %}
+                    </span>
+                    <span class="t-inline-block"><b>Parent: </b>
+                        <span class="Order-parent-names"></span>
+                        {% if order.payer.first_name %}
+                            {{ order.payer.first_name}} {{ order.payer.last_name }}
+                        {% else %}
+                            <i>Aucune information trouvée</i>
+                        {% endif %}
+                    </span>
+                </fieldset>
+            </div>
+
+            <div class="t-row space-between">
+
+                <fieldset class="t-fieldset t-lexique">
+
+                    <table>
+                        <thead>
+                            <tr class="show">
+                                <th>Code</th>
+                                <th>Description</th>
+                                <th>Qté</th>
+                                <th>P.U.</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr class="x-peri-1">
+                                <td class="x-code">PERI-1</td>
+                                <td class="x-desc">Périscolaire Tarif F1</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                            <tr class="x-peri-2">
+                                <td class="x-code">PERI-2</td>
+                                <td class="x-desc">Périscolaire Tarif F2</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                            <tr class="x-peri-3">
+                                <td class="x-code">PERI-3</td>
+                                <td class="x-desc">Périscolaire Tarif F3</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                            <tr class="x-peri-4">
+                                <td class="x-code">PERI-4</td>
+                                <td class="x-desc">Périscolaire Tarif F4</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+
+                            <tr class="x-xtra-m-ne">
+                                <td class="x-code">XTRA-M-NE</td>
+                                <td class="x-desc">Extrascolaire Moins de 6ans Tarif NE</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                            <tr class="x-xtra-m-q2">
+                                <td class="x-code">XTRA-M-Q2</td>
+                                <td class="x-desc">Extrascolaire Moins de 6ans Tarif Q2</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                            <tr class="x-xtra-m-q1">
+                                <td class="x-code">XTRA-M-Q1</td>
+                                <td class="x-desc">Extrascolaire Moins de 6ans Tarif Q1</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+
+                            <tr class="x-xtra-p-ne">
+                                <td class="x-code">XTRA-P-NE</td>
+                                <td class="x-desc">Extrascolaire Plus de 6ans Tarif NE</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                            <tr class="x-xtra-p-q2">
+                                <td class="x-code">XTRA-P-Q2</td>
+                                <td class="x-desc">Extrascolaire Plus de 6ans Tarif Q2</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                            <tr class="x-xtra-p-q1">
+                                <td class="x-code">XTRA-P-Q1</td>
+                                <td class="x-desc">Extrascolaire Plus de 6ans Tarif Q1</td>
+                                <td class="x-qtty"></td>
+                                <td class="x-unit"></td>
+                                <td class="x-sum" ></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+
+                <fieldset class="t-fieldset t-methods">
+                    <legend class="t-legend">Paiements</legend>
+
+                    {% for method in order.methods %}
+                        {% if method.method == 1 %}
+                            <div class="t-method">
+                                <legend class="t-legend">Espèces</legend>
+                                <span>{{ method.amount }} €</span>
+                            </div>
+                        
+                        {% elif method.method == 2 %}
+                            <div class="t-method">
+                                <legend class="t-legend">Chèque</legend>
+                                <span class="t-block">{{ method.amount }} € </span>
+                                <legend class="t-legend">Réference</legend>
+                                <span class="t-block">{{ method.reference }}</span>
+                            </div>
+                            
+                        {% elif method.method == 5 %}
+                            <div class="t-method">
+                                <legend class="t-legend">Avoir</legend>
+                                <span class="t-block">{{ method.amount }} € </span>
+                            </div>
+
+                        {% endif %}
+                    {% endfor %}
+                </fieldset>
+            </div>
+
+            <div class="t-row t-children">
+                {% for key, child in children.items %}
+                    <fieldset class="t-fieldset t-child" data-id="{{ child.id }}">
+                        <legend class="t-legend">
+                            {% if child.first_name %}
+                                {{ child.first_name }} {{ child.last_name }}
+                                
+                                {% if child.q1 %}
+                                - {{ child.school }} - {{ child.classroom }} - {{ child.q1 }}/{{ child.q2 }}   
+                                {% endif %}
+
+                            {% else %}
+                                <i>Aucune information trouvée</i>
+                            {% endif %}
+                        </legend>
+                        <ul class="t-products">
+
+                        </ul>
+                    </fieldset>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+<script src="/static/scripts/App.js"></script>
+{{ products | json_script:'products_json' }}
+<script>
+    window.onload = function () {
+        post_process();
+    }
+
+    function post_process () {
+        // Date
+        document.getElementById('post_process_date').innerHTML = App.Utils.dateTimeToHTML('{{ order.date }}');
+
+        console.log('{{ order.date }}');
+
+        // Tickets
+        const tickets = JSON.parse('{{ order.tickets | safe }}');
+        // const products = JSON.parse('{{ products | escapejs }}');
+        const products = JSON.parse(document.getElementById('products_json').textContent);
+
+        console.log (tickets);
+        console.log (products[0]);
+
+        addProducts(tickets, products);
+    }
+
+    // Old
+    function _date (_date) {
+        var d = new Date(_date);
+        const x = d.toISOString().split('T');
+        const y = x[1].split('.');
+        return x[0] + ' ' + y[0];
+    }
+
+    function date (_date) {
+        var d = new Date(_date);
+        const x = d.toISOString().split('T');
+        const y = x[1].split('.');
+        return `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`;
+    }
+
+    function addProducts (tickets, products) {
+        console.log (tickets);
+
+        document.querySelectorAll('.t-child').forEach((child) => {
+            const id = parseInt(child.getAttribute('data-id'));
+            const e_products = child.querySelector('.t-products');
+            
+            console.log (id);
+
+            tickets.forEach((ticket) => {
+                if (ticket.payee === id) {
+
+                    for (let kp in products) {
+                        const product = products[kp];
+    
+                        if (product.id === ticket.product) {
+    
+                            const alteredPrice = alterPrice(ticket.price, product.category);
+
+                            e_products.appendChild(createProduct(product, alteredPrice));
+
+                            // e_products.appendChild(createProduct(
+                            //     product.category,
+                            //     product.name,
+                            //     ticket.price
+                            // ));
+    
+                            break;
+                        }
+                    }
+                }
+            });
+        });
+
+        console.log(alteredDict);
+        applyAlters();
+    }
+
+    function createProduct(product, price) {
+        const item = document.createElement('li');
+            item.className = 't-product';
+            item.setAttribute('product-id', product.id);
+
+        const _name = (product.category !== 1) ? this.productName(product.name) : product.name;
+
+        const _price = price;
+        // const _price = (price % 1 === 0) ? price : price.toFixed(2);
+
+        item.innerHTML = `<span class="t-bold">${categoryToName(product.category)}</span>
+                            <span>${_name}</span>
+                            <span>${_price}</span>`;
+
+        return item;
+    }
+
+    function categoryToName(category) {
+        const ICATEGORY = [
+            '',
+            'Périscolaire',
+            'Janvier',
+            'Février',
+            'Mars',
+            'Avril',
+            'Mai',
+            'Juin',
+            'Juillet',
+            'Aout',
+            'Septembre',
+            'Octobre',
+            'Novembre',
+            'Décembre',
+            'Toussaint',
+            'Noël',
+            'Carnaval',
+            'Paques',
+            'Juillet (vacances)',
+            'Aoüt (vacances)',
+        ];
+        return ICATEGORY[category];
+    }
+
+    function productName(name) {
+        const x = name.split(' ');
+        return x[0] + ' ' + x[1];
+    }
+
+    /**
+     * New
+     * Alter price tag and lexicon
+     */
+    const alteredDict = {
+        'x-peri-1':     {'price': 20, 'qtty': 0},
+        'x-peri-2':     {'price': 32, 'qtty': 0},
+        'x-peri-3':     {'price': 40, 'qtty': 0},
+        'x-peri-4':     {'price': 60, 'qtty': 0},
+
+        'x-xtra-m-ne':  {'price': 17, 'qtty': 0},
+        'x-xtra-m-q2':  {'price': 4, 'qtty': 0},
+        'x-xtra-m-q1':  {'price': 0, 'qtty': 0},
+
+        'x-xtra-p-ne':  {'price': 20, 'qtty': 0},
+        'x-xtra-p-q2':  {'price': 7, 'qtty': 0},
+        'x-xtra-p-q1':  {'price': 2, 'qtty': 0}
+    };
+
+
+    function alterPrice (price, category) {
+        // console.log(price);
+        // console.log(typeof(price));
+
+        switch (price) {
+            case 20:
+                if (category === 1) {
+                    alteredDict['x-peri-1'].qtty++;
+                    return 'PERI-1';
+                }
+                else {
+                    alteredDict['x-xtra-p-ne'].qtty++;
+                    return 'XTRA-P-NE';
+                }
+                
+            case 16:
+                alteredDict['x-peri-2'].qtty++;
+                return 'PERI-2';
+                
+            case 13.333333333333334:
+                alteredDict['x-peri-3'].qtty++;
+                return 'PERI-3';
+
+            case 15:
+                alteredDict['x-peri-4'].qtty++;
+                return 'PERI-4';
+
+            case 0:
+                alteredDict['x-xtra-m-q1'].qtty++;
+                return 'XTRA-M-Q1';
+
+            case 4:
+                alteredDict['x-xtra-m-q2'].qtty++;
+                return 'XTRA-M-Q2';
+
+            case 17:
+                alteredDict['x-xtra-m-ne'].qtty++;
+                return 'XTRA-M-NE';
+
+            case 2:
+                alteredDict['x-xtra-p-q1'].qtty++;
+                return 'XTRA-P-Q1';
+
+            case 7:
+                alteredDict['x-xtra-p-q2'].qtty++;
+                return 'XTRA-P-Q2';            
+        }
+    }
+
+
+    function applyAlters () {
+        alteredDict['x-peri-2'].qtty /= 2;
+        alteredDict['x-peri-3'].qtty /= 3;
+        alteredDict['x-peri-4'].qtty /= 4;
+
+        Object.keys(alteredDict).forEach((key) => {
+            const x = alteredDict[key];
+
+            if (x.qtty) {
+                const row = document.querySelector('.' + key);
+    
+                row.classList.add('show');
+
+                row.querySelector('.x-qtty').innerHTML = x.qtty;
+                row.querySelector('.x-unit').innerHTML = x.price;
+                row.querySelector('.x-sum').innerHTML = (x.qtty * x.price);
+            }
+        });
+    }
+</script>
+</body>
+</html>

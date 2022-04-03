@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" href="/static/vendor/bs4/css/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="/static/vendor/semantic/semantic.min.css" />
+    
+    <link rel="stylesheet" href="/static/styles/Mngt/Products.css" />
+    
+    <title>Products</title>
+</head>
+
+<body>
+    <main>
+        <section class="parameters">
+            <div class="ui form">
+                <div class="inline field">
+                    <label>BASE URL</label>
+                    <input id="url_input" type="text" placeholder="BASE URL" value="http://127.0.0.1:8000" onchange="urlOnChange(this.value)">
+                </div>
+            </div>
+            
+            <button class="ui primary button inverted" onclick="Login.open()">Se connecter</button>
+        </section>
+        
+        <section class="messages">
+            <div class="ui message red hidden">
+                <i class="close icon"></i>
+                <div class="header">Foo</div>
+                <p>Bar</p>
+            </div>
+        </section>
+        
+        <article>
+            <section class="js-controls">
+                <button class="ui button negative" onclick="Table.refresh()">Rafraîchir</button>
+                <!-- <button class="ui button positive" onclick="Table.save()">Sauvegarder</button> -->
+                <button class="ui button primary" onclick="Table.createProduct()">Créer produit</button>
+            </section>
+
+            <section class="js-school-years"></section>
+            
+            <section class="js-categories">
+                <button class="ui button" data-id="0" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#0 UNSET</button>
+                <button class="ui button" data-id="1" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#1 PERI</button>
+                <button class="ui button" data-id="2" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#2 JANVIER</button>
+                <button class="ui button" data-id="3" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#3 FEVRIER</button>
+                <button class="ui button" data-id="4" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#4 MARS</button>
+                <button class="ui button" data-id="5" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#5 AVRIL</button>
+                <button class="ui button" data-id="6" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#6 MAI</button>
+                <button class="ui button" data-id="7" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#7 JUIN</button>
+                <button class="ui button" data-id="8" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#8 JUILLET</button>
+                <button class="ui button" data-id="9" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#9 AOUT</button>
+                <button class="ui button" data-id="10" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#10 SEPTEMBRE</button>
+                <button class="ui button" data-id="11" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#11 OCTOBRE</button>
+                <button class="ui button" data-id="12" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#12 NOVEMBRE</button>
+                <button class="ui button" data-id="13" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#13 DECEMBRE</button>
+                <button class="ui button" data-id="14" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#14 TOUSSAINT</button>
+                <button class="ui button" data-id="15" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#15 NOEL</button>
+                <button class="ui button" data-id="16" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#16 CARNAVAL</button>
+                <button class="ui button" data-id="17" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#17 PAQUES</button>
+                <button class="ui button" data-id="18" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#18 GRDS_VACANCES_JUILLET</button>
+                <button class="ui button" data-id="19" data-len="0" onclick="Table.openCategory(this.getAttribute('data-id'))">#19 GRDS_VACANCES_AOUT</button>
+            </section>
+            
+            <section class="table">
+
+                <div class="states">
+                    <a class="ui image label normal">
+                        Normal
+                        <div class="detail"></div>
+                    </a>
+                    <a class="ui image label outofstock">
+                        Rupture
+                        <div class="detail"></div>
+                    </a>                    
+                    <a class="ui image label expired">
+                        Expiré
+                        <div class="detail"></div>
+                    </a>
+                    <a class="ui image label disabled">
+                        Désactivé
+                        <div class="detail"></div>
+                    </a>
+                </div>
+                <table id="main">
+                    <thead>
+                        <tr class="header">
+                            <th class="name">Nom</th>
+                            
+                            <th style="display: none;"></th> <!-- Delete row -->
+                            <th style="display: none;" class="id">ID</th>
+                            <th style="display: none;">Slug</th>
+                            <th style="display: none;">Description</th>
+                            <th style="display: none;">Catégorie</th>
+                            <th style="display: none;">Subcategory</th>
+                            <th style="display: none;">Date</th>
+                            <th style="display: none;">Date Début</th>
+                            <th style="display: none;">Date Fin</th>
+                            <th style="display: none;">Stock Cur.</th>
+                            <th style="display: none;">Stock Max.</th>
+                            <th style="display: none;">Price</th>
+                            <th style="display: none;">Price_q2</th>
+                            <th style="display: none;">Price_q1</th>
+                            <th style="display: none;">Order</th>
+                            <th style="display: none;">Active</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        </article>
+        
+        <div class="ui modal login tiny">
+            <div class="header">Se connecter</div>
+            <div class="content">
+                <form class="ui large form">
+                    <div class="ui stacked segment">
+                        <div class="ui error message">
+                        </div>
+                        
+                        <div class="field">
+                            <div class="ui left icon input email">
+                                <i class="user icon"></i>
+                                <input type="email" name="email" placeholder="E-mail">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input password">
+                                <i class="lock icon"></i>
+                                <input type="password" name="password" placeholder="Mot de passe">
+                            </div>
+                        </div>
+                        <div class="ui fluid large teal submit button" onclick="Login.login()">Se connecter</div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+        
+        <div class="ui modal save tiny">
+            <div class="header">Résumé sauvegarde</div>
+            <div class="content">
+            </div>
+            <div class="actions">
+                <div class="ui black button">
+                    Annuler
+                </div>
+                <div id="SummarySave" class="ui positive right labeled icon button">
+                    Sauvegarder
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui modal create small visible">
+            <div class="header">Créer produit</div>
+            <div class="content">
+                <form class="ui large form">
+                    <div class="ui stacked segment">
+                        <div class="ui error message">
+                        </div>
+
+                        <div class="three fields">
+                            <div class="field wide four">
+                                <label for="modalCreateID">ID</label>
+                                <input id="modalCreateID" type="number" name="id" placeholder="ID">
+                            </div>
+
+                            <div class="field wide six">
+                                <label for="modalCreateName">Nom</label>
+                                <input id="modalCreateName" type="text" name="name" placeholder="Nom">
+                            </div>
+
+                            <div class="field wide six">
+                                <label for="modalCreateSlug">Slug</label>
+                                <input id="modalCreateSlug" type="text" name="slug" placeholder="Slug">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="modalCreateDescription">Description</label>
+                            <input id="modalCreateDescription" type="text" name="description" placeholder="Description">
+                        </div>
+
+                        <div class="three fields">
+                            <div class="field">
+                                <label for="modalCreateSchoolYear">Année Scolaire</label>
+                                <select id="modalCreateSchoolYear" class="ui fluid dropdown" name="school_year">
+                                    <option value="0"> UNSET</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label for="modalCreateCategory">Categorie</label>
+                                <select id="modalCreateCategory" class="ui fluid dropdown" name="category">
+                                    <option value="0">      UNSET</option>
+                                    <option value="1">      PERI</option>
+                                    <option value="2">      JANVIER</option>
+                                    <option value="3">      FEVRIER</option>
+                                    <option value="4">      MARS</option>
+                                    <option value="5">      AVRIL</option>
+                                    <option value="6">      MAI</option>
+                                    <option value="7">      JUIN</option>
+                                    <option value="8">      JUILLET</option>
+                                    <option value="9">      AOUT</option>
+                                    <option value="10">     SEPTEMBRE</option>
+                                    <option value="11">     OCTOBRE</option>
+                                    <option value="12">     NOVEMBRE</option>
+                                    <option value="13">     DECEMBRE</option>
+                                    <option value="14">     TOUSSAINT</option>
+                                    <option value="15">     NOEL</option>
+                                    <option value="16">     CARNAVAL</option>
+                                    <option value="17">     PAQUES</option>
+                                    <option value="18">     GRDS_VACANCES_JUILLET</option>
+                                    <option value="19">     GRDS_VACANCES_AOUT</option>
+                                </select>
+                            </div>
+                        
+                            <div class="field">
+                                <label for="modalCreateSubcategory">Subcategorie</label>
+                                <select id="modalCreateSubcategory" class="ui fluid dropdown" name="subcategory">
+                                    <option value="0">UNSET</option>
+                                    <option value="1">MOINS DE 6</option>
+                                    <option value="2">PLUS DE 6</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="three fields">
+                            <div class="field">
+                                <label for="modalCreateDate">Date</label>
+                                <input id="modalCreateDate" type="date" name="date">
+                            </div>
+                        
+                            <div class="field">
+                                <label for="modalCreateDateStart">Date début</label>
+                                <input id="modalCreateDateStart" type="date" name="date_start">
+                            </div>
+                        
+                            <div class="field">
+                                <label for="modalCreateDateEnd">Date fin</label>
+                                <input id="modalCreateDateEnd" type="date" name="date_end">
+                            </div>
+                        </div>
+
+                        <div class="four fields">
+                            <div class="field wide four">
+                                <label for="modalCreateStockCurrent">Stock cur.</label>
+                                <input id="modalCreateStockCurrent" type="number" name="stock_current">
+                            </div>
+                        
+                            <div class="field wide four">
+                                <label for="modalCreateStockMax">Stock max</label>
+                                <input id="modalCreateStockMax" type="number" name="stock_max">
+                            </div>
+                        </div>
+
+                        <div class="four fields">
+                            <div class="field wide four">
+                                <label for="modalCreatePrice">Prix</label>
+                                <input id="modalCreatePrice" type="number" name="price">
+                            </div>
+                        
+                            <div class="field wide four">
+                                <label for="modalCreatePriceQ2">Prix Q2</label>
+                                <input id="modalCreatePriceQ2" type="number" name="price_q2">
+                            </div>
+
+                            <div class="field wide four">
+                                <label for="modalCreatePriceQ1">Prix Q1</label>
+                                <input id="modalCreatePriceQ1" type="number" name="price_q1">
+                            </div>
+                        </div>
+
+                        <div class="four fields">
+                            <div class="field wide four">
+                                <label for="modalCreateOrder">Ordre</label>
+                                <input id="modalCreateOrder" type="number" name="order">
+                            </div>
+                        
+                            <div class="field wide four">
+                                <label for="modalCreateActive">Actif ?</label>
+                                <input id="modalCreateActive" type="checkbox" name="active">
+                            </div>
+                        </div>
+                        
+                        <div class="fields">
+                            <div class="ui fluid large orange delete button" onclick="">Supprimer</div>
+                            <div class="ui fluid large yellow cancel button" onclick="">Annuler</div>
+                            <div class="ui fluid large teal submit button" onclick="">Sauvegarder</div>
+                        </div>
+                    </div>
+        
+                </form>
+            </div>
+        </div>
+    </main>
+    
+    <script src="/static/vendor/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/static/vendor/semantic/semantic.min.js"></script>
+    
+    <script>
+        function ajax (url, method, auth=false, data=undefined) {
+            const _ = {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }
+            
+            if (auth) _['headers']['Authorization'] = `Bearer ${token}`;
+            
+            if (data) _['data'] = JSON.stringify(data);
+            
+            return $.ajax(url, _);
+        }
+        
+        const Messages = {
+            init () {
+                $('.message .close')
+                .on('click', function() {
+                    Messages.close(this);
+                });
+            },
+            
+            /**
+             * @color Red|Orange|Yellow|Olive|Green|Teal|Blue|Violet|Purple|Pink|Brown|Black
+             */
+            create (color, title, message) {
+                const messages = document.querySelector('section.messages');
+                
+                const div = document.createElement('div');
+                div.className = 'ui message ' + color;
+                
+                div.innerHTML = `
+                <i class="close icon"></i>
+                <div class="header">${title}</div>
+                <p>${message}</p>
+                `;
+                
+                window.setTimeout(() => {
+                    Messages.close(div);
+                }, 10000);
+                
+                messages.appendChild(div);
+            },
+            
+            close (e) {
+                $(e)
+                .closest('.message')
+                .transition('fade');
+            },
+        };
+        
+        const Login = {
+            open () {
+                $('.ui.modal.login').modal('show');
+            },
+            
+            login () {
+                const form = document.querySelector('.ui.modal.login form');
+                
+                const email = form.querySelector('input[type="email"]');
+                const password = form.querySelector('input[type="password"]');
+                
+                ajax(
+                    url + '/auth/login/',
+                    'POST',
+                    false,
+                {
+                    'email': email.value,
+                    'password': password.value
+                }
+                )
+                .done(res => {
+                    console.log(res);
+                    
+                    if (res.hasOwnProperty('token')) {
+                        $('.ui.modal.login').modal('close');
+                        Messages.create('green', 'Login', 'Connexion réussie.');
+                        
+                        token = res.token;
+                        window.localStorage.setItem('auth_token', res.token);
+                        window.localStorage.setItem('caster', JSON.stringify(res.user));
+                        
+                        run();
+                    }
+                })
+                .fail(err => {
+                    console.log(err);
+                    
+                    if (err.hasOwnProperty('responseJSON')) {
+                        form.classList.add('error');
+                        form.querySelector('.ui.error.message').innerHTML = `<p>${err.responseJSON.message}</p>`;
+                    }
+                });
+            },
+            
+            status () {
+                ajax(
+                    url + '/auth/status/', 
+                    'GET', 
+                    true
+                ).then(res => {
+                    console.log(res);
+                    Messages.create('success', 'Login', 'Vous êtes connecté.'); 
+                    run();
+                })
+                .catch(err => {
+                    token = '';
+                    console.log(err);
+                    Messages.create('red', 'Login', 'Token invalide. Veuillez vous reconnecter.'); 
+                })
+            },
+        };
+        
+    </script>
+    
+    <script>
+        
+        class Product {
+            constructor () {
+                this.id = 0;
+                
+                this.stack = {};
+                this.fields = {};
+            }
+            
+            create () {
+                this.fields = {
+                    id:             ++Table.lastProductID,
+                    name:           '',
+                    slug:           '',
+                    description:    '',
+                    category:       0,
+                    subcategory:    0,
+                    date:           '',
+                    date_start:     '',
+                    date_end:       '',
+                    stock_current:  0,
+                    stock_max:      0,
+                    price:          0,
+                    price_q1:       0,
+                    price_q2:       0,
+                    order:          0,
+                    active:         true,
+                    school_year:    0,
+                };
+            }
+            
+            fromJSON (data) {
+                this.id = data.id;
+                this.fields = data;
+            }
+
+            fromStack (stack) {
+                this.stack = stack;
+            }
+            
+            // Render product to HTML
+            toRow () {
+                const tr = document.createElement('tr');
+                tr.setAttribute('data-id', this.fields.id);
+                
+                const self = this;
+                
+                tr.onclick = function () {
+                    self.openModal();
+                };
+
+                let state = '';
+                if (this.fields.stock_max && (this.fields.stock_max - this.fields.stock_current <= 0)) {
+                    state = 'outofstock';
+                }
+                if (this.fields.date_end) {
+                    const date = new Date(this.fields.date_end);
+                    if (date <= new Date()) state = 'expired';
+                }
+                if (!this.fields.active) state = 'disabled';
+
+                tr.innerHTML = `<td><input class="${state}" type="text" value="#${this.fields.id} ${this.fields.name}"></td>`;
+
+                return tr;
+
+                // tr.onchange = function (e) {
+                //     self.inputChanged(e);
+                // };
+                
+                const merged = {
+                    ...this.fields,
+                    ...this.stack
+                };
+                
+                tr.innerHTML = `
+                <td><i class="icon times"></i></td>
+                <td class="id">
+                    <input name="id"            type="number"       value="${merged.id}">
+                </td>
+                <td class="name">
+                    <input name="name"          type="text"         value="${merged.name}" data-id="${merged.id}">
+                </td>
+                <td><input name="slug"          type="text"         value="${merged.slug}"></td>
+                <td><input name="description"   type="text"         value="${merged.description}"></td>
+                <td><input name="category"      type="text"         value="${merged.category}"></td>
+                <td><input name="subcategory"   type="text"         value="${merged.subcategory}"></td>
+                <td><input name="date"          type="date"         value="${merged.date}"></td>
+                <td><input name="date_start"    type="date"         value="${merged.date_start}"></td>
+                <td><input name="date_end"      type="date"         value="${merged.date_end}"></td>
+                <td><input name="stock_current" type="number"       value="${merged.stock_current}"></td>
+                <td><input name="stock_max"     type="number"       value="${merged.stock_max}"></td>
+                <td><input name="price"         type="number"       value="${merged.price}"></td>
+                <td><input name="price_q1"      type="number"       value="${merged.price_q1}"></td>
+                <td><input name="price_q2"      type="number"       value="${merged.price_q2}"></td>
+                <td><input name="order"         type="number"       value="${merged.order}"></td>
+                <td><input name="active"        type="checkbox"     ${(merged.active) ? 'checked': ''}></td>
+                `;
+                
+                return tr;
+            }
+
+            // Onclick open product modal
+            openModal (e) {
+                ProductModal.open(
+                    this.fields,
+                    this.onSave,
+                    undefined,
+                    this.onDelete    
+                );
+
+                const self = this;
+                const modal = document.querySelector('.ui.modal.create');
+
+                modal.querySelector('.ui.button.submit').onclick = function () {
+                    self.onSave();
+                };
+                
+                // modal.querySelector('.ui.button.cancel').onclick = function () {
+                //     self.onCancel();
+                // }
+
+                modal.querySelector('.ui.button.delete').onclick = function () {
+                    self.onDelete();
+                };
+            }
+            
+            inputChanged (e) {
+                var parent = e.target.parentElement;
+                while (parent.tagName != 'TR') {
+                    parent = parent.parentElement;
+                }
+                
+                let value = e.target.value;
+                if (e.target.type === 'checkbox') {
+                    value = e.target.checked;
+                }
+                
+                this.stack[e.target.name] = value;
+            }
+
+            onSave () {
+                const stack = ProductModal.getStack();
+                this.fromStack(stack);
+
+                if (this.id) {
+                    this.apiUpdate();
+                }
+                else {
+                    this.apiCreate();
+                }
+
+                $('.ui.modal.create').modal('hide');
+            }
+
+            onDelete () {
+                if (confirm('Etes-vous sûr de vouloir supprimer ce produit ?')) {
+                    this.apiDelete();
+                    $('.ui.modal.create').modal('hide');
+                }
+            }
+            
+            // Generate a changelog
+            changes () {
+                if (!Object.keys(this.stack).length) return false;
+                
+                const product = {
+                    ...this.fields,
+                    ...this.stack
+                };
+                
+                const title = (this.id) ? 
+                `#${this.id} - ${this.fields.name}` : 
+                `#Nouveau: ${this.stack['name'] || '<i>Aucun nom</i>'}`;
+                const changes = [];
+                
+                for (const key in this.stack) {
+                    changes.push(
+                    (this.id) ?
+                    `[${key}] '${this.fields[key]}' => '${this.stack[key]}'` :
+                    `[${key}] '${this.stack[key]}'`
+                    );
+                }
+                
+                const changelog = {};
+                changelog[title] = changes;
+                
+                if (!this.id) delete product['id'];
+                
+                return {
+                    product,
+                    changelog
+                };
+            }
+            
+            apiCreate () {
+                if (!this.id) {
+                    ajax(
+                        url + `/api/v2/products/`,
+                        'POST',
+                        true,
+                        [this.stack]
+                    )
+                    .then(res => {
+                        console.log(res);
+                        Messages.create('green', 'Création', 'Le produit à correctement été créer.');
+
+                        if (res.hasOwnProperty('products')) {
+                            const product = res.products[0];
+
+                            this.fromJSON(product);
+                            Table.schoolYears[product.school_year].categories[product.category].products.push(this);
+                        }
+
+                        Table._openCategory(Table.category);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    });
+                }
+                else {
+                    console.error('Product already exists.');
+                }
+            }
+
+            apiUpdate () {
+                if (this.id) {
+                    ajax(
+                        url + `/api/v2/products/${this.id}/`,
+                        'PUT',
+                        true,
+                        this.stack
+                    )
+                    .then(res => {
+                        console.log(res);
+                        Messages.create('green', 'Mise à jour', 'Le produit à correctement été mis à jour.');
+
+                        if (res.hasOwnProperty('product')) {
+                            if (res.product.school_year != this.fields.school_year ||
+                                res.product.category != this.fields.category) {
+
+                                Table.schoolYears[res.product.school_year].categories[res.product.category].products.push(this);
+
+                                let index = -1;
+                                const products = Table.schoolYears[this.fields.school_year].categories[this.fields.category].products;
+                                for (let i = 0; i < products.length; ++i) {
+                                    if (products[i].id === this.id) {
+                                        index = i;
+                                        break;
+                                    }
+                                }
+                                
+                                products.splice(index, 1);
+                            }
+
+                            this.fromJSON(res.product);
+                        }
+
+                        Table._openCategory(Table.category);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    });
+                }
+                else {
+                    console.error('Product doesn\'t exists.');
+                }
+            }
+
+            apiDelete () {
+                if (this.id) {
+                    ajax(
+                        url + `/api/v2/products/${this.id}/`,
+                        'DELETE',
+                        true,
+                    )
+                    .then(res => {
+                        console.log(res);
+                        Messages.create('green', 'Suppression', 'Le produit à correctement été supprimer.')
+                        Table._openCategory(Table.category);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    });
+                }
+                else {
+                    console.error('Product doesn\'t exists.');
+                }
+            }
+        }
+        
+        
+        class SchoolYear {
+            constructor () {
+                // this.active = false;
+                
+                // Currect category
+                this.category = 1;
+                
+                this.stack = {};
+                this.products = [];       // Product list
+                this.schoolYear = {};     // School year 
+                
+                this.categories = {
+                    0: { len: 0, modified: false, name: '#0 UNSET' },
+                    1: { len: 0, modified: false, name: '#1 PERI' },
+                    2: { len: 0, modified: false, name: '#2 JANVIER' },
+                    3: { len: 0, modified: false, name: '#3 FEVRIER' },
+                    4: { len: 0, modified: false, name: '#4 MARS' },
+                    5: { len: 0, modified: false, name: '#5 AVRIL' },
+                    6: { len: 0, modified: false, name: '#6 MAI' },
+                    7: { len: 0, modified: false, name: '#7 JUIN' },
+                    8: { len: 0, modified: false, name: '#8 JUILLET' },
+                    9: { len: 0, modified: false, name: '#9 AOUT' },
+                    10: { len: 0, modified: false, name: '#10 SEPTEMBRE' },
+                    11: { len: 0, modified: false, name: '#11 OCTOBRE' },
+                    12: { len: 0, modified: false, name: '#12 NOVEMBRE' },
+                    13: { len: 0, modified: false, name: '#13 DECEMBRE' },
+                    14: { len: 0, modified: false, name: '#14 TOUSSAINT' },
+                    15: { len: 0, modified: false, name: '#15 NOEL' },
+                    16: { len: 0, modified: false, name: '#16 CARNAVAL' },
+                    17: { len: 0, modified: false, name: '#17 PAQUES' },
+                    18: { len: 0, modified: false, name: '#18 GRDS_VACANCES_JUILLET' },
+                    19: { len: 0, modified: false, name: '#19 GRDS_VACANCES_AOUT' },
+                };
+            }
+            
+            set () {
+                
+            }
+            
+            orderProducts (products) {
+                for (const product of products) {
+                    // Count category products length
+                    ++this.categories[product.category].len;
+                    
+                    const _ = new Product();
+                    _.fromJSON (product);
+                    
+                    this.products.push(_);
+                }
+            }
+            
+            
+            open ()  {
+                const section = document.querySelector('section.js-school-years');
+                
+                const primary = section.querySelector('.primary');
+                if (primary) primary.classList.remove('primary');
+                
+                section.querySelector(`button[data-id="${this.schoolYear.id}"]`).classList.add('primary');
+                
+                const self = this;
+                
+                // Categories
+                document.querySelectorAll('section.js-categories button')
+                .forEach(button => {
+                    const b_id = button.getAttribute('data-id');
+                    
+                    button.setAttribute(
+                    'data-len',
+                    self.categories[b_id].len
+                    );
+                    
+                    if (self.categories[b_id].modified) button.setAttribute('data-modified', true);
+                    else button.removeAttribute('data-modified');
+                });
+                
+                this._openCategory(this.category);
+            }
+            
+            // Open category with verification
+            openCategory (id) {
+                if (this.category != id) {
+                    this._openCategory(id);
+                }
+            }
+            
+            // Open category without verification
+            _openCategory (id) {
+                const section = document.querySelector('section.js-categories');
+                
+                const primary = section.querySelector('.primary');
+                if (primary) primary.classList.remove('primary');
+                
+                section.querySelector(`button[data-id="${id}"]`).classList.add('primary');
+                
+                const el = document.querySelector('#main tbody');
+                el.innerHTML = '';
+                
+                for (const product of this.products) {
+                    if (product.fields['category'] == id) {
+                        el.appendChild(product.toRow());
+                    }
+                }
+                
+                el.appendChild(this.new_product_row());
+                
+                this.category = id;
+            }
+            
+            // Create a blank row
+            new_product_row () {
+                const tr = document.createElement('tr');
+                // tr.setAttribute('data-id', ++Table.lastProductID);
+                // tr.setAttribute('data-new', true);
+                tr.onchange = function (e) {
+                    Table.inputChanged(e);
+                };
+                
+                tr.innerHTML = `
+                <td></td>
+                <td><input name="id"            type="number"   ></td>
+                <td><input name="name"          type="text"     ></td>
+                <td><input name="slug"          type="text"     ></td>
+                <td><input name="description"   type="text"     ></td>
+                <td><input name="category"      type="text"     ></td>
+                <td><input name="subcategory"   type="text"     ></td>
+                <td><input name="date"          type="date"     ></td>
+                <td><input name="date_start"    type="date"     ></td>
+                <td><input name="date_end"      type="date"     ></td>
+                <td><input name="stock_current" type="number"   value="${this.category}"></td>
+                <td><input name="stock_max"     type="number"   ></td>
+                <td><input name="price"         type="number"   ></td>
+                <td><input name="price_q1"      type="number"   ></td>
+                <td><input name="price_q2"      type="number"   ></td>
+                <td><input name="order"         type="number"   ></td>
+                <td><input name="active"        type="checkbox" checked></td>
+                `;
+                
+                return tr;
+            }
+            
+            // Handle input value change
+            inputChanged (id, name, value) {
+                if (id) {
+                    for (const product of this.products) {
+                        if (product.fields['id'] == id) {
+                            product.stack[name] = value;
+                            break;
+                        }
+                    }
+                    return false;
+                }
+                else {
+                    const product = new Product();
+                    product.create();
+                    
+                    product.stack[name] = value;
+                    product.fields['category'] = this.category;   
+                    product.fields['school_year'] = this.schoolYear.id;   
+                    
+                    this.products.push(product);
+                    
+                    const el = document.querySelector('#main tbody');
+                    el.appendChild(this.new_product_row());
+                    
+                    return true;
+                }
+            }
+            
+            deleteRow (id) {
+                for (const product of this.products) {
+                    if (product.fields['id'] == id) {
+                        
+                    }
+                }
+            }
+            
+            changes () {
+                const products = [];
+                let changelogs = {};
+                
+                for (const product of this.products) {
+                    const res = product.changes();
+                    
+                    if (res) {
+                        products.push(res.product);
+                        changelogs = Object.assign(changelogs, res.changelog);
+                    }
+                }
+                
+                if (!products.length) return false;
+                
+                return {
+                    products,
+                    changelogs
+                };
+            }
+            
+        };
+        
+        const Table = {
+            
+            newProduct: undefined,
+            lastProductID: 0,
+            
+            category: 1,
+            schoolYear: 0,
+            schoolYears: {},
+            
+            run () {
+                Table.category = 0;
+                Table.schoolYear = 0;
+                if (Object.keys(Table.schoolYears).length) {
+                    Object.keys(Table.schoolYears).forEach(schoolYear => {
+                        delete schoolYear;
+                    });
+                }
+                
+                Table.getSchoolYears();
+            },
+            
+            getSchoolYears () {
+                ajax(
+                    url + '/api/v2/schoolyears/?products=True',
+                    'GET'
+                )
+                .then(res => {
+                    console.log(res);
+                    
+                    if (res.hasOwnProperty('school_years')) {
+                        Table.orderSchoolYears(res.school_years);
+                        ProductModal.init();
+                    }
+                })
+                .catch (err => {
+                    console.log(err);
+                });
+            },
+            
+            orderSchoolYears (raw) {
+                const section = document.querySelector('section.js-school-years');
+                
+                // Empty section
+                section.innerHTML = '';
+                
+                Table.schoolYears = {};
+                
+                for (const schoolYear of raw) {
+                    console.log(schoolYear);
+                    
+                    section.appendChild(Table.createSchoolYearButton(schoolYear));
+
+                    const _ = {'categories': {}};
+
+                    // Products
+                    if (schoolYear.hasOwnProperty('products')) {
+                        _.categories = Table.orderProducts(schoolYear.products);
+                    }
+
+                    delete schoolYear.products;
+
+                    Object.assign(_, schoolYear);
+                    
+                    Table.schoolYears[schoolYear.id] = _;
+
+                    if (schoolYear.is_active) {
+                        Table.openSchoolYear(schoolYear.id);
+                        Table.openCategory(1);
+                        Table.schoolYear = schoolYear.id;
+                    }
+                }
+            },
+
+            orderProducts (products) {
+                const categories = {
+                    0: { products: [], length: 0, modified: false, name: '#0 UNSET' },
+                    1: { products: [], length: 0, modified: false, name: '#1 PERI' },
+                    2: { products: [], length: 0, modified: false, name: '#2 JANVIER' },
+                    3: { products: [], length: 0, modified: false, name: '#3 FEVRIER' },
+                    4: { products: [], length: 0, modified: false, name: '#4 MARS' },
+                    5: { products: [], length: 0, modified: false, name: '#5 AVRIL' },
+                    6: { products: [], length: 0, modified: false, name: '#6 MAI' },
+                    7: { products: [], length: 0, modified: false, name: '#7 JUIN' },
+                    8: { products: [], length: 0, modified: false, name: '#8 JUILLET' },
+                    9: { products: [], length: 0, modified: false, name: '#9 AOUT' },
+                    10: { products: [], length: 0, modified: false, name: '#10 SEPTEMBRE' },
+                    11: { products: [], length: 0, modified: false, name: '#11 OCTOBRE' },
+                    12: { products: [], length: 0, modified: false, name: '#12 NOVEMBRE' },
+                    13: { products: [], length: 0, modified: false, name: '#13 DECEMBRE' },
+                    14: { products: [], length: 0, modified: false, name: '#14 TOUSSAINT' },
+                    15: { products: [], length: 0, modified: false, name: '#15 NOEL' },
+                    16: { products: [], length: 0, modified: false, name: '#16 CARNAVAL' },
+                    17: { products: [], length: 0, modified: false, name: '#17 PAQUES' },
+                    18: { products: [], length: 0, modified: false, name: '#18 GRDS_VACANCES_JUILLET' },
+                    19: { products: [], length: 0, modified: false, name: '#19 GRDS_VACANCES_AOUT' },
+                };
+
+                for (const product of products) {
+                    if (!categories[product.category]) {
+                        product.category = 0;
+                    }
+                    
+                    const _ = new Product();
+                    _.fromJSON (product);
+                    
+                    ++categories[product.category].length;
+                    categories[product.category].products.push(_);
+
+                    if (product.id > Table.lastProductID) {
+                        Table.lastProductID = product.id;
+                    }
+                }
+
+                return categories;
+            },
+            
+            createSchoolYearButton (schoolYear) {
+                const button = document.createElement('button');
+                
+                button.className = 'ui button';
+                button.setAttribute('data-id', schoolYear.id);
+                
+                button.innerHTML = `${schoolYear.date_start.split('-')[0]}-${schoolYear.date_end.split('-')[0]}`;
+                
+                button.onclick = function (e) {
+                    Table.openSchoolYear(
+                    e.target.getAttribute('data-id')
+                    );
+                };
+                
+                return button;
+            },
+            
+            /**
+            * School Year buttons click
+            */
+            openSchoolYear (id) {
+                // Check IDs
+                if (id != Table.schoolYear) {
+                    
+                    // Set new School Year ID
+                    Table.schoolYear = id;
+
+                    // Get container
+                    const section = document.querySelector('section.js-school-years');
+                    
+                    // Unset previous button
+                    const primary = section.querySelector('.primary');
+                    if (primary) primary.classList.remove('primary');
+                    
+                    // Set actual button
+                    section.querySelector(`button[data-id="${id}"]`).classList.add('primary');
+                    
+                    const categories = Table.schoolYears[Table.schoolYear].categories;
+                    
+                    // Set categories length
+                    document.querySelectorAll('section.js-categories button')
+                    .forEach(button => {
+                        const b_id = button.getAttribute('data-id');
+                        
+                        button.setAttribute(
+                            'data-len',
+                            categories[b_id].length
+                        );
+                        
+                        if (categories[b_id].modified) button.setAttribute('data-modified', true);
+                        else button.removeAttribute('data-modified');
+                    });
+                    
+                    Table._openCategory(Table.category);
+                }
+
+            },
+            
+            openCategory (id) {
+                if (Table.category != id) {
+                    Table._openCategory(id);
+                }
+            },
+
+            _openCategory (id) {
+                const section = document.querySelector('section.js-categories');
+                
+                const primary = section.querySelector('.primary');
+                if (primary) primary.classList.remove('primary');
+                
+                section.querySelector(`button[data-id="${id}"]`).classList.add('primary');
+                
+                const el = document.querySelector('#main tbody');
+                el.innerHTML = '';
+                
+                const products = Table.schoolYears[Table.schoolYear].categories[id].products;
+
+                for (const product of products) {
+                    el.appendChild(product.toRow());
+                }
+                
+                // el.appendChild(this.new_product_row());
+                
+                Table.category = id;
+            },
+            
+            createProduct () {
+                Table.newProduct = new Product();
+
+                Table.newProduct.create();
+                Table.newProduct.openModal();                
+            },
+
+            
+            /**
+             * Not used for now
+             */
+
+
+            inputChanged (e) {
+                var parent = e.target.parentElement;
+                while (parent.tagName != 'TR') {
+                    parent = parent.parentElement;
+                }
+                
+                let value = e.target.value;
+                if (e.target.type === 'checkbox') {
+                    value = e.target.checked;
+                }
+                
+                if (Table.schoolYears[Table.schoolYear].inputChanged(
+                parent.getAttribute('data-id'),
+                e.target.name,
+                value,
+                // Boolean(parent.getAttribute('data-new'))
+                )) {
+                    parent.setAttribute('data-id', Table.lastProductID);
+                }
+            },
+            
+            deleteClicked (e) {
+                var parent = e.target.parentElement;
+                while (parent.tagName != 'TR') {
+                    parent = parent.parentElement;
+                }
+                
+                if (Table.schoolYears[Table.schoolYear].deleteRow(
+                    parent.getAttribute('data-id'),
+                )) {
+                    
+                    // Ajax
+                }
+            },
+            
+            refresh () {
+                for (const key in Table.schoolYears) {
+                    const schoolYear = Table.schoolYears[key];
+                    
+                    if (Object.keys(schoolYear.stack).length) {
+                        
+                        if (confirm('Les modifications n\'ont pas été enregistrées. Voulez quand même rafraîchir les données.')) {
+                            return Table._refresh();
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                }
+                return false;
+            },
+            
+            _refresh () {
+                Table.run();
+            },
+            
+            save () {
+                let products = [];
+                const changelogs = {};
+                
+                for (const key in Table.schoolYears) {
+                    const schoolYear = Table.schoolYears[key];
+                    
+                    const res = schoolYear.changes();
+                    
+                    if (res) {
+                        products = products.concat(res.products);
+                        
+                        const _ = document.querySelector(`section.js-school-years button[data-id="${key}"]`);
+                        changelogs[_.innerHTML] = res.changelogs;
+                    }
+                }
+                
+                console.log(products);
+                console.log(changelogs);
+                
+                if (products.length) {
+                    Table._changelog(changelogs);
+                    $('.ui.modal.save').modal('show');
+                    
+                    document.getElementById('SummarySave').onclick = function () {
+                        Table._save(products);
+                    };
+                }
+            },
+            
+            _save (products) {
+                ajax(
+                url + `/api/v2/products/`,
+                'POST',
+                true,
+                products
+                )
+                .then(res => {
+                    console.log(res);
+                    Table._refresh();
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+            },
+            
+            _changelog (changelogs) {
+                const content = document.querySelector('.ui.modal.save .content');
+                content.innerHTML = '';
+                
+                const first_list = document.createElement('div');
+                first_list.className = 'ui list summary';
+                
+                for (const schoolYear in changelogs) {
+                    const first_item = document.createElement('div');
+                    first_item.className = 'item title';
+                    first_item.innerHTML = schoolYear;
+                    
+                    const second_list = document.createElement('div');
+                    second_list.className = 'ui list';
+                    
+                    // Loop products title/changes
+                    for (const title in changelogs[schoolYear]) {
+                        const second_item = document.createElement('div');
+                        second_item.className = 'item product';
+                        second_item.innerHTML = title;
+                        
+                        const third_list = document.createElement('div');
+                        third_list.className = 'ui list';
+                        
+                        for (const changes of changelogs[schoolYear][title]) {
+                            const third_item = document.createElement('div');
+                            third_item.className = 'item';
+                            third_item.innerHTML = changes;
+                            
+                            third_list.appendChild(third_item);
+                        }
+                        
+                        second_item.appendChild(third_list);
+                        second_list.appendChild(second_item);
+                    }
+                    
+                    first_item.appendChild(second_list);
+                    first_list.appendChild(first_item);
+                }
+                
+                content.appendChild(first_list);
+            }
+            
+            
+        };
+        
+        const ProductModal = {
+            init () {
+                const select = document.getElementById('modalCreateSchoolYear');
+
+                for (const key in Table.schoolYears) {
+                    const opt = document.createElement('option');
+
+                    opt.value = key;
+                    opt.innerHTML = `${Table.schoolYears[key].date_start.split('-')[0]}-${Table.schoolYears[key].date_end.split('-')[0]}`;
+
+                    select.appendChild(opt);
+                }
+
+                $('.ui.modal.create .ui.dropdown').dropdown();
+            },
+
+            open (product=undefined, ctx=undefined) {
+                const modal = document.querySelector('.ui.modal.create');
+                
+                if (product) {
+                    ProductModal.fill(product);
+
+                }
+
+                $(modal).modal('show');
+            },
+
+            fill (product) {
+                try {
+                    document.getElementById('modalCreateID').value = product.id;
+                    document.getElementById('modalCreateName').value = product.name;
+                    document.getElementById('modalCreateSlug').value = product.slug;
+
+                    document.getElementById('modalCreateDescription').value = product.description;
+
+                    ProductModal.setSelectValue('modalCreateSchoolYear', product.school_year);
+                    ProductModal.setSelectValue('modalCreateCategory', product.category);
+                    ProductModal.setSelectValue('modalCreateSubcategory', product.subcategory);
+
+                    document.getElementById('modalCreateDate').value = product.date;
+                    document.getElementById('modalCreateDateStart').value = product.date_start;
+                    document.getElementById('modalCreateDateEnd').value = product.date_end;
+
+                    document.getElementById('modalCreateStockCurrent').value = product.stock_current;
+                    document.getElementById('modalCreateStockMax').value = product.stock_max;
+
+                    document.getElementById('modalCreatePrice').value = product.price;
+                    document.getElementById('modalCreatePriceQ2').value = product.price_q2;
+                    document.getElementById('modalCreatePriceQ1').value = product.price_q1;
+
+                    document.getElementById('modalCreateOrder').value = product.order;
+
+                    if (product.active) document.getElementById('modalCreateActive').setAttribute('checked', true);
+                    else document.getElementById('modalCreateActive').removeAttribute('checked');
+                }
+                catch (e) {
+                    console.error(e);
+                }
+            },
+
+            setSelectValue (id, value) {
+                const e = document.getElementById(id);
+                const p = e.parentElement;
+
+                const o = p.querySelector('.active');
+                if (o) o.classList.remove('active', 'selected');
+
+                const n = p.querySelector(`.item[data-value="${value}"]`);
+                if (n) {
+                    n.classList.add('active', 'selected');
+                    p.querySelector('div.text').innerHTML = p.innerHTML;
+                }
+
+                e.value = value;
+            },
+
+            getStack () {
+                return {
+                    id:             document.getElementById('modalCreateID').value,
+                    name:           document.getElementById('modalCreateName').value,
+                    slug:           document.getElementById('modalCreateSlug').value,
+
+                    description:    document.getElementById('modalCreateDescription').value,
+    
+                    school_year:    document.getElementById('modalCreateSchoolYear').value,
+                    category:       document.getElementById('modalCreateCategory').value,
+                    subcategory:    document.getElementById('modalCreateSubcategory').value,
+    
+                    date:           document.getElementById('modalCreateDate').value,
+                    date_start:     document.getElementById('modalCreateDateStart').value,
+                    date_end:       document.getElementById('modalCreateDateEnd').value,
+    
+                    stock_current:  document.getElementById('modalCreateStockCurrent').value,
+                    stock_max:      document.getElementById('modalCreateStockMax').value,
+    
+                    price:          document.getElementById('modalCreatePrice').value,
+                    price_q2:       document.getElementById('modalCreatePriceQ2').value,
+                    price_q1:       document.getElementById('modalCreatePriceQ1').value,
+    
+                    order:          document.getElementById('modalCreateOrder').value,
+                    active:         document.getElementById('modalCreateActive').checked,
+                };
+            },
+        }
+        
+        var token = '';
+        var url = undefined;
+        
+        function urlOnChange (value) {
+            url = value;
+        }
+        
+        window.onload = function () {
+            // Set URL
+            url = window.location.origin;
+            document.getElementById('url_input').value = url;
+
+            // Messages 
+            Messages.init();
+
+            // TOKEN
+            const _token = window.localStorage.getItem('auth_token');
+
+            if (_token) {
+                token = _token;
+                Login.status();
+            }
+            else {
+                Messages.create('red', 'Login', 'Token introuvable. Veuillez vous connecter.');
+            }
+
+            // $('.ui.modal.create').modal('show');
+        }
+        
+        function run () {
+            Table.run();
+                                
+            $('#context1 .menu .item')
+            .tab({
+                context: $('#context1')
+            })
+            ;
+        }
+        
+    </script>
+    
+</body>
+
+</html>

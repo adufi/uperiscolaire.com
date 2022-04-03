@@ -1,0 +1,602 @@
+{% extends 'intern/base.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="/static/styles/User.css" />
+
+<style>
+.Family-card,
+.Family-card-Add {
+    margin: 1rem 0;
+    background: #eee;
+    border-radius: 5px;
+}
+
+.Family-card .article-head {
+    /* height: 40px; */
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background: orange;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.Family-card-Add .article-head {
+    height: 40px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background: orange;
+}
+
+.Family-card .article-head i {
+    color: white;
+    font-size: 5rem;
+}
+
+.Family-card .article-body,
+.Family-card-Add .article-body {
+    display: flex;
+    padding: 1rem;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffa50036;
+}
+
+.Family-card .article-body b { font-size: 20px; }
+
+.Family-card .article-body .names,
+.Family-card-Add .article-body .names {
+    color: orange;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.Family-card .article-body .Card_register  { display: none; }
+
+.Family-card .article-body.danger .text-danger { display: inline; }
+.Family-card .article-body.success .text-success { display: inline; }
+
+</style>
+{% endblock %}
+
+{% block main %}
+<div id="User" class="container">
+    <div id="Alert" class="col-sm-12">
+        <div class="Alert-container">
+            <div class="alert alert-primary" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-secondary" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-success" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-danger" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-warning" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-info" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-light" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+            <div class="alert alert-dark" role="alert">
+                <span class="alert-message"></span>
+                <a class="alert-link"></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="MngtParent" class="wrapper">
+
+        <div class="wrapper-title">
+            <p class="title">Parent</p>
+        </div>
+
+        <div class="wrapper-content">
+            <div class="row"></div>
+        </div>
+    </div>
+
+    <div id="MngtChildren" class="wrapper">
+
+        <div class="wrapper-title">
+            <p class="title">Enfants</p>
+        </div>
+
+        <div class="wrapper-content">
+            <div class="row"></div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block body_extensions %}
+
+<!-- Modal -->
+<div class="modal fade" id="ChildModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter un enfant</h5>
+                <button type="button" class="close" data-dismiss="modal" onclick="closeModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="AddChild">
+                    <form class="wrapper">
+                        <div id="AddChild-status" class="form-status col-sm-12">
+                            <div class="form-alert alert alert-danger" role="alert"></div>
+                            <div class="form-alert alert alert-success" role="alert"></div>
+                        </div>
+                        
+                        <div class="form-group col-sm-12">
+                            <label for="child_last_name"><b>Nom *</b></label>
+                            <br />
+                            <input id="child_last_name" type="text" placeholder="Nom"
+                            onchange="child_onChange(this)" class="text-uppercase" />
+                        </div>
+                        
+                        <div class="form-group col-sm-12">
+                            <label for="child_first_name"><b>Prénom *</b></label>
+                            <br />
+                            <input id="child_first_name" type="text" placeholder="Prénom"
+                                onchange="child_onChange(this)" class="text-capitalize" />
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                            <label for="child_dob"><b>Date de naissance (jj-mm-aaaa) *</b></label>
+                            <br />
+                            <input id="child_dob" type="date" placeholder="Date de naissance"
+                                onchange="child_onChange(this)" />
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                            <label for="child_birthplace"><b>Lieu de naissance</b></label>
+                            <input id="child_birthplace" type="text" onchange="child_onChange(this)" class="text-capitalize" />
+                        </div>
+
+                        <div class="form-group col-sm-12 ">
+                            <label><b>Genre *</b></label>
+                            <br/>
+                            
+                            <label for="child_gender_m"><b>Garçon</b></label>
+                            <input id="child_gender_m" name="child_gender" type="radio" onchange="child_onChange(this)" />
+
+                            <label for="child_gender_f"><b>Fille</b></label>
+                            <input id="child_gender_f" name="child_gender" type="radio" onchange="child_onChange(this)" />
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-cyan" onclick="createChild()">Ajouter</button>
+                <button type="button" class="button button-dark" data-dismiss="modal" onclick="closeModal()">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/scripts/User.js"></script>
+<script src="/static/scripts/messages.js"></script>
+<script>
+    var user_url_id = 0;
+
+    var schoolYear = {};
+    var schoolYears = undefined;
+
+    let parent = undefined;
+    const user = new User();
+    const child = new User();
+    const sibling = new Sibling();
+    const records = new Records();
+
+    let error = false;
+    let isAdmin = false;
+    let isChild = false;
+
+    let userSibling = {};
+    let userProfile = {};
+    let userRecords = {};
+    
+    const user_id = {% if pk %} {{ pk }} {% else %} 0 {% endif %};
+    let parent_id = {% if pk %} {{ pk }} {% else %} 0 {% endif %};
+    
+    // let user_id = 29;
+    // let parent_id = 20;
+    
+    // index - SchoolYear
+    const childAdded = new User();
+    const intelsAdded = {};
+    
+    const userHelper = new User();
+    const intelsHelper = new Intels(parent_id);
+    const siblingHelper = new Sibling();
+
+    const recordHelper = new Record();
+    const recordsHelper = new Records();
+
+    const USERINPUTS = {
+        'user_first_name': document.getElementById('user_first_name'),
+        'user_last_name': document.getElementById('user_last_name'),
+        'user_dob': document.getElementById('user_dob'),
+        'user_job': document.getElementById('user_job'),
+        'user_gender_m': document.getElementById('user_gender_m'),
+        'user_birthplace': document.getElementById('user_birthplace'),
+        'user_phone_cell': document.getElementById('user_phone_cell'),
+        'user_phone_home': document.getElementById('user_phone_home'),
+        'user_phone_pro': document.getElementById('user_phone_pro'),
+        'user_email': document.getElementById('user_email'),
+        'user_address1': document.getElementById('user_address1'),
+        'user_address2': document.getElementById('user_address2'),
+        'user_city': document.getElementById('user_city'),
+        'user_zip_code': document.getElementById('user_zip_code'),
+        'user_accept_newsletter': document.getElementById('user_accept_newsletter'),
+
+        label: function (key) { return document.querySelector(`label[for="${key}"]`); },
+        // input: function (key) { return document.getElementById(this[key]); },
+        hide: function (key) { this[key].parentElement.style = 'display:none'; },
+    };
+
+
+    window.onload = function (e) {
+        App.exec(apiChaining, {loginRequired: true});
+        return;
+
+        App.init();
+        App.SchoolYears();
+        Alert.init();
+
+        getUrlID();
+        apiChaining();
+
+        return;
+
+        schoolYears = App._SchoolYears_unordered;
+
+        if (!user_id) {
+            statusDanger('User ID non défini.');
+            return false;
+        }
+
+        // TODO
+        // Check App Schoolyears
+        if (!schoolYears.length) {
+            statusDanger('Echec lors de la récupération des années scolaires.');
+            return false
+        }
+
+        return run();
+    }
+
+
+    function getUrlID () {
+        const pathname = window.location.pathname;
+        const user_id_raw = pathname.split('mngt/user/')[1];
+
+        if (!(user_url_id = parseInt(user_id_raw))) {
+            user_url_id = 0;
+        }
+    }
+
+
+    function apiChaining () {
+        getUrlID();
+
+        if (!user_url_id) {
+            Alert.alertDanger('Impossible de récupérer l\'ID de l\'URL.');
+            return false;
+        }
+
+        return new Promise(function (resolve, reject) {
+
+            schoolYears = App.schoolYears;
+            if (!schoolYears) {
+                reject('Aucune années scolaires trouvées.');
+            }
+            else {
+                for (const _ of schoolYears) {
+                    if (_.is_active)
+                        schoolYear = _;
+                }
+
+                if (!schoolYear) {
+                    reject('Aucune année scolaire active.');
+                }
+                else {
+                    resolve(1);
+                }
+            }
+        })
+        .then (function (result) {
+            return user.readUser(
+                user_url_id,
+                (data) => console.log(data),
+                (err) => console.log(err)
+            );
+        })
+        .then (function (result) {
+            // Role decision
+            if (user.roles) {
+                for (const role of user.roles) {
+                    if (role.slug === 'child')
+                        isChild = true;
+                }
+            }
+
+            if (isChild) {
+                return sibling.readByChild(
+                    user_url_id,
+                    (data) => console.log(data),
+                    (err) => console.log(err)
+                )
+                .then (function (result) {
+                    parent = new User();
+                    return parent.readUser(
+                        sibling._parent,
+                        (data) => console.log(data),
+                        (err) => console.log(err)
+                    );
+                })
+            }
+            else {
+                return sibling.readByParent(
+                    user_url_id,
+                    (data) => console.log(data),
+                    (err) => console.log(err)
+                )
+            }
+        })
+        .then (function (result) {
+            return records.readByParent(
+                (parent) ? parent.id : user.id,
+                (data) => console.log(data),
+                (err) => console.log(err)
+                // readRecords_onSuccess,
+                // readRecords_onFailure
+            );
+        })
+        // 
+        .then ((data) => {
+            console.log(data);
+            run();
+        })
+        .catch ((err) => {
+            console.log(err);
+        })
+    }
+
+
+    function run () {
+
+        child.parent = (parent) ? parent.id : user.id;
+
+        renderParent();
+        renderChildren();
+        renderChildrenAdd();
+    }
+
+    
+    function renderParent () {
+        const wrapper = document.querySelector('#MngtParent .wrapper-content .row');
+
+        let id = (parent) ? parent.id : user.id;
+        let names = (parent) ? 
+            `${parent.last_name.toUpperCase()} ${parent.first_name.capitalize()}` : 
+            `${user.last_name.toUpperCase()} ${user.first_name.capitalize()}`
+
+        if (!names.replace(/ /g, '')) {
+            names = `<i>Compte incomplet</i><br><i>${(parent) ? parent.email : user.email}</i>`;
+        }
+
+        wrapper.innerHTML += `
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+            <article class="Family-card">
+                <div class="article-head">
+                    <i class="far fa-user"></i>
+                </div>
+                
+                <div class="article-body">
+                    <a href="/mon-profil/${id}/" class="names">${names}</a>
+                </div>
+            </article>
+        </div>`;
+    }
+
+
+    function renderChildren () {
+        console.log('renderChildren');
+
+        const wrapper = document.querySelector('#MngtChildren .wrapper-content .row');
+
+        for (const child of Object.values(sibling.children())) {
+            let record_url = `/record/${child.id}/`;
+            let record_summary = '';
+
+            for (const _record of Object.values(records.records())) {
+
+                if (_record.child_id === child.id && 
+                    _record.school_year === schoolYear.id) {
+                    
+                        record_url += `${_record.id}/`;
+
+                        record_summary = `<a class="button button-yellow" target="_blank" href="${record_url}pdf/">Fiche 2020-2021</a>`;
+                    break;
+                }
+            }
+
+            wrapper.innerHTML += `
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <article class="Family-card">
+                    <div class="article-head">
+                        <i class="far fa-user"></i>
+                    </div>
+                    
+                    <div class="article-body ${((record_summary) ? 'success' : 'danger')}">
+                        <a href="/mon-profil/${child.id}/" class="names">
+                            ${child.last_name.toUpperCase()} ${child.first_name.capitalize()}
+                        </a>
+                        <span class="Card_register text-success">
+                            <b>Inscrit</b>
+                        </span>
+                        <span class="Card_register text-danger">
+                            <b>Non inscrit</b>
+                        </span>
+                        <a class="button button-blue" href="${record_url}">
+                            Inscription 2020-2021
+                        </a>
+                        ${record_summary}
+                    </div>
+                </article>
+            </div>`;   
+        }
+    }
+
+
+    function renderChildrenAdd () {
+        const wrapper = document.querySelector('#MngtChildren .wrapper-content .row');
+        wrapper.innerHTML += `
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+            <article class="Family-card-Add">
+                <div class="article-head">
+                </div>
+
+                <div class="article-body">
+                    <a class="names" onclick="openModal('ChildModal')">
+                        <i class="fa fa-plus text-success" aria-hidden="true"></i>
+                        Ajouter enfant
+                    </a>
+                </div>
+            </article>
+        </div>`;
+        return;
+    }
+
+
+    function child_onChange(e) {
+        const result = child.validate(e.id, e.value);
+        console.log(result);
+
+        if (!result.status) {
+            inputDanger(e.id);
+            child_statusDanger(result.message);
+            // Alert.alertDanger(result.message);
+        }
+        else {
+            inputNeutral(e.id);
+        }
+    }
+
+
+    function createChild() {
+        const r = child.createChild(
+            createChild_onSuccess,
+            createChild_onFailure
+        );
+
+        if (typeof (r) === 'string') {
+            // Alert.alertDanger()
+            child_statusDanger(r);
+        }
+    }
+
+
+    function child_statusSuccess(message) {
+        const base = document.getElementById('AddChild-status');
+
+        base.querySelectorAll('.form-alert').forEach(item => { item.classList.remove('show'); });
+
+        const _ = base.querySelector('.form-alert.alert-success');
+        _.innerHTML = message;
+        _.classList.add('show');
+    }
+
+
+    function child_statusDanger(message) {
+        const base = document.getElementById('AddChild-status');
+
+        base.querySelectorAll('.form-alert').forEach(item => { item.classList.remove('show'); });
+
+        const _ = base.querySelector('.form-alert.alert-danger');
+        _.innerHTML = message;
+        _.classList.add('show');
+    }
+
+
+    function createChild_onSuccess(data) {
+        console.log(data);
+
+        // Alert.hide();
+        // Alert.alertSuccess('Informations enregistrées.');
+        child_statusSuccess('Informations enregistrées.');
+
+        window.setTimeout(
+            () => window.location.href = `/record/${data.child.id}/`,
+            // () => window.location.reload(),
+            2000
+        );
+    }
+
+
+    function createChild_onFailure(err) {
+        console.log(err);
+        let message = 'Une erreur est survenue.';
+        if (err.erreur) {
+            message = err.erreur;
+        }
+        else if (err.message) {
+            message = err.message;
+        }
+        // Alert.hide();
+        // Alert.alertDanger(message);
+        child_statusDanger(message);
+    }
+
+
+    function inputDanger(id) {
+        document.getElementById(id).classList.add('error');
+    }
+
+
+    function inputNeutral(id) {
+        document.getElementById(id).classList.remove('error');
+    }
+
+
+
+    /*************************************************************************
+     *  MODALS
+     *************************************************************************/
+
+    function openModal(id) {
+        document.getElementById(id).classList.add('show');
+    }
+
+
+    function closeModal() {
+        document.querySelectorAll('.modal').forEach(item => item.classList.remove('show'));
+    }
+
+</script>
+{% endblock %}

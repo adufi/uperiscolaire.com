@@ -1,0 +1,34 @@
+<html>
+<head>
+    <title>UPEEM</title>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="/static/vendor/fa/css/all.min.css" />
+    <link rel="stylesheet" href="/static/vendor/bs4/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/dev/semantic.min.css" />
+</head>
+
+<body>
+    <table class="ui very basic table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if products %}
+
+                {% for product in products %}
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.stock_current }} / {{ product.stock_max }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</body>
+</html>

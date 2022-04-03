@@ -1,0 +1,399 @@
+{% extends 'intern/base.html' %}
+
+{% block title %}
+    Magasin - Enfants
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="/static/vendor/simplePagination.css" />
+{% endblock %}
+
+{% block nav %}
+<ul class="nav flex-column">
+    <li class="my-nav-item">
+        <a class="my-nav-link" href="#">Accueil <span class="sr-only"></span></a>
+    </li>
+    <li class="my-nav-item active">
+        <b>Magasin</b>
+        <div class="my-nav-sub">
+            <a class="my-nav-link" href="#">Enfants</a>
+    </li>
+    <li class="my-nav-item active">
+        <a class="my-nav-link" href="/intern/orders">Encaissements</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block main %}
+<div id="Shop_Children" class="wrapper">
+    <div class="wrapper-title">
+        <p class="title">Enfants</p>
+    </div>
+
+    <div class="wrapper-content">
+
+        <div id="Alert" class="col-sm-12">
+            <div class="Alert-container">
+                <div class="alert alert-primary" role="alert">
+                    <span class="alert-message"></span>
+                    <a class="alert-link"></a>
+                </div>
+                <div class="alert alert-secondary" role="alert">
+                    <span class="alert-message"></span>
+                    <a class="alert-link"></a>
+                </div>
+                <div class="alert alert-success" role="alert">
+                    <span class="alert-message"></span>
+                    <a class="alert-link"></a>
+                </div>
+                <div class="alert alert-danger" role="alert">
+                    <span class="alert-message"></span>
+                    <a class="alert-link"></a>
+                </div>
+                <div class="alert alert-warning" role="alert">
+                    <span class="alert-message"></span>
+                    <a class="alert-link"></a>
+                </div>
+                <div class="alert alert-info" role="alert">
+                    <span class="alert-message"></span>
+                    <a class="alert-link"></a>
+                </div>
+                <div class="alert alert-light" role="alert">
+                    <span class="alert-message"></span>
+                    <a class="alert-link"></a>
+                </div>
+                <div class="alert alert-dark" role="alert">
+                    <span class="alert-message"></span>
+                    <a class="alert-link"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="Controls _Shop">
+            <div class="Controls-texts col-6"></div>
+
+            <div class="Controls-buttons col-6">
+                <button class="controls-cancel btn btn-danger" onclick="controlsCancel()">Annuler</button>
+        
+                <button class="controls-continue btn btn-success" onclick="controlsContinue()">Continuer</button>
+        
+            </div>
+            <div class="Controls-buttons col-12">
+                <div class="Controls-alert alert alert-danger" role="alert"></div>
+            </div>
+        </div>
+
+        <div id="SearchList">
+
+            <div id="Search">
+                <input class="form-control" type="text" placeholder="Recherche" aria-label="Search"
+                    oninput="search(this.value)">
+            </div>
+
+            <div id="List-selected">
+                <p>Sélectionné(s)</p>
+
+                <ul class="list-group">
+                </ul>
+            </div>
+
+            <div id="List-items">
+                <p><span></span> Elément(s)</p>
+
+                <ul class="list-group-pagination"></ul>
+                <ul class="list-group"></ul>
+                <ul class="list-group-pagination"></ul>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="/static/styles/Shop.css" />
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="/static/scripts/Order.js"></script>
+<script src="/static/scripts/Shop.js"></script>
+<!-- <script src="/static/vendor/pagination.min.js"></script> -->
+<script src="/static/vendor/simplePagination.js"></script>
+
+<script>
+    var child = 0;
+    var names = '';
+    var currentPage = 1;
+
+    window.onload = function (e) {
+        App.init();
+        Alert.init();
+        // Shop.init();
+        // Shop.Children.init('{{ children | safe }}');
+
+        init();
+
+        // $('#List-items .list-group').pagination({
+        //     dataSource: function(done){
+        //         getChildren()
+        //         .then((data) => done([data.users]))
+        //     },
+        //     totalNumberLocator: function(response) {
+        //         console.log(response);
+        //         return 100;
+        //     },
+        //     callback: function(data, pagination) {
+        //         console.log(data);
+        //         console.log(pagination);
+        //         // template method of yourself
+        //         // var html = template(data);
+        //         // dataContainer.html(html);
+        //         getChildren(pagination.pageNumber)
+        //         .then(data => getChildren_onSuccess(data))
+        //         .catch(err => getChildren_onFailure(err));
+        //     },
+        //     className: 'paginationjs-theme-blue',
+        //     alias: {
+        //         pageNumber: 'pageNum',
+        //         pageSize: 'limit'
+        //     }
+        // });
+    }
+
+    function init () {
+        // const child = window.localStorage.getItem('shop_child');
+        // if (child)
+        //     updateSelected(parseInt(child));
+
+        getChildren(currentPage, names);
+    }
+
+
+    function getChildren (page=1, names='') {
+        let url = `/api/user/?roles=child&page=${page}`;
+        if (names) {
+            url += `&names=${names}`;
+        }
+        console.log(url);
+        App.get(url, true)
+            .then(data => getChildren_onSuccess(data))
+            .catch((err) => getChildren_onFailure(err));
+    }
+
+
+    function getChildren_onSuccess (data) {
+        console.log(data);
+
+        if (!data.users || !data.users.data) {
+            console.log('No data found');
+            Alert.alertDanger('Echec lors de la récupération des données');
+        }
+        else {
+            $('#List-items .list-group-pagination').pagination({
+                items: data.users.count,
+                itemsOnPage: 25,
+                currentPage: currentPage,
+                cssStyle: 'light-theme',
+                onPageClick: function (pageNumber, event) {
+                    currentPage = pageNumber;
+                    getChildren(pageNumber, names);
+                }
+            });
+
+            render (data.users.data);
+        }
+    }
+    
+    
+    function getChildren_onFailure (err) {
+        console.log(err);
+        Alert.alertDanger('Echec lors de la récupération des données');
+    }
+
+
+    function render (children) {
+        const content = document.querySelector('#List-items .List-group');
+        content.innerHTML = '';
+
+        for (const child of children) {
+            const li = document.createElement('li');
+            li.className = 'list-group-item';
+            li.onclick = (e) => { list_onClick(e.target); };
+            li.ondblclick = (e) => { list_onDblClick(e.target); };
+                
+            li.setAttribute('data-child', child.id);
+
+            li.innerHTML = `#${child.id} - ${child.first_name} ${ child.last_name }`;
+            if (child.dob) li.innerHTML += ` - ${child.dob}`;
+
+            content.appendChild(li);
+        }
+    }
+
+    /**
+     * Set active LIST item
+     * Create SELECTED item
+     */
+    function updateSelected (id) {
+        child = id;
+
+        // Set item to active
+        const x = document.querySelector(`#SearchList #List-items .list-group-item[data-child="${id}"]`);
+            x.classList.add('active');
+
+        // Create SELECTED element
+        let li = document.createElement('li')
+            li.className = 'list-group-item';
+            li.innerHTML = x.innerHTML;
+            li.addEventListener('click', selected_onClick);
+
+        // Append element
+        document
+            .querySelector('#SearchList #List-selected .list-group')
+            .appendChild(li);
+    }
+
+
+    /**
+     * Reset LIST item
+     * Reset SELECTED item
+     */
+    function resetSelected () {
+        // Reset child id
+        child = 0;
+
+        // Reset selected HTML
+        document.querySelector('#SearchList #List-selected .list-group').innerHTML = '';
+
+        // Reset active item if exist
+        const x = document.querySelector('#SearchList #List-items .list-group .list-group-item.active');
+        if (x)
+            x.classList.remove('active');
+    }
+
+
+    function selected_onClick (e) {
+        resetSelected();
+    }
+
+
+    /**
+     * Filter children list by value
+     * Triggered by the search bar
+     * @param {*} value 
+     */
+    function search (value) {
+        if (value.length === 0) {
+            search_reset();
+        }
+        else if (value.length > 2) {
+            search_update(value);
+            // console.log(value);
+        }
+    }
+
+
+    /**
+     * Reset children list
+     * Remove 'hide' class on children list items
+     */
+    function search_reset () {
+        document.querySelectorAll('#SearchList #List-items .list-group .list-group-item.hide').forEach((item) => {
+            item.classList.remove('hide');
+        });
+
+        names = '';
+        currentPage = 1;
+        getChildren(1, names);
+    }
+
+
+    /**
+     * Update/Sort children list by search value
+     * @param {*} value 
+     */
+    function search_update (value) {
+        var filter = value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        names = filter.replace(/ /g, ',');
+        getChildren(
+            1,
+            names
+        );
+        // document.querySelectorAll('#SearchList #List-items .list-group .list-group-item').forEach((item) => {
+        //     var _item = item.innerHTML.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+        //     // console.log(_item);
+        //     if (!_item.includes(filter))
+        //         item.classList.add('hide');
+        //     else
+        //         item.classList.remove('hide');
+        // });
+    }
+
+
+    function list_onClick (e) {
+        const id = e.getAttribute('data-child');
+
+        if (e.classList.contains('active'))
+            resetSelected();
+
+        else {
+            resetSelected();
+            updateSelected(id);
+        }
+    }
+
+
+    function list_onDblClick (e) {
+        list_onClick (e);
+
+        controlsContinue();
+    }
+
+
+    function updateStatus (status) {
+        console.log(document.querySelectorAll('.Controls .Controls-alert'));
+        document
+            .querySelectorAll('.Controls .Controls-alert')
+            .forEach((item) => {
+                console.log(item);
+                item.innerHTML = status;
+                item.classList.add('show');
+            });
+    }
+
+
+    /**
+     * Remove items in local storage
+     * Triggered by cancel button of controls
+     */
+    function controlsCancel() {
+        window.localStorage.removeItem('shop_order_id');
+        window.localStorage.removeItem('shop_child');
+
+        // window.location.href = '/intern/home';
+    } 
+
+
+    /**
+     * Save child ID in local storage
+     * Triggered by continue button of controls
+     */
+    function controlsContinue ()  {
+        if (child === '0') {
+            updateStatus('Veuillez sélectionner un enfant.');
+            return false;
+        }
+
+        window.localStorage.setItem('shop_child', '' + child);
+        window.open(
+        '/acm/presta/shop/' + child,
+        '_blank'
+        );
+    }
+
+
+    // ??????????????????????????????????????????
+    function search_onInput (value) {
+        _Shop.Children.SearchList.search_onInput(value);
+    }
+</script>
+{% endblock %}

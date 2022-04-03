@@ -1,0 +1,127 @@
+.product-category {}
+.product-category-title {}
+
+.product-category-products {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.product-tile {
+    width: 120px;
+    height: 120px;
+    margin: .5rem;
+    padding: .25rem;
+
+    border: 1px solid hsla(0, 0%, 85%, 1);
+    box-shadow: 0 0 1px black;
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.product-tile:hover { background-color: hsla(0, 0%, 84%, 1); }
+
+
+.product-tile-head {}
+.product-tile-body {}
+.product-tile-footer {}
+
+
+.product-tile-footer > * { display: none; }
+
+.product-meta-title     { font-weight: bold; }
+.product-meta-price     {}
+.product-meta-bought    { font-size: 12px; }
+
+.product-meta-add       { color: orange; }
+.product-meta-ban       { color: red; }
+.product-meta-check     { color: green; }
+.product-meta-checkbox  {}
+.product-meta-selected  { color: #2176FF; }
+    
+    
+.product-tile.main {}
+.product-tile.main .product-meta-add,
+.product-tile.main .product-meta-ban,
+.product-tile.main .product-meta-check,
+.product-tile.main .product-meta-selected       { display: none; }
+
+
+.product-tile.normal {}
+.product-tile.normal .product-meta-ban,
+.product-tile.normal .product-meta-check,
+.product-tile.normal .product-meta-bought,
+.product-tile.normal .product-meta-checkbox,
+.product-tile.normal .product-meta-selected     { display: none; }
+.product-tile.normal .product-meta-price        { display: block; }
+
+
+.product-tile.expired {}
+.product-tile.expired .product-meta-add,
+.product-tile.expired .product-meta-check,
+.product-tile.expired .product-meta-bought,
+.product-tile.expired .product-meta-checkbox,
+.product-tile.expired .product-meta-selected     { display: none; }
+
+
+.product-tile.breaking {}
+.product-tile.breaking .product-meta-add,
+.product-tile.breaking .product-meta-check,
+.product-tile.breaking .product-meta-bought,
+.product-tile.breaking .product-meta-checkbox,
+.product-tile.breaking .product-meta-selected   { display: none; }
+
+
+.product-tile.summary {}
+.product-tile.summary .product-meta-add,
+.product-tile.summary .product-meta-ban,
+.product-tile.summary .product-meta-check,
+.product-tile.summary .product-meta-bought,
+.product-tile.summary .product-meta-checkbox,
+.product-tile.summary .product-meta-selected    { display: none; }
+.product-tile.summary .product-meta-price        { display: block; }
+
+
+.product-tile.selected {}
+.product-tile.selected .product-meta-add,
+.product-tile.selected .product-meta-ban,
+.product-tile.selected .product-meta-check,
+.product-tile.selected .product-meta-bought,
+.product-tile.selected .product-meta-checkbox   { display: none; }
+.product-tile.selected .product-meta-price      { display: block; }
+
+
+.product-tile.reserved {}
+.product-tile.reserved .product-meta-add,
+.product-tile.reserved .product-meta-ban,
+.product-tile.reserved .product-meta-price,
+.product-tile.reserved .product-meta-checkbox,
+.product-tile.reserved .product-meta-selected  { display: none; }
+.product-tile.reserved .product-meta-bought    { display: block; }
+
+.product-tile.purchased {}
+.product-tile.purchased .product-meta-add,
+.product-tile.purchased .product-meta-ban,
+.product-tile.purchased .product-meta-price,
+.product-tile.purchased .product-meta-checkbox,
+.product-tile.purchased .product-meta-selected  { display: none; }
+.product-tile.purchased .product-meta-bought    { display: block; }
+
+
+.product-tile.summary-ok {}
+.product-tile.summary-ok .product-meta-add,
+.product-tile.summary-ok .product-meta-ban,
+.product-tile.summary-ok .product-meta-bought,
+.product-tile.summary-ok .product-meta-checkbox,
+.product-tile.summary-ok .product-meta-selected     { display: none; }
+.product-tile.summary-ok .product-meta-price        { display: block; }
+
+.product-tile.summary-ban {}
+.product-tile.summary-ban .product-meta-add,
+.product-tile.summary-ban .product-meta-check,
+.product-tile.summary-ban .product-meta-bought,
+.product-tile.summary-ban .product-meta-checkbox,
+.product-tile.summary-ban .product-meta-selected    { display: none; }
+.product-tile.summary-ban .product-meta-price       { display: none; }

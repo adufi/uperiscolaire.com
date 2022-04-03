@@ -1,0 +1,655 @@
+<html>
+{% load static %}
+<head>
+    <title>Résumé</title>
+    <meta content="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/static/styles/Common.css" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/static/vendor/fa/css/all.min.css" />
+</head>
+
+
+<style>
+    #background {
+        background-image: url(/media/img/{{ BACKGROUND_NAME }});
+    }
+    
+    /********************************************************************
+    ALERT
+    ********************************************************************/
+    #Alert .alert { display: none; }
+    #Alert .alert.show { display: inherit; }
+
+    #Alert {
+        top: 50px;
+        z-index: 2;
+        position: sticky;
+    }
+
+    #Alert .Alert-container {
+        /* position: absolute; */
+        width: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 1rem;
+    }
+
+    #Alert .Alert-container .alert {
+        margin: 0.5rem;
+    }
+
+    /********************************************************************
+    LOGIN
+    ********************************************************************/
+    .Login {
+        width: 100vw;
+        height: 100vh;
+
+        top: 0;
+        left: 0;
+        z-index: 1;
+        position: absolute;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .Login .Login-wrapper {
+        width: 300px;
+        min-height: 300px;
+        margin: 10px;
+        
+        background: #eee;
+        border-radius: 5px;
+        
+        /* overflow: hidden; */
+        text-align: center;
+
+        display: flex;
+        justify-content: space-between;
+        flex-flow: column;
+    }
+
+
+    /* TITLES */
+    .Login .Login-titles { 
+        /* flex: 1; */
+        display: flex;
+        flex-flow: row nowrap;
+
+        color: white;
+        background-color: orange;
+
+        height: 40px;
+    }
+
+    .Login .Login-titles .title-login,
+    .Login .Login-titles .title-signup {
+        width: 50%;
+        height: 40px;
+        cursor: pointer;
+        padding: 0.5rem 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .Login .Login-titles .title {
+        margin: 0;
+    }
+
+    /* On login activated */
+    .Login .Login-wrapper.x-login .title-login { color: orange; background-color: #eee; }
+    .Login .Login-wrapper.x-login .form-login { display: flex; }
+
+    /* On signup activated */
+    .Login .Login-wrapper.x-signup .title-signup { color: orange; background-color: #eee; }
+    .Login .Login-wrapper.x-signup .form-signup { display: flex; }
+
+
+    /* STATUS */
+    .Login .Login-status {
+        /* flex: 0; */
+    }
+    
+    .Login .Login-status span {
+        color: #b14853;
+        padding-top: 1rem;
+        font-size: 14px;
+        
+        display: none;
+    }
+    .Login .Login-status span.active {
+        display: inherit;
+    }
+
+    
+    /* FORMS WRAPPER */
+    .Login .Login-forms {
+        /* width: 200%; */
+        position: relative;
+        
+        /* flex: 1; */
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .Login .Login-forms > div {
+        width: 100%;
+        /* height: 250px; */
+        
+        padding: 0rem 2rem;
+
+        display: none;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .Login .Login-forms form {
+        margin: 1rem 0;
+    }
+    
+    .Login input[type="email"],
+    .Login input[type="password"] {
+        border: none;
+        box-shadow: none;
+        border-bottom: 2px solid hsla(0, 0%, 80%, 1);
+        border-radius: 0;
+
+        margin: 5px 0;
+
+        color: hsla(0, 0%, 50%, 1);
+        background-color: transparent;
+    }
+
+    .Login input[type="email"]:focus,
+    .Login input[type="password"]:focus {
+        outline: none;
+        border-bottom-color: hsla(0, 0%, 50%, 1);
+    }
+
+    .Login input.error {
+        border-bottom-color: #b14853;
+    }
+
+    .Login .Login-button {
+        margin: 10px 0;
+        padding: 0.25rem 0.5rem;
+        
+        color: white;
+        font-weight: bold;
+        background-color: hsla(211, 100%, 60%, 1);
+        
+        border: 0;
+        
+    }
+    .Login .Login-button:hover { background-color: hsla(211, 100%, 50%, 1); }
+
+    
+    /* FOOTER */
+    .Login .Login-footer {
+        /* flex: 0; */
+        padding: 0.5rem 0;
+    }
+    
+    .Login .Login-footer span {
+        color: gray;
+        margin: 1rem;
+        font-size: 14px;
+    }
+
+    
+
+    /*  */
+
+    .Login .Login-form .form-login {}
+            
+    .Login .forms .form-login .input,
+    .button {}
+
+
+
+
+    /* On Signin/Signup behavior */
+    .Login .forms .signin {}
+    .Login .forms .signin .titles {}
+    .Login .forms .signin .titles .col:first-child { background-color: hsla(32, 90%, 45%, 1); }
+    .Login .forms .signin .titles .col:last-child { 
+        background-color: #B24C63;
+    }
+
+    .Login .forms .signin .titles .col:last-child:hover {
+        background-color: hsla(346, 40%, 40%, 1);
+    }
+        
+
+    .Login .forms .signin .signup {}
+
+    .Login .forms .signin .signup .titles {}
+
+    .Login .forms .signin .signup .titles .col:first-child { 
+        background-color: #F49D37;
+    }
+    .Login .forms .signin .signup .titles .col:first-child:hover {
+        background-color: hsla(32, 90%, 45%, 1);
+    }
+        .Login .forms .signin .signup .titles .col:last-child { background-color: hsla(346, 40%, 40%, 1); }
+
+    .Login .forms .signin .signup .titles .forms { margin-left: -100%; transition: 1s ease; }
+
+    .Login-ForgottenPassword {
+        color: gray;
+        margin: 0rem;
+        display: block;
+        font-size: 14px;
+        text-decoration: underline;
+    }
+    .Login-ForgottenPassword:hover,
+    .Login-ForgottenPassword:visited {
+        color: gray;
+    }
+</style>
+
+<body>
+    <div class="container">
+
+        <div id="background"></div>
+
+        <div id="Alert" class="col-sm-12 d-none d-sm-block">
+            <div class="Alert-container">
+                <div class="alert alert-primary" role="alert">
+                    <span class="alert-message"></span>
+                    <a class="alert-link"></a>
+                </div>
+                <div class="alert alert-secondary" role="alert">
+                    <span class="alert-message"></span>
+                    <a class="alert-link"></a>
+                </div>
+                <div class="alert alert-success" role="alert">
+                    <span class="alert-message"></span>
+                    <a class="alert-link"></a>
+                </div>
+                <div class="alert alert-danger" role="alert">
+                    <span class="alert-message"></span>
+                    <a class="alert-link"></a>
+                </div>
+                <div class="alert alert-warning" role="alert">
+                    <span class="alert-message"></span>
+                    <a class="alert-link"></a>
+                </div>
+                <div class="alert alert-info" role="alert">
+                    <span class="alert-message"></span>
+                    <a class="alert-link"></a>
+                </div>
+                <div class="alert alert-light" role="alert">
+                    <span class="alert-message"></span>
+                    <a class="alert-link"></a>
+                </div>
+                <div class="alert alert-dark" role="alert">
+                    <span class="alert-message"></span>
+                    <a class="alert-link"></a>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class='Login'>
+
+            <div class="Login-wrapper x-login">
+
+                <div class="Login-titles">
+
+                    <div class="title-login col-12" onclick="Login.login_onClick()">
+                        <h5 class="title is-5">Connexion</h5>
+                    </div>
+
+                    <div class="title-signup d-none" onclick="Login.signup_onClick()">
+                        <h5 class="title is-5">Créer compte</h5>
+                    </div> 
+                </div>
+
+                <div class="Login-status">
+                    <span></span>
+                </div>
+
+                <div class="Login-forms">
+
+                    <div class="form-login" onSubmit="">
+
+                        <form action="" onsubmit="return false">
+                            <input id="login_email" type="email" placeholder="Email" value="" onchange="Login.login_onChange(this)" />
+    
+                            <input id="login_password" type="password" placeholder="Mot de passe" value="" onchange="Login.login_onChange(this)" />
+    
+                            <button class="Login-button" onclick="Login.login_onSubmit()">Se connecter</button>
+                        </form>
+
+
+                    </div>
+
+                    <div class="form-signup d-none" onSubmit="">
+
+                        <form action="" onsubmit="return false">
+                            <input id="register_email" type="email" placeholder="Email" onchange="Login.login_onChange(this)" />
+    
+                            <input id="register_password1" type="password" placeholder="Mot de passe" onchange="Login.login_onChange(this)" />
+    
+                            <input id="register_password2" type="password" placeholder="Confirmer mot de passe" onchange="Login.login_onChange(this)" />
+    
+                            <button class="Login-button" onclick="Login.register_onSubmit()">Créer son compte</button>
+                        </form>
+
+                    </div>
+                </div>
+
+                <div class="Login-footer">
+                    <a class="Login-ForgottenPassword" href="/password-forgotten/">Mot de passe perdu ?</a>                    
+
+                    <span>Un problème ?</span>
+                    <br/>
+                    <span>Contactez le 05 96 60 95 95</span>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="/static/vendor/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/static/scripts/App.js"></script>
+    <script src="/static/scripts/User.js"></script>
+
+    <script>
+        const userHelper = new User();
+
+        var Login = {
+
+            init: function () {
+                const token = window.localStorage.getItem('auth_token');
+
+                if (token) {
+                    this.testToken(token);
+                }
+
+                userHelper.validate('login_email', document.getElementById('login_email').value);
+                userHelper.validate('login_password', document.getElementById('login_password').value);
+                userHelper.validate('register_email', document.getElementById('register_email').value);
+                userHelper.validate('register_password1', document.getElementById('register_password1').value);
+                userHelper.validate('register_password2', document.getElementById('register_password2').value);
+
+                console.log(document.getElementById('register_email').value);
+
+                return true;
+            },
+
+
+            updateStatus: function (msg) {
+                const _ = document.querySelector('.Login .Login-status span')
+                if (!msg) {
+                    _.classList.remove('active');
+                }
+                else {
+                    _.innerHTML = msg;
+                    _.classList.add('active');
+                }
+            },
+            
+
+            inputDanger (id) {
+                document.getElementById(id).classList.add('error');
+            },
+            
+            
+            inputNeutral (id) {
+                document.getElementById(id).classList.remove('error');
+            },
+
+
+            /**
+             * Toggle by head login button 
+             * Switch to Login tab
+             */
+            login_onClick: function (e) {
+                const x = document.querySelector('.Login .Login-wrapper');
+
+                if (x.classList.contains('x-login'))
+                    return;
+
+                x.classList.remove('x-signup');
+                x.classList.add('x-login');
+            },
+
+
+            /**
+             * Toggle by head signup button 
+             * Switch to Signup tab
+             */
+            signup_onClick: function (e) {
+                const x = document.querySelector('.Login .Login-wrapper');
+
+                if (x.classList.contains('x-signup'))
+                    return;
+
+                x.classList.remove('x-login');
+                x.classList.add('x-signup');
+            },
+
+
+            login_onChange (e) {
+                // console.log(e.value);
+                const result = userHelper.validate(e.id, e.value);
+
+                if (!result.status) {
+                    this.inputDanger(e.id);
+                }
+                else {
+                    this.inputNeutral(e.id);
+                }
+                this.updateStatus(result.message);
+            },
+
+
+            testToken: function (token) {
+                this.testToken_get('/auth/status/', token)
+                    .then((data) => {
+                        // this.continue(token, data.user);
+                    })
+                    .catch((code) => {
+                        if (code === 1) {
+                            this.updateStatus('Requête invalide.');
+                        }
+                        else if (code === 2) {
+                            this.updateStatus('Token invalide. Veuillez vous reconnecter.');
+                        }
+                    });
+            },
+
+            
+            login_onSubmit: function (e) {
+                const x = document.querySelector('.Login .form-login');
+
+                const email = x.querySelector('input[id="login_email"]').value;
+                const password = x.querySelector('input[id="login_password"]').value;
+
+                if (!email || !password) {
+                    return;
+                }
+
+                this._post('/auth/login/', {
+                    'email': email,
+                    'password': password
+                }).then((data) => {
+                    this.login_onSuccess(data);
+                }).catch((err) => {
+                    this.login_onFailure(err);
+                });
+            },
+
+            login_onSuccess: function (data) {
+
+                // this.updateStatus('Success');
+                // console.log(data);
+                this.continue(data.token, data.user);
+
+                // App.updateParams(
+                //     () => {
+                //     }
+                // );
+            },
+
+
+            login_onFailure: function (err) {
+                console.log(err);
+                if (err.hasOwnProperty('message')) {
+                    if (err.message === 'Invalid credentials.') {
+                        this.updateStatus('Identifiants invalides.');
+                    }
+                }
+                else {
+                    this.updateStatus('Echec de la connexion.');
+                }
+            },
+
+
+            register_onSubmit (e) {
+                const self = this;
+
+                userHelper.validate('register_email', document.getElementById('register_email').value);
+                userHelper.validate('register_password1', document.getElementById('register_password1').value);
+                userHelper.validate('register_password2', document.getElementById('register_password2').value);
+                
+                if (!userHelper.register(
+                        this.register_onSuccess,
+                        this.register_onFailure
+                    ))
+                    this.updateStatus('Informations incomplètes.');
+
+                // if (!userHelper.register()
+                //         .then(data => {
+                //             self.register_onSuccess(data);
+                //         })
+                //         .catch(err => {
+                //             self.register_onFailure(err);
+                //         }))
+            },
+
+
+            register_onSuccess (data) {
+                console.log(data);
+                Login.continue(data.token, data.user);
+                // App.updateParams(
+                //     () => {
+                //     }
+                // );
+            },
+
+            
+            register_onFailure (err) {
+                console.log(err);
+                Login.updateStatus('Une erreur est survenue lors de l\'inscription.');
+                
+                try {
+                    if (err.message.includes('Email')) {
+                        Login.updateStatus('L\'adresse email est déjà utilisée.');
+                    }
+                    if (err.message.includes('Passwords')) {
+                        Login.updateStatus('Mot de passe différents.')
+                    }
+                    if (err.message.includes('short')) {
+                        Login.updateStatus('Mot de passe trop court.')
+                    }
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            },
+
+
+            continue: function (token, user) {
+                App.clear();
+                window.localStorage.setItem('caster', JSON.stringify(user));
+                window.localStorage.setItem('auth_token', token);
+
+                // Get query parameters
+                const a = window.location.search;
+
+                const queries = new URLSearchParams(a);
+
+                window.location = `/mon-profil/${user.id}/`;                
+
+                // Next page
+                // if (queries.has('redirect'))
+                //     window.location = queries.get('redirect');
+                // else 
+                //     window.location = `/user/${user.id}/`;                
+            },
+
+            _post: function (url, payload) {
+                console.log(payload);
+                return new Promise((resolve, reject) => {
+                    $.ajax({
+                        url: `${App.BASE_URL}${url}`,
+                        method: 'POST',
+                        data: payload, // JSON.stringify(payload),
+                        success: function (data) {
+                            resolve(data);
+                        },
+                        error: function (err) {
+                            response = JSON.parse(err.responseText);
+                            reject(response);
+                        }
+                    });
+                });
+            },
+
+            testToken_get: function (url, token) {
+                return new Promise((resolve, reject) => {
+                    $.ajax({
+                        url: `${App.BASE_URL}${url}`,
+                        method: 'GET',
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                        success: function (data) {
+                            resolve(data);
+                        },
+                        error: function (err) {
+                            if (err.status === 400)
+                                reject(1);
+
+                            else if (err.status === 404)
+                                reject(2);
+
+                            // response = JSON.parse(err.responseText);
+                        }
+                    });
+                });
+            }
+        };
+
+        window.onload = function (e) {
+            App.init();
+            Alert.init();
+            Login.init();
+
+            // Alert.alertSuccess(
+            //     '<b>Parents</b>, Nous vous informons de la réouverture des inscriptions qui se dérouleront au Centre Culturel MARCÉ du mardi 25 au vendredi 28 août 2020 de 08h30 à 12h30 et de 13h45 à 16h pour toutes les écoles.',
+            //     'En savoir plus.',
+            //     '/media/COMMUNIQUE_REOUVERTURE_INSCRIPTIONS_2020-2021.pdf'
+            // );
+        }
+    </script>
+</body>
+
+</html>

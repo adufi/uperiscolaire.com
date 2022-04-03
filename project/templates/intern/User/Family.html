@@ -1,0 +1,1056 @@
+{% extends 'intern/base.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="/static/styles/User.css" />
+{% endblock %}
+
+{% block main %}
+<div id="User" class="container">
+
+    <div id="User-status" class="form-status col-sm-12">
+        <div class="form-alert alert alert-danger" role="alert"></div>
+        <div class="form-alert alert alert-success" role="alert"></div>
+    </div>
+
+    <div id="Family-wrapper" class="wrapper row">
+
+        <div class="ui warning message col-12">
+            <!-- <i class="close icon"></i> -->
+            <div class="header">
+                Les inscriptions pour la période 2021 - 2022 ne seront pas assurées par l'UPEEM. Veuillez vous rapprocher de la mairie.
+            </div>
+            <ul class="list"></ul>
+        </div>
+
+        <div id="main-messages" class="messages">
+            <div class="ui success message">
+                <!-- <i class="close icon"></i> -->
+                <div class="header">
+                    Notification(s)
+                </div>
+                <ul class="list"></ul>
+            </div>
+    
+            <div class="ui error message">
+                <!-- <i class="close icon"></i> -->
+                <div class="header">
+                    Une ou plusieurs erreurs sont présentes
+                </div>
+                <ul class="list"></ul>
+            </div>
+            
+            <div class="ui warning message">
+                <!-- <i class="close icon"></i> -->
+                <div class="header">
+                    Attention!
+                </div>
+                <ul class="list"></ul>
+            </div>
+        </div>
+
+        <!-- <div class="col-md-4 col-sm-6 col-xs-12">
+            <article class="Family-card">
+                <div class="article-head">
+                    <i class="far fa-user"></i>
+                </div>
+                
+                <div class="article-body">
+                    <a href="#" class="child-name">Toto Test</a>
+                    <span class="Card_register text-success">Inscrit</span>
+                    <span class="Card_register text-danger">Non inscrit</span>
+                    <a class="button button-blue" href="">Inscription 2020-2021</a>
+                </div>
+            </article>
+        </div>
+        
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <article class="Family-card-Add">
+                <div class="article-head">
+                </div>
+
+                <div class="article-body">
+                    <a href="#" class="child-name" onclick="openModal('ChildModal')">
+                        <i class="fa fa-plus text-success" aria-hidden="true"></i>
+                        Ajouter enfant
+                    </a>
+                </div>
+            </article>
+        </div> -->
+    </div>
+
+</div>
+{% endblock %}
+
+{% block body_extensions %}
+
+<!-- Modal -->
+<div class="modal fade" id="ChildModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter un enfant</h5>
+                <button type="button" class="close" data-dismiss="modal" onclick="closeModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="AddChild">
+                    <form class="wrapper">
+                        <div id="AddChild-status" class="form-status col-sm-12">
+                            <div class="form-alert alert alert-danger" role="alert"></div>
+                            <div class="form-alert alert alert-success" role="alert"></div>
+                        </div>
+                        
+                        <div class="form-group col-sm-12">
+                            <label for="child_last_name"><b>Nom *</b></label>
+                            <br />
+                            <input id="child_last_name" type="text" placeholder="Nom"
+                            onchange="children_listenInputs(this)" class="text-uppercase" />
+                        </div>
+                        
+                        <div class="form-group col-sm-12">
+                            <label for="child_first_name"><b>Prénom *</b></label>
+                            <br />
+                            <input id="child_first_name" type="text" placeholder="Prénom"
+                                onchange="children_listenInputs(this)" class="text-capitalize" />
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                            <label for="child_dob"><b>Date de naissance (jj-mm-aaaa) *</b></label>
+                            <br />
+                            <input id="child_dob" type="date" placeholder="Date de naissance"
+                                onchange="children_listenInputs(this)" />
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                            <label for="child_birthplace"><b>Lieu de naissance</b></label>
+                            <input id="child_birthplace" type="text" onchange="children_listenInputs(this)" class="text-capitalize" />
+                        </div>
+
+                        <div class="form-group col-sm-12 ">
+                            <label><b>Genre *</b></label>
+                            <br/>
+                            
+                            <label for="child_gender_m"><b>Garçon</b></label>
+                            <input id="child_gender_m" name="child_gender" type="radio" onchange="children_listenInputs(this)" />
+
+                            <label for="child_gender_f"><b>Fille</b></label>
+                            <input id="child_gender_f" name="child_gender" type="radio" onchange="children_listenInputs(this)" />
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button button-cyan" onclick="createChild()">Ajouter</button>
+                <button type="button" class="button button-dark" data-dismiss="modal" onclick="closeModal()">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="IntelsModal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Mon historique famille</h5>
+                <button type="button" class="close" data-dismiss="modal" onclick="closeModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body Intels-History">
+
+                <div id="IntelsModal-status" class="form-status">
+                    <div class="form-alert alert alert-danger" role="alert"></div>
+                    <div class="form-alert alert alert-success" role="alert"></div>
+                </div>
+
+                <div class="active">
+                    <b>Pas d'inscription pour cette année</b>
+                </div>
+
+                <div class="list"></div>
+
+                <div class="template" style="display: none;">
+                    <div class="History-card">
+                        <b class="card-title">2019 - 2020</b>
+                        <hr />
+
+                        <div class="History-no_data">
+                            <span><i>Pas de données pour cette année</i></span>
+                        </div>
+
+                        <div class="History-form">
+                            <div class="form-group col-sm-6">
+                                <label for="intel_q1"><b>Quotient <span class="intel_s"></span></b></label>
+                                <br />
+                                <select id="intel_q1" placeholder="Quotient" onchange="">
+                                    <option value="0" default>-----</option>
+                                    <option value="1">NE</option>
+                                    <option value="2">Q2</option>
+                                    <option value="3">Q1</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label for="intel_q2"><b>Quotient <span class="intel_e"></span></b></label>
+                                <br />
+                                <select id="intel_q2" placeholder="Quotient" onchange="">
+                                    <option value="0" default>-----</option>
+                                    <option value="1">NE</option>
+                                    <option value="2">Q2</option>
+                                    <option value="3">Q1</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label for="intel_rn"><b>Numéro CAF</b></label>
+                                <br />
+                                <input id="intel_rn" type="text" placeholder="Numéro CAF"
+                                    onchange="profile_onChange(this)" />
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="intel_ip"><b>Police d'assurance</b></label>
+                                <br />
+                                <input id="intel_ip" type="text" placeholder="Police d'assurance"
+                                    onchange="profile_onChange(this)" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="intels_update()">Mettre à jour</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    onclick="closeModal()">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/scripts/User.js"></script>
+<script src="/static/scripts/messages.js"></script>
+<script>
+    let error = false;
+    let isAdmin = false;
+    let isChild = false;
+
+    let userSibling = {};
+    let userProfile = {};
+    let userRecords = {};
+    let schoolYears = undefined;
+    
+    const user_id = {% if pk %} {{ pk }} {% else %} 0 {% endif %};
+    let parent_id = {% if pk %} {{ pk }} {% else %} 0 {% endif %};
+    
+    // let user_id = 29;
+    // let parent_id = 20;
+    
+    // index - SchoolYear
+    const childAdded = new User();
+    const intelsAdded = {};
+    
+    const userHelper = new User();
+    const intelsHelper = new Intels(parent_id);
+    const siblingHelper = new Sibling();
+
+    const recordHelper = new Record();
+    const recordsHelper = new Records();
+
+    const USERINPUTS = {
+        'user_first_name': document.getElementById('user_first_name'),
+        'user_last_name': document.getElementById('user_last_name'),
+        'user_dob': document.getElementById('user_dob'),
+        'user_job': document.getElementById('user_job'),
+        'user_gender_m': document.getElementById('user_gender_m'),
+        'user_birthplace': document.getElementById('user_birthplace'),
+        'user_phone_cell': document.getElementById('user_phone_cell'),
+        'user_phone_home': document.getElementById('user_phone_home'),
+        'user_phone_pro': document.getElementById('user_phone_pro'),
+        'user_email': document.getElementById('user_email'),
+        'user_address1': document.getElementById('user_address1'),
+        'user_address2': document.getElementById('user_address2'),
+        'user_city': document.getElementById('user_city'),
+        'user_zip_code': document.getElementById('user_zip_code'),
+        'user_accept_newsletter': document.getElementById('user_accept_newsletter'),
+
+        label: function (key) { return document.querySelector(`label[for="${key}"]`); },
+        // input: function (key) { return document.getElementById(this[key]); },
+        hide: function (key) { this[key].parentElement.style = 'display:none'; },
+    };
+
+
+    window.onload = function (e) {
+        default_container = 'Family-wrapper';
+
+        App.exec(
+            () => {
+                return new Promise((res, rej) => {
+                    run();
+                    res();
+                })
+            },
+            {loginRequired: true}
+        );
+        return;
+
+        App.init();
+        App.SchoolYears();
+        // Login.init();
+
+        schoolYears = App._SchoolYears_unordered;
+
+        if (!user_id) {
+            statusDanger('User ID non défini.');
+            return false;
+        }
+
+        // TODO
+        // Check App Schoolyears
+        if (!schoolYears.length) {
+            statusDanger('Echec lors de la récupération des années scolaires.');
+            return false
+        }
+
+        return run();
+    }
+
+
+    function statusDanger(message) {
+        const base = document.getElementById('User-status');
+
+        base.querySelectorAll('.form-alert').forEach(item => { item.classList.remove('show'); });
+
+        const _ = base.querySelector('.form-alert.alert-danger');
+        _.innerHTML = message;
+        _.classList.add('show');
+    }
+
+
+    function statusSuccess(message) {
+        const base = document.getElementById('User-status');
+
+        base.querySelectorAll('.form-alert').forEach(item => { item.classList.remove('show'); });
+
+        const _ = base.querySelector('.form-alert.alert-success');
+        _.innerHTML = message;
+        _.classList.add('show');
+    }
+    
+
+    function run () {
+        schoolYears = App.schoolYears;
+
+        userHelper.readUser(
+            user_id,
+            readUser_onSuccess,
+            readUser_onFailure
+        );
+
+        return true;
+    }
+
+
+    function readUser_onSuccess(data) {
+        userProfile = data.user;
+
+        // Check role
+        error = true;
+        // Parent
+        if (userProfile.roles) {
+            for (const role of userProfile.roles) {
+                if (role.slug === 'child')
+                    isChild = true;
+            }
+            error = false;
+        }
+        // Caster
+        if (App.caster.roles) {
+            for (const role of App.caster.roles) {
+                if (role.slug === 'admin')
+                    isAdmin = true;
+            }
+            error = false;
+        }
+
+        if (error) {
+            //
+        }
+
+        // Read Sibling
+        if (isChild) {
+            siblingHelper.readByChild(
+                user_id,
+                readSibling_onSuccess,
+                readSibling_onFailure
+            );
+
+            // recordsHelper.readByChild(
+            //     user_id,
+            //     readRecords_onSuccess,
+            //     readRecords_onFailure
+            // );
+        }
+
+        else
+            siblingHelper.readByParent(
+                user_id,
+                readSibling_onSuccess,
+                readSibling_onFailure
+            );
+
+
+        // const r = renderProfile();
+
+        // renderIntels
+        // renderFamily
+        // render parent 1
+        // render parent 2
+        // render siblings
+
+        // intelsHelper.readByParent(
+        //     parent_id,
+        //     (data) => { 
+        //         console.log(data); 
+        //         renderIntels();
+        //     },
+        //     (err) => { 
+        //         console.log(err);
+        //         profile_statusDanger (err);
+        //         renderIntels ([]);
+        //     }
+        // );
+    }
+
+
+    function readUser_onFailure(err) {
+        console.log(err);
+        let message = 'Une erreur est survenue.';
+        if (err.erreur) {
+            message = err.erreur;
+        }
+        else if (err.message) {
+            message = err.message;
+        }
+        profile_statusDanger(message);
+    }
+
+
+    function readSibling_onSuccess(data) {
+        userSibling = data.sibling;
+        parent_id = data.sibling.parent;
+        childAdded.parent = data.sibling.parent;
+
+        // renderIntels();
+        renderChildren();
+    }
+
+
+    function readSibling_onFailure(err) {
+        console.log(err);
+
+        profile_statusDanger(err);
+    }
+
+
+    function readRecords_onSuccess(data) {
+        userRecords = data.records;
+
+        renderRecords();
+    }
+
+
+    function readRecords_onFailure(err) {
+        console.log(err);
+
+        profile_statusDanger(err);
+    }
+
+
+    /*****************************************************************************
+    *  USER - PROFILE
+    *****************************************************************************/
+
+    function renderProfile() {
+        // Update document title
+        document.title = userProfile.last_name + ' ' + userProfile.first_name;
+
+        const userWrapper = document.getElementById('User-wrapper');
+
+        // Set user wrapper title
+        userWrapper.querySelector('.title').innerHTML = userProfile.last_name + ' ' + userProfile.first_name;
+
+        // Set imcomplete data status
+        if (!userProfile.data_completed) {
+            profile_statusDanger('Attention, vos informations sont incomplètes. Veuillez les compléter.');
+        }
+
+        // Setup user form
+        if (!isChild)
+            formUser(userProfile);
+
+        else
+            formChild(userProfile);
+    }
+
+
+    function profile_statusDanger(message) {
+        const base = document.getElementById('Profile-status');
+
+        base.querySelectorAll('.form-alert').forEach(item => { item.classList.remove('show'); });
+
+        const _ = base.querySelector('.form-alert.alert-danger');
+        _.innerHTML = message;
+        _.classList.add('show');
+    }
+
+
+    /**
+     *  Update form a normal user
+     */
+    function formUser(user) {
+        try {
+
+            USERINPUTS['user_first_name'].value = user.first_name;
+            USERINPUTS['user_last_name'].value = user.last_name;
+
+            USERINPUTS['user_job'].value = user.job;
+            USERINPUTS['user_dob'].value = user.dob;
+            USERINPUTS['user_email'].value = user.email;
+
+            if (user.gender === 1)
+                document.getElementById('user_gender_m').checked = true;
+            else if (user.gender === 2)
+                document.getElementById('user_gender_f').checked = true;
+
+            USERINPUTS.hide('user_birthplace');
+
+            if (user.phones) {
+                USERINPUTS['user_phone_cell'].value = user.phones.cell;
+                USERINPUTS['user_phone_home'].value = user.phones.home;
+                USERINPUTS['user_phone_pro'].value = user.phones.pro;
+            } 
+
+            if (user.address) {
+                USERINPUTS['user_address1'].value = user.address.address1;
+                USERINPUTS['user_address2'].value = user.address.address2;
+
+                USERINPUTS['user_city'].value = user.address.zip_code;
+                USERINPUTS['user_zip_code'].value = user.address.zip_code;
+            }
+        }
+        catch (error) {
+            console.log('An error occured in formUser() with message: ' + error);
+        }
+    }
+
+
+    /**
+     *  Update form a normal user
+     */
+    function formChild(user) {
+        try {
+            USERINPUTS['user_first_name'].value = user.first_name;
+            USERINPUTS['user_last_name'].value = user.last_name;
+
+            USERINPUTS['user_dob'].value = user.dob;
+            USERINPUTS['user_birthplace'].value = user.birthplace;
+
+            // USERINPUTS.hide('user_email');
+
+            // USERINPUTS.hide('user_phone_cell');
+            // USERINPUTS.hide('user_phone_home');
+            // USERINPUTS.hide('user_phone_pro');
+
+            // USERINPUTS.hide('user_address1');
+            // USERINPUTS.hide('user_address2');
+
+            // USERINPUTS.hide('user_city');
+            // USERINPUTS.hide('user_zip_code');
+
+            USERINPUTS.hide('user_job');
+            USERINPUTS.hide('user_email');
+
+            document.querySelector('.Profile-Phones').style = 'display:none';
+            document.querySelector('.Profile-Address').style = 'display:none';
+            document.querySelector('.Profile-additional').style = 'display:none';
+        }
+        catch (error) {
+            console.log('An error occured in formChild() with message: ' + error);
+        }
+    }
+
+
+ 
+
+    function profile_onChange(e) {
+        let value = e.value;
+        if (e.type === 'checkbox')
+            value = e.checked;
+        const result = userHelper.validate(e.id, value);
+        console.log(result);
+
+        if (!result.status) {
+            inputDanger(e.id);
+            profile_statusDanger(result.message);
+        }
+        else {
+            inputNeutral(e.id);
+        }
+    }
+
+
+    function city_onChange(e) {
+        profile_onChange(e);
+        if (e.value !== '0') {
+            document.getElementById('user_zip_code').value = e.value;
+        }
+    }
+
+
+    function update() {
+        const r = userHelper.updateUser(
+            update_onSuccess,
+            update_onFailure
+        );
+
+        if (typeof (r) === 'string')
+            profile_statusDanger(r);
+    }
+
+
+    function update_onSuccess(data) {
+        profile_statusSuccess('Informations enregistrées.');
+    }
+
+
+    function update_onFailure(err) {
+        if (err.includes('Values can')) {
+            profile_statusDanger('Erreur, informations incomplètes.');
+        }
+    }
+
+    /*****************************************************************************
+     *  INTELS
+     *****************************************************************************/
+
+    /** 
+     *  renderIntels
+     *      Update Intel card
+     *      Add school years to History
+     *      Update History with Intels
+     *      Update card buttons
+     */
+    function renderIntels() {
+        const card = document.querySelector('.IntelCard');
+        const history = document.querySelector('.Intels-History');
+
+        // Render active School Year
+        for (const sy of schoolYears) {
+            const s = sy.date_start.split('-')[0];
+            const e = sy.date_end.split('-')[0];
+
+            if (sy.is_active) {
+
+                // Add years to html
+                //
+                // Card
+
+                card.querySelector('.IntelCard-card b').innerHTML = `${s} - ${e}`;
+
+                card.querySelector('.intel_s').innerHTML = s;
+                card.querySelector('.intel_e').innerHTML = e;
+
+                history.querySelector('.active').innerHTML = siblingHelper.render(sy, isAdmin);
+            }
+
+            // Only History
+            else {
+                history.querySelector('.list').innerHTML += siblingHelper.render(sy, isAdmin);
+            }
+
+            // Sanity
+            // console.log(`${s} - ${e}`);
+        }
+
+        const Q = [
+            '-',
+            'NE',
+            'Q2',
+            'Q1'
+        ];
+
+        // Intels
+        const set_disable = (block, selector, value) => {
+            const _ = block.querySelector(selector);
+            _.value = value;
+            _.disabled = (isAdmin) ? false : true;
+        };
+
+        for (const intel of Object.values(siblingHelper.intels())) {
+
+            const block = history.querySelector(`.History-card[data-school="${intel.school_year}"]`);
+
+            if (!block) {
+                console.log('Could not find a school year card for intel: ' + intel.id);
+                continue;
+            }
+
+            // Mark history card
+            block.setAttribute('data-intel', intel.id);
+
+            if (intel.is_active) {
+                // Update card
+                card.querySelector('.Intel-data').style = 'display: inherit';
+                card.querySelector('.Intel-no_data').style = 'display: none';
+
+                card.querySelector('.intel_q1').innerHTML = Q[intel.quotient_1];
+                card.querySelector('.intel_q2').innerHTML = Q[intel.quotient_2];
+                card.querySelector('.intel_rn').innerHTML = intel.recipent_number;
+                card.querySelector('.intel_ip').innerHTML = intel.insurance_policy;
+
+                block.querySelector('input[name="intel_rn"]').value = intel.recipent_number;
+                block.querySelector('input[name="intel_ip"]').value = intel.insurance_policy;
+
+                block.querySelector('.History-form').style = 'display:inherit';
+            }
+            else {
+
+                set_disable(block, 'input[name="intel_rn"]', intel.recipent_number);
+                set_disable(block, 'input[name="intel_ip"]', intel.insurance_policy);
+            }
+
+            block.querySelector('.History-form').style = 'display: flex';
+            block.querySelector('.History-no_data').style = 'display: none';
+
+            set_disable(block, 'select[name="intel_q1"]', intel.quotient_1);
+            set_disable(block, 'select[name="intel_q2"]', intel.quotient_2);
+
+        }
+
+        // Buttons
+        if (siblingHelper.has_active_intel)
+            document.getElementById('IntelCard-Add').style = 'display: none';
+        else
+            document.getElementById('IntelCard-Update').style = 'display: none';
+
+        // Inputs
+        document.querySelectorAll('.History-card').forEach((card) => {
+            const sy = card.getAttribute('data-school');
+            const intel = card.getAttribute('data-intel');
+
+            card.querySelectorAll('input').forEach(input => {
+                input.addEventListener('change', () => intels_listenInputs(input, sy, intel));
+            });
+
+            card.querySelectorAll('select').forEach(input => {
+                input.addEventListener('change', () => intels_listenInputs(input, sy, intel));
+            });
+        });
+
+
+    }
+
+
+    function intels_listenInputs(e, sy_id, intel_id) {
+        console.log('intels_listenInputs');
+        console.log(e);
+        console.log(sy_id);
+        console.log(intel_id);
+
+        if (!sy_id) {
+            console.log('intels_listenInputs() => Error with input: ' + e);
+            return false;
+        }
+
+        let intel = null;
+
+        if (!intel_id) {
+            if (!intelsAdded[sy_id]) {
+                intelsAdded[sy_id] = new Intel(parent_id);
+                intelsAdded[sy_id].school_year = sy_id
+            }
+
+            intel = intelsAdded[sy_id];
+        }
+        else {
+            intel = siblingHelper.intel(intel_id);
+
+            if (!intel) {
+                console.log('intels_listenInputs() => Failed to get intel with ID: ' + intel_id);
+                return false;
+            }
+        }
+
+        // Data validation
+
+        const value = e.value;
+
+        switch (e.localName) {
+            case 'input':
+                // No values should exceed 20 chars
+                if (value.length > 19) {
+                    inputDanger(e.id);
+                    intels_statusDanger('Ce champ contient trop de caractères (20 max.).');
+                    return false;
+                }
+                break;
+
+            case 'select':
+                const _ = parseInt(value);
+                if (!_) {
+                    inputDanger(e.id);
+                    intels_statusDanger('Veuillez sélectionner un quotient valide.');
+                    return false;
+                }
+                if (_ < 0 || _ > 3) {
+                    inputDanger(e.id);
+                    intels_statusDanger('Veuillez sélectionner un quotient parmi ceux proposés.');
+                    return false;
+                }
+                break;
+        }
+
+        switch (e.name) {
+            case 'intel_q1':
+                intel.quotient_1 = parseInt(value);
+                break;
+
+            case 'intel_q2':
+                intel.quotient_2 = parseInt(value);
+                break;
+
+            case 'intel_rn':
+                intel.recipent_number = value;
+                break;
+
+            case 'intel_ip':
+                intel.insurance_policy = value;
+                break;
+        }
+        intel.has_changed = true;
+    }
+
+
+    function intels_update() {
+        document.querySelectorAll('.History-card').forEach((card) => {
+            const sy = card.getAttribute('data-school');
+            const intel = card.getAttribute('data-intel');
+
+            if (intelsAdded[sy])
+                intelsAdded[sy].create(
+                    intels_create_onSuccess,
+                    intels_create_onFailure
+                );
+
+            if (siblingHelper.intel(intel))
+                siblingHelper.intel(intel).update(
+                    intels_update_onSuccess,
+                    intels_update_onFailure
+                );
+        });
+    }
+
+
+    function intels_create_onSuccess(data) {
+        intels_statusSuccess('Création effectuée avec succès.');
+    }
+
+
+    function intels_create_onFailure(err) {
+        intels_statusDanger('La création de ... a échouer.');
+    }
+
+
+    function intels_update_onSuccess(data) {
+        intels_statusSuccess('Mise à jour effectuée avec succès.');
+    }
+
+
+    function intels_update_onFailure(err) {
+        intels_statusDanger('La mise à jour a échoué.');
+    }
+
+
+    function intels_statusDanger(message) {
+        const base = document.getElementById('IntelsModal-status');
+
+        base.querySelectorAll('.form-alert').forEach(item => { item.classList.remove('show'); });
+
+        const _ = base.querySelector('.form-alert.alert-danger');
+        _.innerHTML = message;
+        _.classList.add('show');
+    }
+
+
+    function intels_statusSuccess(message) {
+        const base = document.getElementById('IntelsModal-status');
+
+        base.querySelectorAll('.form-alert').forEach(item => { item.classList.remove('show'); });
+
+        const _ = base.querySelector('.form-alert.alert-success');
+        _.innerHTML = message;
+        _.classList.add('show');
+    }
+
+
+    /**************************************************************************************************
+     *  CHILDREN
+     **************************************************************************************************/
+
+    function renderChildren() {
+
+        for (const child of Object.values(siblingHelper.children())) {
+            if (child.id != user_id)
+                child.renderCard();
+        }
+
+        // siblingHelper.renderCardAdd();
+    }
+
+
+    function children_listenInputs(e) {
+        const result = childAdded.validate(e.id, e.value);
+        console.log(result);
+
+        if (!result.status) {
+            inputDanger(e.id);
+            children_statusDanger(result.message);
+        }
+        else {
+            inputNeutral(e.id);
+        }
+    }
+
+
+    function children_statusSuccess(message) {
+        const base = document.getElementById('AddChild-status');
+
+        base.querySelectorAll('.form-alert').forEach(item => { item.classList.remove('show'); });
+
+        const _ = base.querySelector('.form-alert.alert-success');
+        _.innerHTML = message;
+        _.classList.add('show');
+    }
+
+
+    function children_statusDanger(message) {
+        const base = document.getElementById('AddChild-status');
+
+        base.querySelectorAll('.form-alert').forEach(item => { item.classList.remove('show'); });
+
+        const _ = base.querySelector('.form-alert.alert-danger');
+        _.innerHTML = message;
+        _.classList.add('show');
+    }
+
+
+    function createChild() {
+        const r = childAdded.createChild(
+            createChild_onSuccess,
+            createChild_onFailure
+        );
+
+        if (typeof (r) === 'string')
+            children_statusDanger(r);
+    }
+
+
+    function createChild_onSuccess(data) {
+        console.log(data);
+        children_statusSuccess('Informations enregistrées.');
+
+        window.setTimeout(
+            () => window.location.href = `/record/${data.child.id}/`,
+            // () => window.location.reload(),
+            2000
+        );
+    }
+
+
+    function createChild_onFailure(err) {
+        console.log(err);
+        let message = 'Une erreur est survenue.';
+        if (err.erreur) {
+            message = err.erreur;
+        }
+        else if (err.message) {
+            message = err.message;
+        }
+        children_statusDanger(message);
+    }
+
+
+    /*****************************************************************************
+     *  RECORDS
+     *****************************************************************************/
+
+    /* */
+    function renderRecords() {
+        if (!isChild)
+            return 'User is not a child';
+
+        const wrapper = document.getElementById('Records-wrapper');
+
+        for (const sy of App._SchoolYears_unordered) {
+
+            // Create record wrapper
+            if (sy.is_active) {
+                const old = wrapper.innerHTML
+                wrapper.innerHTML = recordsHelper.renderRecordItem(sy);
+                wrapper.innerHTML += old;
+            }
+            else {
+
+                wrapper.innerHTML += recordsHelper.renderRecordItem(sy);
+            }
+        }
+
+        for (const record of Object.values(recordsHelper.records())) {
+            record.updateRecordItem();
+        }
+    }
+
+
+    /*****************************************************************************
+     *  RECORD
+     *****************************************************************************/
+
+    function renderRecord() {
+
+
+
+    }
+
+
+    /*****************************************************************************
+     *  ADD CHILD
+     *****************************************************************************/
+    function addChild_onListen (e) {
+
+    }
+
+
+    /**************************************************************************************************
+     *  MODALS
+     **************************************************************************************************/
+
+    function openModal(id) {
+        document.getElementById(id).classList.add('show');
+    }
+
+
+    function closeModal() {
+        document.querySelectorAll('.modal').forEach(item => item.classList.remove('show'));
+    }
+
+
+    function postProcess() {
+        document.getElementById('user_dob').value = '{{ user.dob | safe }}';
+        document.getElementById('user_city').value = '{{ user.address.zip_code | safe }}';
+    }
+</script>
+{% endblock %}

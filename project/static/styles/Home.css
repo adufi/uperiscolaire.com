@@ -1,0 +1,288 @@
+/********************************************************************
+APP
+********************************************************************/
+#App { z-index: 101; /* overflow-x: hidden; */ position: relative; }
+
+/* APP - NAV */
+#App .navbar-top {
+    width: 100vw;
+    height: 3.625rem;
+    padding: .5rem 0;
+
+    display: flex;
+    justify-content: space-between;
+    
+    top: 0;
+    left: 0;
+    z-index: 100;
+    position: fixed;
+
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(31, 45, 65, 0.15);
+}
+
+#App .navbar-top .navbar-brand {
+    width: 15rem;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+#App .navbar-top .form-inline { margin: 0; padding: 0 1rem; }
+
+#App .navbar-top .form-inline input {
+    border: 0;
+    background-color: hsla(210, 17%, 90%, 1);
+}
+
+#App .navbar-top .btn { 
+    margin: 0 1rem; 
+    padding: 0;
+    background-color: transparent;
+}
+
+#App .navbar-top .btn.responsive { 
+    display: none;
+}
+
+
+/* APP - BODY */
+#App__body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+/* APP - BODY - SIDENAV */
+#App #App__body__nav {
+    width: 15rem;
+    height: 100vh;
+
+    top: 0;
+    left: 0;
+    z-index: 99;
+    position: fixed;
+}
+
+#App.sidenav-toggle #App__body__nav {
+    transform: translateX(-15rem);
+}
+
+/* SIDENAV */
+#App .navbar-side {
+    width: 100%;
+    height: 100%;
+    
+    display: flex;
+    flex-flow: column wrap;
+    /* align-items: center; */
+    justify-content: space-between;
+
+    overflow: auto;
+    position: relative;
+    
+    margin-top: 3.625rem;
+    padding: .5rem 1rem;
+
+    background-color: #f8f9fa;
+}
+
+#App .navbar-side .nav-item {
+    padding-left: 1rem;
+}
+
+#App .navbar-side .nav-link {
+    display: block;
+    padding: .5rem 0;
+}
+
+#App .navbar-side .nav-sub {
+    padding-left: 1rem;
+}
+
+/* APP - BODY - MAIN */
+#App #App__body__content {
+    height: calc(100vh - 3.625rem);
+    padding-left: 15rem;
+
+    flex-grow: 1;
+
+    top: 3.625rem;
+    right: 0;
+    z-index: 98;
+    position: relative;
+}
+
+#App.sidenav-toggle #App__body__content { padding-left: 0; };
+
+#App #App__body__content main {}
+
+
+@media only screen and (max-width: 768px) {
+    #App .navbar-top .navbar-search {
+        display: none;
+    }
+
+    #App .navbar-top .btn.side { display: none; }
+    #App .navbar-top .btn.responsive { display: block; }
+
+    #App #App__body__nav {
+        width: 100%;
+        height: 100%;
+
+        top: 0;
+        left: 0;
+        z-index: 99;
+        position: fixed;    
+        
+        transform: translateX(-100%);
+    }
+
+    #App.sidenav-toggle #App__body__nav { transform: translateX(-100%); }
+    #App.responsive-toggle #App__body__nav { transform: translateX(0rem); }
+
+    #App #App__body__content { padding-left: 0; };
+}
+
+
+/********************************************************************
+APP EXTENSIONS
+********************************************************************/
+#App_Extensions {
+    position: absolute;
+}
+
+
+/********************************************************************
+WRAPPER
+********************************************************************/
+.wrapper {
+    padding: 10px;
+}
+
+.wrapper-title {
+    height: 3rem;
+    margin: 0 10px;
+    padding: 0 10px;
+    margin-bottom: -1.5rem;
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+    
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 3rem;
+
+    border-radius: 10px;
+
+    background-color: orange;
+}
+
+.wrapper-title p {
+    color: white;
+    margin: 0;
+}
+
+.wrapper-content {
+    padding: 10px;
+    padding-top: 30px;
+    
+    border-radius: 10px;
+    background-color: #eee;
+}
+
+.wrapper-btn {
+    min-width: 200px;
+    display: inline-block;
+    padding: .5rem;
+    
+    color: #212529;
+    text-align: center;
+    
+    border: 1px solid gray;
+    border-radius: 5px;
+    background: #eee;
+    box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
+}
+.wrapper-btn:hover,
+.wrapper-btn:active {
+    color: #212529;
+    background: #ddd;
+    text-decoration: none;
+}
+
+.wrapper-btn .wrapper-btn__title {
+    margin: 0;
+    font-size: 22px;
+}
+
+.wrapper-btn .wrapper-btn__list {
+    margin: 0;
+    font-size: 15px;
+}
+
+.wrapper-btn .wrapper-btn__item {
+    /* list-style-type: circle; */
+}
+
+
+/********************************************************************
+HOME
+********************************************************************/
+#Home {
+    padding: 1rem 0;
+}
+
+#Home #Home-status {}
+#Home #Home-status .form-alert { display: none; }
+#Home #Home-status .form-alert.show { display: inherit; margin: 0.5rem 0; }
+
+
+/********************************************************************
+ALERT
+********************************************************************/
+#Alert .alert { display: none; }
+#Alert .alert.show { display: inherit; }
+
+#Alert {
+    top: 50px;
+    z-index: 1;
+    position: sticky;
+}
+
+#Alert .Alert-container {
+    /* position: absolute; */
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1rem;
+}
+
+#Alert .Alert-container .alert {
+    margin: 0.5rem;
+}
+
+
+/************************************************* 
+    RECORD SCHOOL TAB
+ *************************************************/
+ table {
+    width: 100%;
+    border-color: #000; 
+    background-color: #fff;
+}
+
+table td {
+    border: 1px solid darkgray;
+    padding: 0.25rem;
+    text-align: center;
+}
+
+.schoolcard ul li {
+    font-weight: 400;
+    list-style-type: disc;
+    list-style-position: inside;
+}
